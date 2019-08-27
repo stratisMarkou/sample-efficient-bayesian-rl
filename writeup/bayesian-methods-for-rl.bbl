@@ -1,0 +1,87 @@
+\begin{thebibliography}{}
+
+\bibitem[Bellemare et~al., 2017]{distperrl}
+Bellemare, M.~G., Dabney, W., and Munos, R. (2017).
+\newblock A distributional perspective on reinforcement learning.
+\newblock In {\em Proceedings of the 34th International Conference on Machine
+  Learning, {ICML} 2017, Sydney, NSW, Australia, 6-11 August 2017}, pages
+  449--458.
+
+\bibitem[Bishop, 2006]{bishop}
+Bishop, C.~M. (2006).
+\newblock {\em Pattern Recognition and Machine Learning (Information Science
+  and Statistics)}.
+\newblock Springer-Verlag, Berlin, Heidelberg.
+
+\bibitem[Dearden et~al., 1998]{bqlearning}
+Dearden, R., Friedman, N., and Russell, S. (1998).
+\newblock Bayesian q-learning.
+\newblock In {\em In AAAI/IAAI}, pages 761--768. AAAI Press.
+
+\bibitem[Mnih et~al., 2015]{mnihatari}
+Mnih, V., Kavukcuoglu, K., Silver, D., Rusu, A.~A., Veness, J., Bellemare,
+  M.~G., Graves, A., Riedmiller, M., Fidjeland, A.~K., Ostrovski, G., Petersen,
+  S., Beattie, C., Sadik, A., Antonoglou, I., King, H., Kumaran, D., Wierstra,
+  D., Legg, S., and Hassabis, D. (2015).
+\newblock Human-level control through deep reinforcement learning.
+\newblock {\em Nature}, 518(7540):529--533.
+
+\bibitem[Murphy, 2007]{murphy}
+Murphy, K.~P. (2007).
+\newblock Conjugate bayesian analysis of the gaussian distribution.
+\newblock Technical report.
+
+\bibitem[O'Donoghue, 2018]{deepsea}
+O'Donoghue, B. (2018).
+\newblock Variational bayesian reinforcement learning with regret bounds.
+\newblock {\em CoRR}, abs/1807.09647.
+
+\bibitem[O'Donoghue et~al., 2017]{ube}
+O'Donoghue, B., Osband, I., Munos, R., and Mnih, V. (2017).
+\newblock The uncertainty bellman equation and exploration.
+\newblock {\em CoRR}, abs/1709.05380.
+
+\bibitem[Osband, 2016]{iothesis}
+Osband, I. (2016).
+\newblock Deep exploration via randomised value functions (phd thesis).
+\newblock Technical report, University of Stanford.
+
+\bibitem[Osband et~al., 2013]{psrl}
+Osband, I., Russo, D., and Van~Roy, B. (2013).
+\newblock (more) efficient reinforcement learning via posterior sampling.
+\newblock In Burges, C. J.~C., Bottou, L., Welling, M., Ghahramani, Z., and
+  Weinberger, K.~Q., editors, {\em Advances in Neural Information Processing
+  Systems 26}, pages 3003--3011. Curran Associates, Inc.
+
+\bibitem[Osband et~al., 2017]{rand_val_func}
+Osband, I., Russo, D., Wen, Z., and Roy, B.~V. (2017).
+\newblock Deep exploration via randomized value functions.
+\newblock {\em CoRR}, abs/1703.07608.
+
+\bibitem[Silver, 2015]{silver}
+Silver, D. (2015).
+\newblock {\em Reinforcement Learning}.
+\newblock University College London.
+
+\bibitem[Sutton and Barto, 2018]{suttonbarto}
+Sutton, R.~S. and Barto, A.~G. (2018).
+\newblock {\em Reinforcement Learning: An Introduction}.
+\newblock The MIT Press, second edition.
+
+\bibitem[Thompson, 1933]{thompson}
+Thompson, W.~R. (1933).
+\newblock {On the likelihood that one unknown probability exceeds another in
+  view of the evidence of two samples}.
+\newblock {\em Biometrika}, 25(3-4):285--294.
+
+\bibitem[Watkins and Dayan, 1992]{qlearning}
+Watkins, C. J. C.~H. and Dayan, P. (1992).
+\newblock Q-learning.
+\newblock {\em Machine Learning}, 8(3):279--292.
+
+\bibitem[Weiss et~al., 2006]{weiss}
+Weiss, N., Holmes, P., and Hardy, M. (2006).
+\newblock {\em A Course in Probability}.
+\newblock Pearson Addison Wesley.
+
+\end{thebibliography}

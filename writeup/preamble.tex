@@ -1,0 +1,136 @@
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage[toc,page]{appendix}
+\usepackage{titlesec}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{soul}
+\usepackage{cancel}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{calc}
+
+% General defintions
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newcommand{\bm}[1]{\mathbf{#1}}
+\newcommand{\bs}[1]{\boldsymbol{#1}}
+\newcommand{\dint}{\text{d}}
+
+% Bold states and actions
+\newcommand{\s}{\bm{s}}
+\newcommand{\ac}{\bm{a}}
+\newcommand{\ns}{\bm{s}'}
+
+% Expectations and variances
+\DeclareMathOperator{\E}{\mathbb{E}}
+\DeclareMathOperator{\Var}{\text{Var}}
+\DeclareMathOperator{\Cov}{\text{Cov}}
+
+% Brackets
+\newcommand{\rdb}[1]{\left( #1 \right)}
+\newcommand{\sqb}[1]{\left[ #1 \right]}
+
+% Caligraphics
+\newcommand{\mc}[1]{\mathcal{#1}}
+\newcommand{\data}{\mathcal{D}}
+\newcommand{\mcs}{\mathcal{S}}
+\newcommand{\mca}{\mathcal{A}}
+
+\newcommand{\mcn}{\mathcal{N}}
+\newcommand{\mct}{\mathcal{T}}
+\newcommand{\mcr}{\mathcal{R}}
+
+\newcommand{\mcz}{\mathcal{Z}}
+\newcommand{\mczo}{\mathcal{Z}^*}
+\newcommand{\mczpi}{\mathcal{Z}^\pi}
+
+\newcommand{\mcw}{\mathcal{W}}
+\newcommand{\mcwo}{\mathcal{W}^*}
+\newcommand{\mcwpi}{\mathcal{W}^\pi}
+
+
+% Bellman operators
+\newcommand{\Bv}{\mathcal{B}^\pi_V}
+\newcommand{\Bq}{\mathcal{B}^\pi_Q}
+\newcommand{\Boptv}{\mathcal{B}^*_V}
+\newcommand{\Boptq}{\mathcal{B}^*_Q}
+
+\newcommand{\Ubell}{\mathcal{U}^\pi_t}
+
+% Theta parameters
+\newcommand{\thetamct}{\bs{\theta}_{\mathcal{T}}}
+\newcommand{\thetamcr}{\bs{\theta}_{\mathcal{R}}}
+
+\newcommand{\thetamcz}{\bs{\theta}_{\mathcal{Z}}}
+\newcommand{\thetamczo}{\bs{\theta}_{\mathcal{Z}^*}}
+\newcommand{\thetamczpi}{\bs{\theta}_{\mathcal{Z}^\pi}}
+
+\newcommand{\thetamcw}{\bs{\theta}_{\mathcal{W}}}
+\newcommand{\thetamcwo}{\bs{\theta}_{\mathcal{W}^*}}
+\newcommand{\thetamcwpi}{\bs{\theta}_{\mathcal{W}^\pi}}
+\newcommand{\btheta}{\boldsymbol{\theta}}
+
+% V and Q
+\newcommand{\V}{V^{\pi}}
+\newcommand{\Q}{Q^{\pi}}
+\newcommand{\Vo}{V^*}
+\newcommand{\Qo}{Q^*}
+\newcommand{\Vosbu}{V^*_{\mathbf{s}}}
+\newcommand{\Vonbu}{V^*_{\mathbf{s}'}}
+\newcommand{\Qosbu}{Q^*_{\mathbf{s}, \mathbf{a}}}
+\newcommand{\Qonbu}{Q^*_{\mathbf{s}', \mathbf{a}'}}
+
+\newcommand{\Vsbu}{V^{\pi}_{\mathbf{s}}}
+\newcommand{\Vnbu}{V^{\pi}_{\mathbf{s}'}}
+\newcommand{\Qsabu}{Q^{\pi}_{\mathbf{s}, \mathbf{a}}}
+\newcommand{\Qsanbu}{Q^{\pi}_{\mathbf{s}', \mathbf{a}'}}
+
+\newcommand{\Qsatbu}{Q^{\pi}_{\mathbf{s}, \mathbf{a}, t}}
+\newcommand{\Qsantbu}{Q^{\pi}_{\mathbf{s}', \mathbf{a}', t+1}}
+
+\newcommand{\Qsabut}{Q_{\mathbf{s}_t, \mathbf{a}_t}}
+\newcommand{\Qsanbut}{Q_{\mathbf{s}_{t+1}, \mathbf{a}_{t+1}}}
+
+% Rewards
+\newcommand{\rsan}{r_{s,a,s'}}
+\newcommand{\rsanb}{r_{\bm{s}, \bm{a}, \bm{s}'}}
+\newcommand{\rsanbt}{r_{\bm{s}, \bm{a}, \bm{s}', t}}
+\newcommand{\rbarsanb}{\bar{r}_{\bm{s}, \bm{a}, \bm{s}'}}
+
+% W
+\newcommand{\wb}{w^\pi_{\bm{s}}}
+\newcommand{\wnb}{w^\pi_{\bm{s}'}}
+
+\newcommand{\wob}{w^*_{\bm{s}}}
+\newcommand{\wonb}{w^*_{\bm{s}'}}
+
+% Z
+\newcommand{\zb}{z^\pi_{\bm{s}, \bm{a}}}
+\newcommand{\znb}{z^\pi_{\bm{s}', \bm{a}'}}
+
+\newcommand{\zob}{z^*_{\bm{s}, \bm{a}}}
+\newcommand{\zonb}{z^*_{\bm{s}', \bm{a}'}}
+
+% BQL
+\newcommand{\bqlmu}{\mu_{\zob}}
+\newcommand{\bqltau}{\tau_{\zob}}
+
+\newcommand{\bqlmuzero}{\mu_{0_{\mathbf{s}, \mathbf{a}}}}
+\newcommand{\bqllambda}{\lambda_{\mathbf{s}, \mathbf{a}}}
+\newcommand{\bqlalpha}{\alpha_{\mathbf{s}, \mathbf{a}}}
+\newcommand{\bqlbeta}{\beta_{\mathbf{s}, \mathbf{a}}}
+
+% PSRL
+\newcommand{\thetamcthat}{\boldsymbol{\hat{\theta}}_{\mct}}
+\newcommand{\thetamcrhat}{\boldsymbol{\hat{\theta}}_{\mcr}}
+
+\newcommand{\thetamctpost}{p(\thetamct | \data)}
+\newcommand{\thetamcrpost}{p(\thetamcr | \data)}
+
+

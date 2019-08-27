@@ -1,0 +1,51 @@
+This is BibTeX, Version 0.99d (TeX Live 2018)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: bayesian-methods-for-rl.aux
+The style file: apalike.bst
+Database file #1: references.bib
+A bad cross reference---entry "distperrl"
+refers to entry "DBLP:conf/icml/2017", which doesn't exist
+Warning--I didn't find a database entry for "DBLP:conf/icml/2017"
+Warning--empty institution in murphy
+You've used 15 entries,
+            1935 wiz_defined-function locations,
+            560 strings with 6182 characters,
+and the built_in function-call counts, 6256 in all, are:
+= -- 595
+> -- 301
+< -- 11
++ -- 109
+- -- 103
+* -- 508
+:= -- 1100
+add.period$ -- 47
+call.type$ -- 15
+change.case$ -- 123
+chr.to.int$ -- 15
+cite$ -- 16
+duplicate$ -- 242
+empty$ -- 411
+format.name$ -- 122
+if$ -- 1227
+int.to.chr$ -- 1
+int.to.str$ -- 0
+missing$ -- 17
+newline$ -- 78
+num.names$ -- 47
+pop$ -- 123
+preamble$ -- 1
+purify$ -- 124
+quote$ -- 0
+skip$ -- 190
+stack$ -- 0
+substring$ -- 361
+swap$ -- 42
+text.length$ -- 3
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 82
+warning$ -- 1
+while$ -- 45
+width$ -- 0
+write$ -- 196
+(There was 1 error message)
