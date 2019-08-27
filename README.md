@@ -1,2 +1,2 @@
-# nips-rl-workshop-source
+# nips-2019-rl-workshop
 Source for the sample efficient tabular RL submission to the 2019 NIPS workshop on Biological and Artificial RL
