@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2019.4.10)  2 SEP 2019 11:28
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2019.4.10)  1 SEP 2019 15:00
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**bayesian-methods-for-rl.tex
-(./bayesian-methods-for-rl.tex
+**supporting_proofs.tex
+(./supporting_proofs.tex
 LaTeX2e <2018-04-01> patch level 2
 Babel <3.18> and hyphenation patterns for 84 language(s) loaded.
 (/usr/local/texlive/2018/texmf-dist/tex/latex/base/article.cls
@@ -741,24 +741,27 @@ Package microtype Info: Loading configuration file microtype.cfg.
 File: microtype.cfg 2018/01/14 v2.7a microtype main configuration file (RS)
 ))
 (/usr/local/texlive/2018/texmf-dist/tex/generic/bibtex/apalike.sty)
-(./bayesian-methods-for-rl.aux)
-\openout1 = `bayesian-methods-for-rl.aux'.
+(/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+)
+(./supporting_proofs.aux)
+\openout1 = `supporting_proofs.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 71.
-LaTeX Font Info:    ... okay on input line 71.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 71.
-LaTeX Font Info:    ... okay on input line 71.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 71.
-LaTeX Font Info:    ... okay on input line 71.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 71.
-LaTeX Font Info:    ... okay on input line 71.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 71.
-LaTeX Font Info:    ... okay on input line 71.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 71.
-LaTeX Font Info:    ... okay on input line 71.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 71.
-LaTeX Font Info:    ... okay on input line 71.
-LaTeX Font Info:    Try loading font information for T1+ptm on input line 71.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Try loading font information for T1+ptm on input line 46.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/psnfss/t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
@@ -768,7 +771,7 @@ Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
 \AtBeginShipoutBox=\box43
-Package hyperref Info: Link coloring OFF on input line 71.
+Package hyperref Info: Link coloring OFF on input line 46.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
@@ -778,13 +781,13 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count161
 )
-LaTeX Info: Redefining \ref on input line 71.
-LaTeX Info: Redefining \pageref on input line 71.
-LaTeX Info: Redefining \nameref on input line 71.
+LaTeX Info: Redefining \ref on input line 46.
+LaTeX Info: Redefining \pageref on input line 46.
+LaTeX Info: Redefining \nameref on input line 46.
 
-(./bayesian-methods-for-rl.out) (./bayesian-methods-for-rl.out)
+(./supporting_proofs.out) (./supporting_proofs.out)
 \@outlinefile=\write4
-\openout4 = `bayesian-methods-for-rl.out'.
+\openout4 = `supporting_proofs.out'.
 
 
 ABD: EveryShipout initializing macros
@@ -884,7 +887,7 @@ e
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Info: Redefining \microtypecontext on input line 71.
+LaTeX Info: Redefining \microtypecontext on input line 46.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
@@ -897,7 +900,43 @@ Package microtype Info: No adjustment of character kerning.
 (/usr/local/texlive/2018/texmf-dist/tex/latex/microtype/mt-ptm.cfg
 File: mt-ptm.cfg 2006/04/20 v1.7 microtype config. file: Times (RS)
 )
-LaTeX Font Info:    Try loading font information for T1+phv on input line 75.
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <17.28> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 48.
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/microtype/mt-cmr.cfg
+File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
+(RS)
+)
+LaTeX Font Info:    Try loading font information for U+msa on input line 48.
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/microtype/mt-msa.cfg
+File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 48.
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/microtype/mt-msb.cfg
+File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
+)
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 48.
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 48.
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/base/t1cmtt.fd
+File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `cmtt' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 52.
+LaTeX Font Info:    Try loading font information for T1+phv on input line 52.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/psnfss/t1phv.fd
 File: t1phv.fd 2001/06/04 scalable font definitions for T1/phv.
@@ -909,111 +948,65 @@ Package microtype Info: Loading generic protrusion settings for font family
  [1
 
 
-{/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <17.28> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 83.
+{/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2]
+Overfull \hbox (23.20094pt too wide) detected at line 134
+[]
+ []
 
-(/usr/local/texlive/2018/texmf-dist/tex/latex/microtype/mt-cmr.cfg
-File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
-(RS)
-)
-LaTeX Font Info:    Try loading font information for U+msa on input line 83.
 
-(/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-(/usr/local/texlive/2018/texmf-dist/tex/latex/microtype/mt-msa.cfg
-File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
-)
-LaTeX Font Info:    Try loading font information for U+msb on input line 83.
+Overfull \hbox (1.11897pt too wide) detected at line 140
+[]
+ []
 
-(/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-(/usr/local/texlive/2018/texmf-dist/tex/latex/microtype/mt-msb.cfg
-File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
-)
-LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 83.
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 83.
 
-(/usr/local/texlive/2018/texmf-dist/tex/latex/base/t1cmtt.fd
-File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-)
-Package microtype Info: Loading generic protrusion settings for font family
-(microtype)             `cmtt' (encoding: T1).
-(microtype)             For optimal results, create family-specific settings.
-(microtype)             See the microtype manual for details.
-LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 85.
- [2
+Overfull \hbox (3.36671pt too wide) detected at line 146
+[]
+ []
 
-] [3] [4]
-[5] (./bayesian-methods-for-rl.bbl) [6
-
-]
-LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <20.74> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 167.
-Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 198.
- [7
-
-] [8] [9] [10] [11
-
-] [12]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 475.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 475.
-
-(./bayesian-methods-for-rl.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 475.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 475.
-Package rerunfilecheck Info: File `bayesian-methods-for-rl.out' has not changed
-.
-(rerunfilecheck)             Checksum: 21A0AC86A54194BF1A8F66DAC5912CC9;1622.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 475.
+(./supporting_proofs.bbl) [3]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 155.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 155.
+ (./supporting_proofs.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 155.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 155.
+Package rerunfilecheck Info: File `supporting_proofs.out' has not changed.
+(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 155.
  ) 
 Here is how much of TeX's memory you used:
- 23432 strings out of 492649
- 435843 string characters out of 6129622
- 550859 words of memory out of 5000000
- 26657 multiletter control sequences out of 15000+600000
- 61258 words of font info for 185 fonts, out of 8000000 for 9000
+ 23063 strings out of 492649
+ 428484 string characters out of 6129622
+ 542054 words of memory out of 5000000
+ 26474 multiletter control sequences out of 15000+600000
+ 40331 words of font info for 85 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,22n,54p,940b,891s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 57i,22n,54p,487b,365s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/t
 exlive/2018/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/local/tex
 live/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texl
-ive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx5.pfb></usr/local/texliv
-e/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx6.pfb></usr/local/texlive/
-2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/local/texlive/20
-18/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/201
-8/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2018
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2018/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2018/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2018/texmf
--dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2018/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2018/texmf-d
-ist/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb></usr/local/texlive/2018/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2018/texmf
--dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2018/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2018/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2018/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2018/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2018/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2018/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/pub
-lic/amsfonts/latxfont/line10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type
-1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2018/texmf-dist/fonts/
-type1/public/cm-super/sftt1000.pfb></usr/local/texlive/2018/texmf-dist/fonts/ty
-pe1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/urw
-/times/utmb8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/urw/times/utm
-r8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on bayesian-methods-for-rl.pdf (12 pages, 324363 bytes).
+ive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/local/texliv
+e/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive
+/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/
+2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/20
+18/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2018
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2018
+/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb></usr/local/texlive/
+2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/20
+18/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2018/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2018/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2018/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2018/texmf
+-dist/fonts/type1/public/amsfonts/latxfont/line10.pfb></usr/local/texlive/2018/
+texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2
+018/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb></usr/local/texlive/201
+8/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2018/texmf
+-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2018/texmf-dist/font
+s/type1/urw/times/utmr8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/ur
+w/times/utmri8a.pfb>
+Output written on supporting_proofs.pdf (3 pages, 179984 bytes).
 PDF statistics:
- 431 PDF objects out of 1000 (max. 8388607)
- 382 compressed objects within 4 object streams
- 83 named destinations out of 1000 (max. 500000)
- 29893 words of extra memory for PDF output out of 35830 (max. 10000000)
+ 152 PDF objects out of 1000 (max. 8388607)
+ 125 compressed objects within 2 object streams
+ 24 named destinations out of 1000 (max. 500000)
+ 22029 words of extra memory for PDF output out of 24883 (max. 10000000)
 

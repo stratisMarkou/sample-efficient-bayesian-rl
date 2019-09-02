@@ -1,8 +1,6 @@
 import numpy as np
 
-import torch
-
-from utils import normal_gamma, solve_tabular_continuing_VI
+from utils import normal_gamma, solve_tabular_continuing_PI
 
 
 # ============================================================================
@@ -12,13 +10,16 @@ from utils import normal_gamma, solve_tabular_continuing_VI
 
 class TabularEnvironment:
 
-    def __init__(self, T):
+    def __init__(self):
         
         # Get custom-implemented dynamics and reward distributions
         self.P, self.R = self.get_dynamics_and_rewards_distributions()
+
+        # Set current time to 0
+        t = 0
     
 
-    def run_episode(self, s0, num_steps, agent, policy_params):
+    def run_episode(self, s0, num_steps, agent):
         '''
             Run one episode using
                 s0         : numpy array initial state
@@ -28,18 +29,18 @@ class TabularEnvironment:
         
         s = s0[:]
         states, actions, rewards, states_ = [], [], [], []
-	data = [states, actions, rewards, states_]
+        data = [states, actions, rewards, states_]
         
         for i in range(num_steps):
             
             # Get observed state and select action using the agent
-            a = agent.take_action(s, policy_params=policy_params)[0]
+            a = agent.take_action(s, t)[0]
             
             # Evolve environment dynamics
-            s_, r = self.step(s, a)
+            s_, r, t = self.step(s, a)
             
             # Store states, actions, rewards 
-	    for l, entry in zip(data, [s, a, r, s_]): l.append(entry)
+            for l, entry in zip(data, [s, a, r, s_]): l.append(entry)
             
             # Update internal state
             s = s_
@@ -55,14 +56,17 @@ class TabularEnvironment:
         # Sample reward
         r = self.R(self.s, a, s_)
 
-	# Set new state
+        # Set new state and time
         self.s = s_
+        self.t = self.t + 1
 
-        return s_, r
+        return s_, r, self.t
  
 
     def reset(self):
+        """ Reset state to initial state and time to 0. """
         self.s = 0
+        self.t = 0
 
 
     def sa_list(self):
@@ -76,23 +80,11 @@ class TabularEnvironment:
             sa_list.append(sa)
 
         return sa_list
-     
-
-    def get_optimal_policy(self, gamma, tolerance, max_iter):
-	"""
-	    Get optimal policy by value iteration.
-	"""        
-
-        P, R = self.get_P_and_R()
-        
-        pi, Q = solve_tabular_continuing_VI(P, R, gamma, tolerance, max_iter)
-        
-        return pi, Q
-        
+    
 
     def get_dynamics_and_rewards_distributions(self):
         '''
-	    Must be implemented by child class.
+            Must be implemented by child class.
 
             Returns callables P and R, the dynamics and reward distributions.
         '''
@@ -117,7 +109,7 @@ class DeepSea(TabularEnvironment):
 
     def __init__(self, params):
         
-	valid_N = params['N'] > 2 and params['N'] < 40
+        valid_N = params['N'] > 2 and params['N'] < 40
         assert valid_N, 'DeepSea requires 2 < N < 40!'
 
         # DeepSea parameters
@@ -148,10 +140,10 @@ class DeepSea(TabularEnvironment):
             # Swimming right
             P_probs[(n, 1)] = [(max(n - 1, 0), n + 1), (1 / N, 1 - 1 / N)]
 
-	# Swimming left from last state
+        # Swimming left from last state
         P_probs[(N - 1, 0)] = [(N - 2,), (1.00,)]
 
-	# Swimming right from last state
+        # Swimming right from last state
         P_probs[(N - 1, 1)] = [(N - 2, 0), (1 / N, 1 - 1 / N)]
         
         self.P_probs = P_probs
@@ -168,13 +160,13 @@ class DeepSea(TabularEnvironment):
 
             rnd = np.random.rand()
 
-	    # Successful swim-right from last state 
+            # Successful swim-right from last state 
             if s == N - 1 and a == 1 and s_ == 0:
                 return self.mu_t + self.sig_t * rnd
-	    # All other swim-rights
+            # All other swim-rights
             elif a == 1:
                 return self.mu_r + self.sig_r * rnd
-	    # All swim-lefts
+            # All swim-lefts
             else:
                 return self.mu_l + self.sig_l * rnd
 
@@ -182,24 +174,26 @@ class DeepSea(TabularEnvironment):
     
 
     def get_name(self):
-	""" Returns environment name for saving. """
-        return 'DeepSea-N_{}'.format(N)
+        """ Returns environment name for saving. """
+        return 'DeepSea-N_{}'.format(self.N)
 
 
     def get_mean_P_and_R(self):
-	""" Returns true P and expected R for solving optimal policy. """
+        """ Returns true P and expected R for solving optimal policy. """
 
-        P = np.zeros((self.L, 2, self.L))
-        R = np.zeros((self.L, 2, self.L))
+        P = np.zeros((self.N, 2, self.N))
+        R = np.zeros((self.N, 2, self.N))
         
-        for s in range(self.L):
+        for s in range(self.N):
             for a in range(2):
                 for s_ in range(self.N):
- 
-		    if s_ in self.P_probs[(s, a)][0]:
-			P[s, a, s_] = probs[next_states.index(s_)]
-		    else:
-			P[s, a, s_] = 0.
+                    
+                    next_states, probs = self.P_probs[(s, a)]
+                        
+                    if s_ in next_states:
+                        P[s, a, s_] = probs[next_states.index(s_)]
+                    else:
+                        P[s, a, s_] = 0.
                     
                     # Large negative penalty for non-allowed transitions (hack)
                     R[s, a, s_] = -1e6
@@ -213,7 +207,7 @@ class DeepSea(TabularEnvironment):
                         R[s, a, s_] = self.mu_r
                     
                     # Swim right and get high reward
-                    elif s == self.L - 1 and a == 1 and s_ == 0:
+                    elif s == self.N - 1 and a == 1 and s_ == 0:
                         R[s, a, s_] = self.mu_t
                     
                     # Swim right but move left
@@ -241,7 +235,7 @@ class WideNarrow(TabularEnvironment):
 
     def __init__(self, params):
         
-	# WideNarrow parameters
+        # WideNarrow parameters
         self.N, self.W = params['N'], params['W']
         self.mu_l, self.sig_l = params['rew_params'][0]
         self.mu_h, self.sig_h = params['rew_params'][1]
@@ -284,19 +278,19 @@ class WideNarrow(TabularEnvironment):
 
         def R(s, a, s_):
 
-	    # Booleans for current and next state
+            # Booleans for current and next state
             even_s, odd_s_ = s % 2 == 0, s_ % 2 == 1
 
-	    # Zero reward for transition from last to first state
+            # Zero reward for transition from last to first state
             if s == 2 * self.N and s_ == 0:
                 return 0.
-	    # High reward for correct action from odd state
+            # High reward for correct action from odd state
             elif even_s and odd_s_ and (a == 0):
                 return self.mu_h + self.sig_h * np.random.normal()
-	    # Low reward for incorrect action from odd state
+            # Low reward for incorrect action from odd state
             elif even_s and odd_s_:
                 return self.mu_l + self.sig_l * np.random.normal()
-	    # Reward from even state
+            # Reward from even state
             else:
                 return self.mu_n + self.sig_n * np.random.normal()
 
@@ -315,7 +309,7 @@ class WideNarrow(TabularEnvironment):
         for s in range(2 * self.N + 1):
             for a in range(self.W):
                 
-		# Uniform prob hack for dissallowed states
+                # Uniform prob hack for dissallowed states
                 if not((s, a) in self.P_probs):
                     P[s, a, :] = 1. / (2 * self.N + 1)
                 
@@ -345,15 +339,6 @@ class WideNarrow(TabularEnvironment):
                         R[s, a, s_] = self.mu_n
                         
         return P, R
-                
-            
-    def get_optimal_policy(self, gamma, num_iter):
-        
-        P, R = self.get_P_and_R()
-        
-        pi, Q = solve_tabular_continuing_PI(P, R, gamma, num_iter)
-        
-        return pi, Q
 
 
 
@@ -366,7 +351,7 @@ class PriorMDP(TabularEnvironment):
 
     def __init__(self, params):
 
-	# PriorMDP parameters
+        # PriorMDP parameters
         self.num_s = params['num_s']
         self.num_a = params['num_a']
         self.kappa = params['kappa']
@@ -384,7 +369,7 @@ class PriorMDP(TabularEnvironment):
             Implementation of the corresponding method from TabularEnvironment
         '''
 
-	# Short names for constants
+        # Short names for constants
         states = np.arange(self.num_s)
         actions = np.arange(self.num_a)
         mu = self.mu
@@ -396,7 +381,7 @@ class PriorMDP(TabularEnvironment):
         P_probs = {}
         R_mu_prec = {}
 
-	# Set random seed for sampling PriorMDP
+        # Set random seed for sampling PriorMDP
         np.random.seed(self.seed)
         
         for s in states:

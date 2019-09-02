@@ -1,0 +1,155 @@
+\documentclass{article}
+
+\input{preamble}
+
+% if you need to pass options to natbib, use, e.g.:
+%     \PassOptionsToPackage{numbers, compress}{natbib}
+% before loading neurips_2019
+
+% ready for submission
+% \usepackage{neurips_2019}
+
+% to compile a preprint version, e.g., for submission to arXiv, add add the
+% [preprint] option:
+%     \usepackage[preprint]{neurips_2019}
+
+% to compile a camera-ready version, add the [final] option, e.g.:
+     \usepackage{neurips_2019}
+
+% to avoid loading the natbib package, add option nonatbib:
+%     \usepackage[nonatbib]{neurips_2019}
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{apalike}
+\usepackage{amssymb}
+
+
+\title{Supporting derivations: Bayesian methods for efficient Reinforcement Learning}
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to LaTeX to determine where to break the
+% lines. Using \AND forces a line break at that point. So, if LaTeX puts 3 of 4
+% authors names on the first line, and the last on the second line, try using
+% \AND instead of \And before the third author name.
+
+\author{}
+
+\begin{document}
+
+\maketitle
+
+
+
+\section*{Moment matching across the Bellman equations}
+
+The state and action-returns are respectively defined as:
+\begin{align*}
+\wb &\equiv \sum_{t = 1}^T \gamma^{~t - 1} r_t \big| \pi, \s_1 = \s, \mct, \mcr, ~ \text{ and } ~ \zb \equiv \sum_{t = 1}^T \gamma^{~t - 1} r_t \big| \pi, \s_1 = \s, \ac_1 = \ac, \mct, \mcr.
+\end{align*}
+They satisfy corresponding recursive relations:
+\begin{align} \label{eq:recursivew}
+\wb &=  \rsanb + \gamma \wnb, ~~ \ac \sim \pi, \ns \sim \mct\\
+\zb &=  \rsanb + \gamma \znb, ~~ \ac' \sim \pi, \ns \sim \mct \label{eq:recursivez}
+\end{align}
+where equality is here taken to mean that the two sides are identically distributed. We can explicitly require that the first and second-order moments across these BEs are equal. In subsequent discussion, we use $\thetamct, \thetamcr, \thetamcwpi$ and $\thetamczpi$ to denote the parameters of $\mct, \mcr, \mcwpi$ and $\mczpi$ respectively.
+
+\subsection*{First moment matching}
+
+Taking expectations of both sides of \cref{eq:recursivew}, we obtain
+\begin{equation}\label{muconsist}
+\begin{aligned} 
+\mathbb{E}_{w, \thetamcw}[\wb] &=  \mathbb{E}_{r, \thetamcr, \ns, \thetamct, \ac}[\rsanb] + \gamma  \mathbb{E}_{w, \thetamcw, \ns, \thetamct}[\wnb], \\
+\mathbb{E}_{z, \thetamcz}[\zb] &=  \mathbb{E}_{r, \thetamcr, \ns, \thetamct}[\rsanb] + \gamma \mathbb{E}_{z, \thetamcz, \ns, \thetamct, \ac'}[\znb]
+\end{aligned}
+\end{equation}
+where the expectations are taken over the posterior distributions of the subscript variables. We recognise as the familiar BEs in terms of expectations for $\V$ and $\Q$. These encode the requirement that, in expectation, the rewards and state/action-values should be consistent.
+
+\subsection*{Second moment matching}
+
+Taking variances of both sides of \cref{eq:recursivew} and \cref{eq:recursivez}, and using the laws of total variance and total covariance, we obtain similar consistency requirements for the variances:
+\begin{equation}
+\begin{aligned}
+\Var_{w, \thetamcw}[\wb] &=  \Var_{r, \thetamcr, \ns, \thetamct, \ac}[\rsanb] + \gamma  \Var_{w, \thetamcw, \ns, \thetamct}[\wnb], \\
+\Var_{z, \thetamcz}[\zb] &=  \Var_{r, \thetamcr, \ns, \thetamct}[\rsanb] + \gamma \Var_{z, \thetamcz, \ns, \thetamct, \ac'}[\znb]
+\end{aligned}
+\end{equation}
+where variances are taken over the posterior distributions of the subscript variables. In subsequent discussion we assume a deterministic policy $\pi$ for simplicity, which implies that variances over $\ac$ and $\ac'$ are zero. It is straightforward to extend to the general case of a stochastic policy and we refrain from this for simplicity. Starting from the state-returns BE (\cref{eq:recursivew}) and using the law of total variance:
+\begin{align}
+\underbrace{\Var_{w, \thetamcw} \sqb{\wb}}_{\text{Total return unc.}} &= \underbrace{\Var_{\thetamcw} \sqb{\E_w\sqb{\wb | \thetamcw}}}_{\text{Epistemic return unc.}} + \underbrace{\E_{\thetamcw} \sqb{\Var_w\sqb{\wb | \thetamcw}}}_{\text{Aleatoric return unc.}}.
+\end{align}
+
+We expand the RHS of \cref{eq:recursivez} to obtain:
+\begin{align}
+\underbrace{\Var_{r, \thetamcr, w, \thetamcw, \ns, \thetamct, \ac} \sqb{\rsanb + \gamma \wnb}}_{\text{Next-return variance}} = &\underbrace{\Var_{r, \thetamcr, \ns, \thetamct}[\rsanb] }_{\text{Reward variance}}  \label{wvar} \\
++ &2\gamma \underbrace{\Cov_{r, \thetamcr, w, \thetamcw, \ns, \thetamct}[\rsanb, \wnb]}_{\text{Reward-return covariance}} \nonumber \\
++& \gamma^2 \underbrace{\Var_{w, \thetamcw, \ns, \thetamct}[\wnb]}_{\text{Next-return variance}}. \nonumber
+\end{align}
+The variances in \cref{wvar} contain both aleatoric and epistemic contributions, which we aim to separate by using the laws of total variance and total covariance (\cite{weiss}). The reward variance in \cref{wvar} can be expanded as:
+\begin{align} \label{varrew}
+\underbrace{\Var_{r, \thetamcr, \ns, \thetamct}[\rsanb]}_{\text{Reward variance}} = &\underbrace{\Var_{\ns, \thetamct}\sqb{ \E_{r, \thetamcr} \sqb{\rsanb \big| \ns, \thetamct}}}_{\substack{\text{Reward variance from transition unc.} \\ \text{aleatoric + epistemic}}}  \\ 
++ &\underbrace{\E_{\ns, \thetamct}\sqb{ \Var_{r, \thetamcr} \sqb{\rsanb \big| \ns, \thetamct}}}_{\substack{\text{Reward variance from reward unc.} \\ \text{aleatoric + epistemic}}}.\nonumber
+\end{align}
+Applying total variance to the first term in \cref{varrew}, we obtain
+\begin{align} 
+\underbrace{\Var_{\ns, \thetamct}\sqb{ \E_{r, \thetamcr} \sqb{\rsanb \big| \ns, \thetamct}}}_{\substack{\text{Reward variance from transition unc.} \\ \text{aleatoric + epistemic}}} =& \underbrace{\Var_{\thetamct} \sqb{ \E_{\ns, r, \thetamcr} \sqb{\rsanb \big| \thetamct}}}_{\substack{\text{Reward variance from transition unc.} \\ \text{purely epistemic}}} \\
++& \underbrace{\E_{\thetamct}\sqb{ \Var_{\ns} \sqb{ \E_{r, \thetamcr} \sqb{\rsanb \big| \ns, \thetamct}}}}_{\substack{\text{Reward variance from transition unc.} \\ \text{purely aleatoric}}}\nonumber
+\end{align}
+Similarly for the second term in \cref{varrew}:
+\begin{align}\label{appeq:rerwvarrew}
+\underbrace{\E_{\ns, \thetamct}\sqb{ \Var_{r, \thetamcr} \sqb{\rsanb \big| \ns, \thetamct}}}_{\substack{\text{Reward variance from reward unc.} \\ \text{aleatoric + epistemic}}} = &\underbrace{\E_{\ns, \thetamct}\sqb{ \Var_{\thetamcr} \sqb{ \E_r \sqb{\rsanb \big| \ns, \thetamct, \thetamcr}}}}_{\substack{\text{Reward variance from reward unc.} \\ \text{purely epistemic}}} \\ 
+&+ \underbrace{\E_{\ns, \thetamct}\sqb{ \E_{\thetamcr} \sqb{ \Var_r \sqb{\rsanb \big| \ns, \thetamct, \thetamcr}}}}_{\substack{\text{Reward variance from reward unc.} \\ \text{purely aleatoric}}},\nonumber
+\end{align}
+with which we conclude the expansion of the reward variance term. We apply the same steps for the state-return variance in \cref{wvar}. By total variance:
+\begin{align} \label{vvardecomp}
+\underbrace{\Var_{w, \thetamcw, \ns, \thetamct}\sqb{\wnb}}_{\text{Next-step value variance}} =& \underbrace{\Var_{\ns, \thetamct}\sqb{\E_{w, \thetamcw} \sqb{\wnb | \ns, \thetamct}}}_{\substack{\text{State-return variance from transition unc.} \\ \text{aleatoric + epistemic}}} + \underbrace{\E_{\ns, \thetamct}\sqb{\Var_{w, \thetamcw} \sqb{\wnb | \ns, \thetamct}}}_{\substack{\text{State-return variance from state-return unc.} \\ \text{aleatoric + epistemic}}}.
+\end{align}
+Decomposing each of the two terms in \cref{vvardecomp} by total variance, we obtain
+\begin{align*}
+\underbrace{\Var_{\ns, \thetamct}\sqb{\E_{w, \mcw} \sqb{\wnb | \ns, \thetamct}}}_{\substack{\text{State-return variance from transition unc.} \\ \text{aleatoric + epistemic unc.}}} =& \underbrace{\Var_{\thetamct} \sqb{\E_{\ns, w, \thetamcw} \sqb{\wnb | \thetamct}}}_{\substack{\text{State-return variance from transition unc.} \\ \text{purely epistemic}}} \\
+& + \underbrace{\E_{\thetamct}\sqb{ \Var_{\ns} \sqb{\E_{w, \thetamcw} \sqb{\wnb | \ns, \thetamct}}}}_{\substack{\text{State-return variance from transition unc.} \\ \text{purely aleatoric}}},
+\end{align*}
+for the first term. For the second term:
+\begin{align*}
+\underbrace{\E_{\ns, \thetamct}\sqb{\Var_{w, \thetamcw} \sqb{\wnb | \ns, \thetamct}}}_{\substack{\text{State-return variance from state-return unc.} \\ \text{aleatoric + epistemic}}} &=  \underbrace{\E_{\ns, \thetamct}\sqb{\Var_{\thetamcw} \sqb{ \E_w \sqb{\wnb | \ns, \thetamct}}}}_{\substack{\text{State-return variance from state-return unc.} \\ \text{purely epistemic}}} +\\
+&+  \underbrace{\E_{\ns, \thetamct}\sqb{\E_{\thetamcw} \sqb{ \Var_w \sqb{\wnb | \ns, \thetamct}}}}_{\substack{\text{State-return variance from state-return unc.} \\ \text{purely aleatoric}}}.
+\end{align*}
+which concludes the decomposition of the value variance terms. For the reward-value covariance term, we use the law of total covariance to obtain
+\begin{align}
+\underbrace{\Cov_{r, \thetamcr, w, \mcw, \ns, \thetamct}[\rsanb, \wnb]}_{\text{Reward-return covariance}} =&~\underbrace{\Cov_{\ns, \thetamct}\sqb{\E_{r, \thetamcr}\sqb{\rsanb | \ns, \thetamct}, \E_{w, \thetamcw}\sqb{\wnb | \ns, \thetamct}}}_{\substack{\text{Reward-return covariance due to transition unc.} \\ \text{epistemic + aleatoric}}} + \nonumber \\
+& + \cancel{\E_{\ns, \thetamct}\sqb{\Cov_{r, \thetamcr, w, \thetamcw}\sqb{\rsanb, \wnb | \ns, \thetamct}}}\label{appeq:covariance}
+\end{align}
+where the second term is 0 due to the conditional independence of $\rsanb$ and and $\wnb$ given $\ns$. Applying total covariance to \cref{appeq:covariance}:
+\begin{align} \label{appeq:covrewval} 
+&\underbrace{\Cov_{\ns, \thetamct}\sqb{\E_{r, \thetamcr}\sqb{\rsanb | \ns, \thetamct}, \E_{w, \thetamcw}\sqb{\wnb | \ns, \thetamct}}}_{\substack{\text{Reward-value covariance due to dynamics} \\ \text{epistemic + aleatoric}}}  = \underbrace{\Cov_{\thetamct}\sqb{\E_{\ns, r, \thetamcr}\sqb{\rsanb | \thetamct}, \E_{\ns, w, \thetamcw}\sqb{\wnb | \thetamct}}}_{\substack{\text{Reward-value covariance due to $\thetamct$ uncertainty} \\ \text{purely epistemic}}}  \\ 
+&\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad ~~~+\underbrace{\E_{\thetamct}\sqb{\Cov_{\ns}\sqb{\E_{r, \thetamcr}\sqb{\rsanb | \ns, \thetamct}, \E_{w, \thetamcw}\sqb{\wnb | \ns, \thetamct}}}}_{\substack{\text{Reward-value covariance due to dynamics stochasticity} \\ \text{purely aleatoric}}} \nonumber 
+\end{align}
+This concludes the decomposition of all terms of the RHS of \cref{wvar}. We consider the epistemic uncertainties only, and require that these are equal across \cref{wvar} to obtain:
+\begin{align}
+\underbrace{\Var_{\thetamcw} \sqb{\E_w\sqb{\wb | \thetamcw}}}_{\text{Epistemic state-return unc.}} =& \underbrace{\Var_{\thetamct} \sqb{ \E_{\ns, r, \thetamcr} \sqb{\rsanb \big| \thetamct}}}_{\substack{\text{Epistemic reward unc. from} \\ \text{dynamics unc.}}} + \underbrace{\E_{\ns, \thetamct}\sqb{ \Var_{\thetamcr} \sqb{ \E_r \sqb{\rsanb \big| \ns, \thetamct, \thetamcr}}}}_{\substack{\text{Epistemic rewards unc. from} \\ \text{rewards unc.}}} \nonumber + \\
+& + 2 \gamma \underbrace{\Cov_{\thetamct}\sqb{\E_{\ns, r, \thetamcr}\sqb{\rsanb | \thetamct}, \E_{\ns, w, \thetamcw}\sqb{\wnb | \thetamct}}}_{\substack{\text{Epistemic reward and state-return covariance} \\ \text{from dynamics unc.}}} \nonumber\\
+& + \gamma^2 \underbrace{\Var_{\thetamct} \sqb{\E_{\ns, w, \thetamcw} \sqb{\wnb | \thetamct}}}_{\substack{\text{Epistemic state-return unc. from} \\ \text{dynamics unc.}}}  + \gamma^2 \underbrace{\E_{\ns, \thetamct}\sqb{\Var_{\thetamcw} \sqb{ \E_w \sqb{\wnb | \ns, \thetamcw}}}}_{\substack{\text{Epistemic state-return unc. from} \\ \text{state-return unc.}}} \label{wepeq}
+\end{align}
+which concludes our derivation - note that wherever $\ac$ is seen as a free variable in the equation above, it is implied that $\ac = \pi(\s)$. Following nearly exactly the same argument, we obtain a consistency requirement for the action-returns:
+\begin{align}
+\underbrace{\Var_{\thetamcz} \sqb{\E_z\sqb{\zb | \thetamcz}}}_{\text{Epistemic action-return unc.}} =& \underbrace{\Var_{\thetamct} \sqb{ \E_{\ns, r, \thetamcr} \sqb{\rsanb \big| \thetamct}}}_{\substack{\text{Epistemic reward unc. from} \nonumber \\ \text{dynamics unc.}}} + \underbrace{\E_{\ns, \thetamct}\sqb{ \Var_{\thetamcr} \sqb{ \E_r \sqb{\rsanb \big| \ns, \thetamct, \thetamcr}}}}_{\substack{\text{Epistemic rewards unc. from} \\ \text{rewards unc.}}} + \\
+& + 2 \gamma \underbrace{\Cov_{\thetamct}\sqb{\E_{\ns, r, \thetamcr}\sqb{\rsanb | \thetamct}, \E_{\ns, z, \thetamcz}\sqb{\znb | \thetamct}}}_{\substack{\text{Epistemic reward and action-return covariance} \\ \text{from dynamics unc.}}} \nonumber \\
+& + \gamma^2 \underbrace{\Var_{\thetamct} \sqb{\E_{\ns, z, \thetamcz} \sqb{\znb | \thetamct}}}_{\substack{\text{Epistemic action-return unc. from} \\ \text{dynamics unc.}}}  +  \gamma^2 \underbrace{\E_{\ns, \thetamct}\sqb{\Var_{\thetamcz} \sqb{ \E_z \sqb{\znb | \ns, \thetamcz}}}}_{\substack{\text{Epistemic action-return unc. from} \\ \text{state-return unc.}}} \label{zepeq}
+\end{align}
+where again we have $\ac' = \pi(\ns)$ according to the deterministic policy. Note that all terms in the RHS of both \cref{wepeq} and \cref{zepeq} can be obtained either in closed form or by efficient MC integrals once \cref{muconsist} has been solved - except for the very last term in both cases.
+
+We recognise the last term of the RHS is equal to the LHS term, smoothed by the predictive posterior over $\ns$. Therefore \cref{wepeq} and \cref{zepeq} are linear equations in the epistemic uncertainties of the returns which can be solved in $\mc{O}(|\mcs|^3)$ time.
+
+
+\bibliographystyle{apalike}
+\bibliography{references}
+
+\end{document}

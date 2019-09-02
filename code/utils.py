@@ -1,8 +1,16 @@
+import os
+import pathlib
+import pickle
+
+import numpy as np
 from numpy.random import normal, gamma
 
 from pynverse import inversefunc
 
 from scipy.special import digamma
+
+from tqdm import tqdm_notebook as tqdm
+
 
 # ============================================================================
 # util definitions
@@ -11,8 +19,8 @@ from scipy.special import digamma
 
 def bql_f_inv(x):
     """
-	Returns the inverse of f at x where:
-	    f(x) = log(x) - digamma(x)
+        Returns the inverse of f at x where:
+        f(x) = log(x) - digamma(x)
     """    
 
     # Function to take the inverse of
@@ -20,19 +28,19 @@ def bql_f_inv(x):
         return np.log(x_) - digamma(x_)
 
     result = inversefunc(bql_f,
-			 y_values=x,
-			 domain=[1e-12, 1e12],
-			 open_domain=True,
-			 image=[1e-16, 1e16])
+                         y_values=x,
+                         domain=[1e-12, 1e12],
+                         open_domain=True,
+                         image=[1e-16, 1e16])
 
     return float(result)
 
 
 def normal_gamma(mu0, lamda, alpha, beta):
     """
-	Returns samples from Normal-Gamma with the specified parameters.
-	
-	Number of samples returned is the length of mu0, lambda, alpha, beta.
+        Returns samples from Normal-Gamma with the specified parameters.
+        
+        Number of samples returned is the length of mu0, lambda, alpha, beta.
     """    
 
     # Check if parameters are scalars or vetors
@@ -50,40 +58,123 @@ def normal_gamma(mu0, lamda, alpha, beta):
     return mus, taus
 
 
-def solve_tabular_continuing_VI(P, R, gamma, tolerance, max_iter):
+def solve_tabular_continuing_PI(P, R, gamma, max_iter):
     '''
         Solves the Bellman equation for a continuing tabular problem.
 
-	Returns greedy policy pi and corresponding Q-values.
+        Returns greedy policy pi and corresponding Q-values.
     '''
     
     num_s, num_a = P.shape[:2]
+    s_idx = np.arange(num_s)
     
-    # Initialise Q, pi
-    Q = np.zeros((num_s, num_a))
-    Q_next = Q[:, :]
-    pi = None
+    ones = np.eye(num_s)
+    pi = np.zeros(num_s, dtype=np.int)
+    Q = None
+    
+    P_R = np.einsum('ijk, ijk -> ij', P, R)
+    
+    for i in range(max_iter):
+    
+        # Solve for Q values
+        V = np.linalg.solve(ones - gamma * P[s_idx, pi, :], P_R[s_idx, pi])
+        Q = P_R + gamma * np.einsum('ijk, k -> ij', P, V)
 
-    for i in range(num_iter):
-
-	# Compute Sum_{s'} P(s, a, s') max_{a'}[Q(s', a')]	
-	Q_max = np.max(Q, axis=-1)
-        P_Q_max = np.einsum('ijk, k -> ij', P, Q_max)
-
-	# Compute Sum_{s'} P(s, a, s') R(s, a, s')
-        P_R = np.einsum('ijk, ijk -> ij', P, R)
-
-	# Q values are the sum of immediate rewards and discounted next Q.
-        Q_next = P_R + gamma * P_Q_max
-
-	# If change in Q below tolerance, stop
-	if np.abs(Q_max - np.max(Q_next, axis=-1)) < tolerance:
-	    break
-
-	Q = Q_next
-
-    # Get greedy policy, break ties at random to avoid biasing choice
-    pi = np.array([np.random.choice(np.argwhere(Qs == np.amax(Qs))[:, 0]) \
-	           for Qs in Q])
+        # Get greedy policy - break ties at random
+        pi = np.array([np.random.choice(np.argwhere(Qs == np.amax(Qs))[0]) \ 
+                       for Qs in Q])
 
     return pi, Q
+
+
+
+# ============================================================================
+# Experiment helpers
+# ============================================================================
+
+
+def run_experiment(environment,
+                   agent,
+                   seed,
+                   num_time_steps,
+                   max_buffer_length,
+                   save_every):
+    
+    # Location to save agent
+    save_loc = 'results/agent_logs/{}/'.format(environment.get_name())
+    
+    pathlib.Path(save_loc).mkdir(parents=True, exist_ok=True)
+    
+    # Set random seed and reset environment
+    np.random.seed(seed)
+    environment.reset()
+    s, t = 0, 0
+    
+    agent_copies = []
+    
+    for i in tqdm(range(num_time_steps + 1)):
+            
+        # Take action
+        a = agent.take_action(s, t)
+
+        # Step environment
+        s_, r, t = environment.step(a)
+
+        # Update agent
+        agent.observe([t, s, a, r, s_])
+        agent.update_after_step(max_buffer_length, log=((i % save_every) == 0))
+
+        # Update current state
+        s = s_
+
+    agent.save_copy(save_loc, agent.get_name() + '_seed-{}'.format(seed))
+    
+    
+    
+def run_oracle_experiment(environment,
+                          seed,
+                          gamma,
+                          num_time_steps,
+                          num_PI_iter):
+    
+    np.random.seed(seed)
+    
+    # Initial state
+    environment.reset()
+    s, t = 0, 0
+    
+    # Solve for optimal policy and corresponding Q
+    P, R = environment.get_mean_P_and_R()
+    pi, Q = solve_tabular_continuing_PI(P, R, gamma=gamma, max_iter=num_PI_iter)
+    
+    states, actions, rewards, states_ = [], [], [], []
+    
+    for i in range(num_time_steps + 1):
+
+        # Take action
+        a = pi[s]
+
+        # Step environment
+        s_, r, t = environment.step(a)
+        
+        # Update logging lists
+        for l, entry in zip([states, actions, rewards, states_], [s, a, r, s_]): l.append(entry)
+
+        # Update current state (for agent)
+        s = s_
+        
+    return np.array(states), np.array(actions), np.array(rewards), np.array(states_)
+
+
+def load_agent(environment, agent, seed):
+
+    # Location to load from
+    load_name = 'results/agent_logs/{}/{}_seed-{}'.format(environment.get_name(),
+                                                          agent.get_name(),
+                                                          seed)
+    
+    # Load the agent
+    fhandle = open(load_name, 'rb')
+    agent = pickle.load(fhandle)
+    
+    return agent
