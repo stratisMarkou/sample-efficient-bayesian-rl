@@ -158,7 +158,7 @@ class DeepSea(TabularEnvironment):
 
         def R(s, a, s_):
 
-            rnd = np.random.rand()
+            rnd = np.random.normal()
 
             # Successful swim-right from last state 
             if s == N - 1 and a == 1 and s_ == 0:
@@ -301,7 +301,7 @@ class WideNarrow(TabularEnvironment):
         return 'WideNarrow-N-{}_W-{}'.format(self.N, self.W)
     
     
-    def get_P_and_R(self):
+    def get_mean_P_and_R(self):
         
         P = np.zeros((2 * self.N + 1, self.W, 2 * self.N + 1))
         R = np.zeros((2 * self.N + 1, self.W, 2 * self.N + 1))
@@ -352,14 +352,14 @@ class PriorMDP(TabularEnvironment):
     def __init__(self, params):
 
         # PriorMDP parameters
-        self.num_s = params['num_s']
-        self.num_a = params['num_a']
-        self.kappa = params['kappa']
-        self.mu = params['mu']
+        self.Ns = params['Ns']
+        self.Na = params['Na']
+        self.mu0 = params['mu0']
         self.lamda = params['lamda']
         self.alpha = params['alpha']
         self.beta = params['beta']
         self.seed = params['seed']
+        self.kappa = np.ones((params['Ns'],)) * params['kappa']
 
         super(PriorMDP, self).__init__()
 
@@ -370,12 +370,8 @@ class PriorMDP(TabularEnvironment):
         '''
 
         # Short names for constants
-        states = np.arange(self.num_s)
-        actions = np.arange(self.num_a)
-        mu = self.mu
-        lamda = self.lamda
-        alpha = self.alpha
-        beta = self.beta
+        states = np.arange(self.Ns)
+        actions = np.arange(self.Na)
 
         # Dict for transitions, P_probs[(s, a)] = [(s1, ...), (p1, ...)]
         P_probs = {}
@@ -389,7 +385,7 @@ class PriorMDP(TabularEnvironment):
                 P_probs[(s, a)] = [states, np.random.dirichlet(self.kappa)] 
             
                 for s_ in states:
-                    mu, prec = normal_gamma(mu, lamda, alpha, beta)
+                    mu, prec = normal_gamma(self.mu0, self.lamda, self.alpha, self.beta)
                     R_mu_prec[(s, a, s_)] = [mu, prec]
 
         self.P_probs = P_probs
@@ -411,27 +407,26 @@ class PriorMDP(TabularEnvironment):
             # Get mean and precision of rewards
             mu, prec = R_mu_prec[(s, a, s_)]
 
-            return np.random.normal(loc=mu, scale=prec**-0.5)
+            return np.random.normal(loc=mu, scale=prec**-0.5)[0]
 
         return P, R
     
     
-    def get_P_and_R(self):
+    def get_mean_P_and_R(self):
         
-        P = np.zeros((self.num_s, self.num_a, self.num_s))
-        R = np.zeros((self.num_s, self.num_a, self.num_s))
+        P = np.zeros((self.Ns, self.Na, self.Ns))
+        R = np.zeros((self.Ns, self.Na, self.Ns))
         
-        for s in range(self.num_s):
-            for a in range(self.num_a):
+        for s in range(self.Ns):
+            for a in range(self.Na):
                 P[s, a, :] = self.P_probs[(s, a)][1]
                 
-                for s_ in range(self.num_s):
+                for s_ in range(self.Ns):
                     R[s, a, s_] = self.R_mu_prec[(s, a, s_)][0]
                     
         return P, R
     
     
     def get_name(self):
-
-        return 'PriorMDP-s_{}_a-{}-seed_{}'.format(self.num_s, self.num_a)
+        return 'PriorMDP-Ns_{}_Na-{}-seed_{}'.format(self.Ns, self.Na, self.seed)
 

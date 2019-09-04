@@ -51,10 +51,6 @@ class TabularAgent:
         pass
     
     
-    def update_after_episode(self):
-        pass
-    
-    
     def observe(self, transition):
         pass
         
@@ -382,18 +378,19 @@ class PSRLAgent(TabularAgent):
 
         super(PSRLAgent, self).__init__(params['gamma'])
 
-        # For all sa pairs, initialise posterior hyps to prior
-        for s in range(self.num_s):
-            for a in range(self.num_a):
-                self.Ppost[(s, a)] = self.kappa * np.ones((self.num_s,))
-                
-        # For valid sa pairs, initialise posterior hyps to prior
-        for s, a in self.sa_list:
-            for s_ in range(self.num_s):
-                self.Rpost[(s, a, s_)] = (self.mu0,
-                                          self.lamda,
-                                          self.alpha,
-                                          self.beta)
+        # Dynamics posterior
+        self.Ppost = self.kappa * np.ones((self.num_s, self.num_a, self.num_s))
+
+        # Rewards posterior parameters for non-allowed actions
+        Rparam = [-1e12, 1e9, 1e12, 1e9]
+        Rparam = [[[Rparam] * self.num_s] * self.num_a] * self.num_s
+        self.Rpost = np.array(Rparam)
+
+        # Rewards posterior parameters for allowed actions
+        Rparam = [self.mu0, self.lamda, self.alpha, self.beta]
+        Rparam = np.array([Rparam] * self.num_s)
+        for (s, a) in self.sa_list:
+            self.Rpost[s, a, ...] = Rparam
                 
         self.sample_posterior_and_update_continuing_policy()
 
@@ -401,17 +398,20 @@ class PSRLAgent(TabularAgent):
     def sample_posterior(self):
 
         # Initialise posterior arrays (dynamics 0, reward large negative)
-        P_ = np.zeros((self.num_s, self.num_a, self.num_s))
-        R_ = -1e6 * np.ones((self.num_s, self.num_a, self.num_s))
+        P = np.zeros((self.num_s, self.num_a, self.num_s))
+        R = np.zeros((self.num_s, self.num_a, self.num_s))
 
-        for (s, a), kappas in self.Ppost.items():
-            P_[s, a, :] = np.random.dirichlet(kappas)
-            
-        for (s, a, s_), hyps in self.Rpost.items():
-            mu0, lamda, alpha, beta = hyps
-            R_[s, a, s_] = normal_gamma(mu0, lamda, alpha, beta)[0]
+        for s in range(self.num_s):
+            for a in range(self.num_a):
+                P[s, a, :] = np.random.dirichlet(self.Ppost[s, a])
+        
+        for s in range(self.num_s):
+            for a in range(self.num_a):
+                for s_ in range(self.num_s):
+                    mu0, lamda, alpha, beta = self.Rpost[s, a, s_]
+                    R[s, a, s_] = normal_gamma(mu0, lamda, alpha, beta)[0]
 
-        return P_, R_
+        return P, R
 
 
     def update_posterior(self):
@@ -427,26 +427,31 @@ class PSRLAgent(TabularAgent):
             r_counts[s, a, s_] += 1
 
         # Update dynamics posterior
-        for (s, a), kappas in self.Ppost.items():
-            # Dirichlet posterior params are prior params plus counts
-            self.Ppost[(s, a)] = self.Ppost[(s, a)] + p_counts[s, a]
+        for s in range(self.num_s):
+            for a in range(self.num_a):
+                # Dirichlet posterior params are prior params plus counts
+                self.Ppost[s, a] = self.Ppost[s, a] + p_counts[s, a]
 
         # Update rewards posterior
-        for (s, a, s_), (mu0, lamda, alpha, beta) in self.Rpost.items():
+        for s in range(self.num_s):
+            for a in range(self.num_a):
+                for s_ in range(self.num_s):
+                    
+                    mu0, lamda, alpha, beta = self.Rpost[s, a, s_]
+                    
+                    # Calculate moments
+                    M1 = r_sums[s, a, s_] / max(1, r_counts[s, a, s_])
+                    M2 = r_sums[s, a, s_]**2 / max(1, r_counts[s, a, s_])
+                    n = r_counts[s, a, s_]
+                    
+                    # Update parameters
+                    mu0_ = (lamda * mu0 + n * M1) / (lamda + n)
+                    lamda_ = lamda + n
+                    alpha_ = alpha + 0.5 * n
+                    beta_ = beta + 0.5 * n * (M2 - M1**2)
+                    beta_ = beta_ + n * lamda * (M1 - mu0)**2 / (2 * (lamda + n))    
 
-            # Calculate moments
-            M1 = r_sums[s, a, s_] / max(1, r_counts[s, a, s_])
-            M2 = r_sums[s, a, s_]**2 / max(1, r_counts[s, a, s_])
-            n = r_counts[s, a, s_]
-            
-            mu0_ = (lamda * mu0 + n * M1) / (lamda + n)
-            lamda_ = lamda + n
-            alpha_ = alpha + 0.5 * n
-            beta_ = beta + 0.5 * n * (M2 - M1**2)
-            beta_ = beta_ + n * lamda * (M1 - mu0)**2 / (2 * (lamda + n))    
-
-            # Update dictionary
-            self.Rpost[(s, a, s_)] = (mu0_, lamda_, alpha_, beta_)
+                    self.Rpost[s, a, s_] = np.array([mu0_, lamda_, alpha_, beta_])
 
         # Reset episode buffer
         self.buffer = []
@@ -454,10 +459,6 @@ class PSRLAgent(TabularAgent):
 
     def take_action(self, s, t):
         return self.pi[s]
-
-
-    def update_buffer(self, s, a, r, s_):
-        self.buffer.append([s, a, r, s_])
         
         
     def observe(self, transition):
@@ -534,13 +535,7 @@ class UbeNoUnrollAgent(TabularAgent):
 
         self.set_Q_posterior()
         
-        self.Qmu_log = []
-        self.Qvar_log = []
-        self.pi_log = []
-
-
-    def update_buffer(self, frame):
-        self.buffer.append(frame)
+        self.pi_log, self.Qmu_log, self.Qvar_log = [], [], []
 
 
     def update_posterior(self):
@@ -564,23 +559,23 @@ class UbeNoUnrollAgent(TabularAgent):
         # Update rewards posterior
         for s in range(self.num_s):
             for a in range(self.num_a):
-                for s_ in range(self.num_a):
+                for s_ in range(self.num_s):
                     
                     mu0, lamda, alpha, beta = self.Rpost[s, a, s_]
-
+                    
                     # Calculate moments
                     M1 = r_sums[s, a, s_] / max(1, r_counts[s, a, s_])
                     M2 = r_sums[s, a, s_]**2 / max(1, r_counts[s, a, s_])
                     n = r_counts[s, a, s_]
-
+                    
+                    # Update parameters
                     mu0_ = (lamda * mu0 + n * M1) / (lamda + n)
                     lamda_ = lamda + n
                     alpha_ = alpha + 0.5 * n
-                    beta_ = beta + 0.5 * n * (M2 - M1**2) \
-                                 + n * lamda * (M1 - mu0)**2 / (2 * (lamda + n))
+                    beta_ = beta + 0.5 * n * (M2 - M1**2)
+                    beta_ = beta_ + n * lamda * (M1 - mu0)**2 / (2 * (lamda + n))    
 
-                    # Update dictionary
-                    self.Rpost[(s, a, s_)] = (mu0_, lamda_, alpha_, beta_)
+                    self.Rpost[s, a, s_] = np.array([mu0_, lamda_, alpha_, beta_])
 
         # Reset episode buffer
         self.buffer = []
@@ -603,12 +598,10 @@ class UbeNoUnrollAgent(TabularAgent):
                                   self.gamma**2,
                                   pi)
 
-        # Set Q mean and epistemic unc. upper bound
+        # Set policy, Q and Q epistemic variance upper bound
+        self.pi = pi
         self.Qmu = Qmu
         self.Qvar = Qvar
-
-        # Set policy
-        self.pi = pi
         
         
     def get_expected_P_and_R(self):
@@ -634,7 +627,7 @@ class UbeNoUnrollAgent(TabularAgent):
 
     def solve_bellman(self, local, discount, pi):
         """
-            Solves BE with a custom local contribution term
+            Solves BE with arbitrary local contribution term
         """
 
         s_idx = np.arange(self.num_s)
@@ -656,35 +649,14 @@ class UbeNoUnrollAgent(TabularAgent):
 
 
     def local_rew_mean(self, P):
-
-        means = [[[self.Rpost[(s, a, s_)][0] for s_ in range(self.num_s)]\
-                                             for a in range(self.num_a)] \
-                                             for s in range(self.num_s)]
-        means = np.array(means)
-
-        return np.einsum('nijk, ijk -> nij', P, means).mean(axis=0)
+        
+        return np.einsum('nijk, ijk -> nij', P, self.Rpost[..., 0]).mean(axis=0)
 
 
     def local_rew_var(self, P, each_term=False):
 
         # Posterior predictive of rewards (gaussian and NG) is student-t
-        mu0s = [[[self.Rpost[(s, a, s_)][0] for s_ in range(self.num_s)]\
-                                            for a in range(self.num_a)] \
-                                            for s in range(self.num_s)]
-        
-        lamdas = [[[self.Rpost[(s, a, s_)][1] for s_ in range(self.num_s)]\
-                                              for a in range(self.num_a)] \
-                                              for s in range(self.num_s)]
-
-        alphas = [[[self.Rpost[(s, a, s_)][2] for s_ in range(self.num_s)]\
-                                              for a in range(self.num_a)] \
-                                              for s in range(self.num_s)]
-
-        betas = [[[self.Rpost[(s, a, s_)][3] for s_ in range(self.num_s)]\
-                                             for a in range(self.num_a)] \
-                                             for s in range(self.num_s)]
-
-        mu0s, lamdas, alphas, betas = [np.array(a) for a in (mu0s, lamdas, alphas, betas)]
+        mu0s, lamdas, alphas, betas = [self.Rpost[..., i] for i in range(4)]
 
         # Epistemic uncertainty due to rewards
         mu_var = betas / (lamdas * (alphas - 1)) 
@@ -708,25 +680,12 @@ class UbeNoUnrollAgent(TabularAgent):
 
 
     def sample_dynamics(self):
-
-        dyns = []
-        for s in range(self.num_s):
-            dyns.append([])
-            for a in range(self.num_a):
-
-                # Dirichlet distribution parameters from posterior
-                kappas = self.Ppost[(s, a)]
-
-                # Sample transitions from current state-action pair
-                samples = np.random.dirichlet(kappas, size=self.num_dyn_samples)
-
-                # Store samples
-                dyns[-1].append(samples.T)
-
-        # Rearrange into (num_samples, num_s, num_a, num_s)
-        dyns = np.rollaxis(np.array(dyns), 3)
-
-        return dyns
+        
+        P = [[np.random.dirichlet(self.Ppost[s, a], size=self.num_dyn_samples).T \
+              for a in range(self.num_a)]
+              for s in range(self.num_s)]
+        
+        return np.rollaxis(np.array(P), 3)
     
     
     def observe(self, transition):
@@ -737,31 +696,15 @@ class UbeNoUnrollAgent(TabularAgent):
     
     def update_after_step(self, max_buffer_length, log):
         
-        if log:
-            self.Qmu_log.append(self.Qmu[:])
-            self.Qvar_log.append(self.Qvar[:])
-            self.pi_log.append(self.pi[:])
             
         if len(self.buffer) >= max_buffer_length:
             self.update_posterior()
             self.set_Q_posterior()
-            
-    
-    def update_after_episode(self):
-        if len(self.buffer) > 0:
-            self.update_posterior()
-            
-            
-    def do_before_save(self):
         
-        # Sets policy, mean and var Q
-        self.set_Q_posterior()
-        
-        P = self.sample_dynamics()
-        var_rew, var_Qmax = self.local_rew_var(P, each_term=True)
-        
-        self.local_var_rew = var_rew
-        self.var_Qmax = var_Qmax
+        if log:
+            self.pi_log.append(self.pi[:])
+            self.Qmu_log.append(self.Qmu[:])
+            self.Qvar_log.append(self.Qvar[:])
             
             
     def get_name(self):
@@ -790,7 +733,7 @@ class MomentMatchingAgent(TabularAgent):
         self.beta = params['beta']
         self.zeta = params['zeta']
         self.sa_list = params['sa_list']
-        self.num_PI_steps = params['num_PI_steps']
+        self.max_iter = params['max_iter']
         self.num_dyn_samples = params['num_dyn_samples']
         
         super(MomentMatchingAgent, self).__init__(params['gamma'])
@@ -810,13 +753,24 @@ class MomentMatchingAgent(TabularAgent):
         self.Ppost = self.kappa * np.ones((self.num_s, self.num_a, self.num_s))
 
         # Rewards posterior parameters for non-allowed actions
-        Rparam_ = [[[[-1e12, 1e9, 1e12, 1e9]] * self.num_s] * self.num_a] * self.num_s
-        self.Rpost = np.array(Rparam_)
+        Rparam = [-1e12, 1e9, 1e12, 1e9]
+        Rparam = [[[Rparam] * self.num_s] * self.num_a] * self.num_s
+        self.Rpost = np.array(Rparam)
 
         # Rewards posterior parameters for allowed actions
-        Rparam = np.array([[self.mu0, self.lamda, self.alpha, self.beta]] * self.num_s)
+        Rparam = [self.mu0, self.lamda, self.alpha, self.beta]
+        Rparam = np.array([Rparam] * self.num_s)
         for (s, a) in self.sa_list:
             self.Rpost[s, a, ...] = Rparam
+        
+        # Set initial mean and epistemic variance of z_sa for greedy policy
+        _, self.mu_z_sa, self.var_z_sa, _ = self.get_pi_mu_var()
+        
+        self.pi, self.mu_z_sa, self.var_z_sa, self.var_z_sa_terms = self.get_pi_mu_var()
+        self.pi_log = [self.pi[:]]
+        self.mu_log = [self.mu_z_sa[:]]
+        self.var_log = [self.var_z_sa[:]]
+        self.var_terms_log = [deepcopy(self.var_z_sa_terms)]
                         
 
     def update_posterior(self):
@@ -835,26 +789,31 @@ class MomentMatchingAgent(TabularAgent):
             r_counts[s, a, s_] += 1
 
         # Update dynamics posterior
-        for (s, a), kappas in self.Ppost.items():
-            # Dirichlet posterior params are prior params plus counts
-            self.Ppost[(s, a)] = self.Ppost[(s, a)] + p_counts[s, a]
+        for s in range(self.num_s):
+            for a in range(self.num_a):
+                # Dirichlet posterior params are prior params plus counts
+                self.Ppost[s, a] = self.Ppost[s, a] + p_counts[s, a]
 
         # Update rewards posterior
-        for (s, a, s_), (mu0, lamda, alpha, beta) in self.Rpost.items():
+        for s in range(self.num_s):
+            for a in range(self.num_a):
+                for s_ in range(self.num_s):
+                    
+                    mu0, lamda, alpha, beta = self.Rpost[s, a, s_]
+                    
+                    # Calculate moments
+                    M1 = r_sums[s, a, s_] / max(1, r_counts[s, a, s_])
+                    M2 = r_sums[s, a, s_]**2 / max(1, r_counts[s, a, s_])
+                    n = r_counts[s, a, s_]
+                    
+                    # Update parameters
+                    mu0_ = (lamda * mu0 + n * M1) / (lamda + n)
+                    lamda_ = lamda + n
+                    alpha_ = alpha + 0.5 * n
+                    beta_ = beta + 0.5 * n * (M2 - M1**2)
+                    beta_ = beta_ + n * lamda * (M1 - mu0)**2 / (2 * (lamda + n))    
 
-            # Calculate moments
-            M1 = r_sums[s, a, s_] / max(1, r_counts[s, a, s_])
-            M2 = r_sums[s, a, s_]**2 / max(1, r_counts[s, a, s_])
-            n = r_counts[s, a, s_]
-            
-            mu0_ = (lamda * mu0 + n * M1) / (lamda + n)
-            lamda_ = lamda + n
-            alpha_ = alpha + 0.5 * n
-            beta_ = beta + 0.5 * n * (M2 - M1**2)
-            beta_ = beta_ + n * lamda * (M1 - mu0)**2 / (2 * (lamda + n))    
-
-            # Update dictionary
-            self.Rpost[(s, a, s_)] = (mu0_, lamda_, alpha_, beta_)
+                    self.Rpost[s, a, s_] = np.array([mu0_, lamda_, alpha_, beta_])
 
         # Reset episode buffer
         self.buffer = []
@@ -864,7 +823,7 @@ class MomentMatchingAgent(TabularAgent):
         
         # Thompson sample mean and noise scale
         mean = self.mu_z_sa[s, :]
-        std = (self.val_var_val[s, :] / self.gamma**2) ** 0.5
+        std = (self.var_z_sa[s, :] / self.gamma**2) ** 0.5
         
         # Sample Q-values
         q_samples = np.random.normal(loc=mean, scale=self.zeta*std)
@@ -875,7 +834,7 @@ class MomentMatchingAgent(TabularAgent):
             return q_samples, None
 
         
-    def greedy_policy_means_and_uncertainties(self):
+    def get_pi_mu_var(self):
         """
             Returns greedy policy and corresponding means and epistemic
             uncertainties, using PI.
@@ -884,209 +843,85 @@ class MomentMatchingAgent(TabularAgent):
         P, R = self.get_expected_P_and_R()
         
         # Get greedy policy and mu_z_sa values by PI
-        pi, mu_z_sa = self.solve_tabular_continuing_PI(P, R, max_iter=self.num_pi_iter)
+        pi, mu_z_sa = solve_tabular_continuing_PI(P, R, self.gamma, max_iter=self.max_iter)
         
-        # Solve for variances
-        var_z = self.var_z(self.sample_dynamics(), pi, mu_z, R)
-
-        # Get backed-up mean
-        mu_z_sa = self.backup_mu_z(Psamp, mu_z, rew_params)
-
-        # Get backed-up variance
-        var_z_sa, var_z_sa_terms = self.backup_var_z(P, mu_z, var_z, rew_params)
+        # Solve for epistemic uncertainties (also return each term separately)
+        var_z_sa, var_z_sa_terms = self.get_var_z_sa(self.sample_dynamics(), pi, mu_z_sa)
             
-        return pi, mu_z_sa, var_z_sa_terms
-
-    
-    def get_expected_P_and_R(self):
-        return self.Ppost / self.Ppost.sum(axis=-1)[..., None], self.Rpost[..., 0]
-        
-
-#     def mu_z(self, P, pi):
-#         '''
-#             Return mean of z posterior    
-#         '''
-
-#         idx = np.arange(pi.shape[0])
-
-#         # Unpack reward parameters
-#         mu0, _, _, _ = rew_params 
-
-#         # Get mean reward (num_s,)
-#         P_mu0 = np.mean(np.einsum('nijk, ijk -> nij', P, mu0), axis=0)[idx, pi]
-        
-#         # Get mean transition matrix (num_s, num_s)
-#         P_ = np.mean(P[:, idx, pi, :], axis=0)
-
-#         # Solve for mean values of z
-#         A = np.eye(P_.shape[0]) - self.gamma * P_ 
-#         mu_z = np.linalg.solve(A, P_mu0)
-
-#         return mu_z
+        return pi, mu_z_sa, var_z_sa, var_z_sa_terms
 
 
-    def backup_mu_z(self, P, mu_z):
+    def get_var_z_sa(self, P, pi, mu_z_sa, each_term=False, show=False):
         '''
-            Return mean of z posterior by Bellman backup
+            Solves for the epistemic uncertainty associated with policy pi
         '''
+
+        s_idx = np.arange(self.num_s)
 
         # Unpack reward parameters
-        mu0, lamda, alpha, beta = (Rpost[..., i] for i in self.Rpost.shape[-1])
-
-        # Get mean reward (num_s,)
-        P_mu0 = np.mean(np.einsum('nijk, ijk -> nij', P, mu0), axis=0)
-
-        # Get the mean transition matrix
-        P_ = np.mean(P, axis=0)
-
-        return P_mu0 + self.gamma * np.einsum('ijk, k -> ij', P_, mu_z) 
-
-
-    def var_z(self, P, pi, mu_z, rew_params, show=False):
-        '''
-            Returns variance of z posterior
-        '''
-
-        idx = np.arange(pi.shape[0])
-
-        # Unpack reward parameters
-        mu0, lamda, alpha, beta = rew_params
+        mu0, lamda, alpha, beta = [self.Rpost[..., i] for i in range(4)]
 
         # Variance of rewards due to uncertainty in dynamics
         var_rew_dyn = np.einsum('nijk, ijk -> nij', P, mu0).var(axis=0)
         
         if show: print('var_rew_dyn\n', var_rew_dyn)
 
-        # Variance of rewards due to uncertainty of reward mean
-        student_var = beta / ((alpha - 1) * lamda)
-        temp_rew_rew = P * student_var[None, :, :, :]
-        var_rew_rew = np.mean(temp_rew_rew, axis=0).sum(axis=-1)
+        # Variance of rewards due to uncertainty of mean reward
+        t_var = beta / (lamda * (alpha - 1))
+        var_rew_rew = np.einsum('nijk, ijk -> nij', P, t_var).mean(axis=0)
         
         if show: print('var_rew_rew\n', var_rew_rew)
 
         # Reward value covariance due to uncertainty of dynamics
-        mu_r_dyn = np.einsum('nijk, ijk -> nij', P, mu0)
-        mu_z_dyn = np.einsum('nijk, k -> nij', P, mu_z)
-        cov = (mu_r_dyn * mu_z_dyn).mean(axis=0) - \
-                mu_r_dyn.mean(axis=0) * mu_z_dyn.mean(axis=0)
+        mu_r = np.einsum('nijk, ijk -> nij', P, mu0)
+        mu_z = np.einsum('nijk, k -> nij', P, mu_z_sa[s_idx, pi])
+        cov_rz = (mu_r * mu_z).mean(axis=0) - mu_r.mean(axis=0) * mu_z.mean(axis=0)
         
         if show: print('cov\n', cov)
 
         # Value variance due to dynamics uncertainty
-        var_z_dyn = np.einsum('nijk, k -> nij', P, mu_z).var(axis=0)
+        var_z_dyn = np.einsum('nijk, k -> nij', P, mu_z_sa[s_idx, pi]).var(axis=0)
         
         if show: print('var_z_dyn\n', var_z_dyn)
 
-        # Get mean transition matrix (num_s, num_s)
-        P_ = np.mean(P, axis=0)[idx, pi, :]
-
-        # Calculate total variance
+        # Calculate total variance (s, a)
         total_var = (var_rew_dyn + var_rew_rew + \
-                2 * self.gamma * cov + self.gamma**2 * var_z_dyn)[idx, pi]
+                     2 * self.gamma * cov_rz + self.gamma**2 * var_z_dyn)
 
-        A = np.eye(P_.shape[0]) - self.gamma**2 * P_
-        var_z = np.linalg.solve(A, total_var)
+        # Solve for epistemic variances
+        num_sa = self.num_s * self.num_a
+        ones = np.eye(num_sa)
         
-        if show:
-            print('var_z\n', var_z)
-            print(np.linalg.det(A), np.linalg.slogdet(A))
-            
-            return var_rew_dyn, var_rew_rew, cov, var_z_dyn, total_var, P_
+        # Matrix of transition probabilities for (s, a) -> (s', a')
+        trans_prob = np.zeros((self.num_s, self.num_a, self.num_s, self.num_a))
+        trans_prob[..., s_idx, pi] = P.mean(axis=0)
         
-        return var_z
-
-
-    def backup_var_z(self, P, mu_z, var_z, rew_params):
-        '''
-            Returns z vars. If pi != None, returns vars for that policy.
-            If pi == None, var_z must not be None. In this case the function
-            returns the var_z(s, a) values.
-        '''
-
-        # Unpack reward parameters
-        mu0, lamda, alpha, beta = rew_params
-
-        # Variance of rewards due to uncertainty in dynamics
-        var_rew_dyn = np.einsum('nijk, ijk -> nij', P, mu0).var(axis=0)
-
-        # Variance of rewards due to uncertainty of reward mean
-        student_var = beta / ((alpha - 1) * lamda)
-        temp_rew_rew = P * student_var[None, :, :, :]
-        var_rew_rew = np.mean(temp_rew_rew, axis=0).sum(axis=-1)
-
-        # Reward value covariance due to uncertainty of dynamics
-        mu_r_dyn = np.einsum('nijk, ijk -> nij', P, mu0)
-        mu_z_dyn = np.einsum('nijk, k -> nij', P, mu_z)
-        cov = (mu_r_dyn * mu_z_dyn).mean(axis=0) - \
-                mu_r_dyn.mean(axis=0) * mu_z_dyn.mean(axis=0)
-
-        # Value variance due to dynamics uncertainty
-        var_z_dyn = np.einsum('nijk, k -> nij', P, mu_z).var(axis=0)
-
-        # Get mean transition matrix (num_s, num_s)
-        P_ = np.mean(P, axis=0)
-
-        # Calculate total variance
-        total_var = (var_rew_dyn + var_rew_rew + \
-                     2 * self.gamma * cov + self.gamma**2 * var_z_dyn)
-
-        var_z = np.einsum('nijk, k -> nij', P, var_z).mean(axis=0)
-
-        terms = (var_rew_dyn, var_rew_rew, 2 * self.gamma * cov,
-                 self.gamma**2 * var_z_dyn, self.gamma**2 * var_z)
+        trans_prob = trans_prob.reshape(num_sa, num_sa)
+        total_var = total_var.reshape(num_sa)
         
-        return total_var + self.gamma**2 * var_z, terms
-
-    
-    def get_expected_P_and_R(self):
-        return self.Ppost / self.Ppost.sum(axis=-1)[..., None], self.Rpost[..., 0]
-
-    
-    def starting_policy(self):
-        '''
-            Initialises starting policy from allowed state-action pairs
-        '''
+        var_z_sa = np.linalg.solve(ones - self.gamma**2 * trans_prob, total_var)
+        var_z_sa = var_z_sa.reshape(self.num_s, self.num_a)
         
-        # Set policy to zeros
-        pi = np.zeros(shape=(self.num_s,), dtype=np.int)
-
-        # Set policy to an action from the allowed actions
-        for (s, a) in self.sa_list:
-            pi[s] = int(a)
+        var_z_sa_terms = var_rew_dyn, var_rew_rew, cov_rz, var_z_dyn, total_var, var_z_sa
         
-        return pi 
+        return var_z_sa, var_z_sa_terms
 
     
     def sample_dynamics(self):
         
-        # Initialise array of samples
-        dyns = []
-
-        # Loop over all states
-        for s in range(self.num_s):
-
-            dyns.append([])
-
-            # Loop over all actions
-            for a in range(self.num_a):
-                
-                # Dirichlet distribution parameters from posterior
-                kappas = self.Ppost[(s, a)]
-
-                # Sample transitions from current state-action pair
-                samples = np.random.dirichlet(kappas, size=self.num_dyn_samples)
-
-                # Store samples
-                dyns[-1].append(samples.T)
-
-        # Rearrange into (num_samples, num_s, num_a, num_s)
-        dyns = np.rollaxis(np.array(dyns), 3)
+        P = [[np.random.dirichlet(self.Ppost[s, a], size=self.num_dyn_samples).T \
+              for a in range(self.num_a)]
+              for s in range(self.num_s)]
         
-        return dyns
+        return np.rollaxis(np.array(P), 3)
 
-
-    def update_buffer(self, s, a, r, s_):
-        self.buffer.append([s, a, r, s_])
+    
+    def get_expected_P_and_R(self):
+        
+        P = self.Ppost / self.Ppost.sum(axis=-1)[..., None]
+        R = self.Rpost[..., 0]
+        
+        return P, R
         
         
     def observe(self, transition):
@@ -1095,41 +930,19 @@ class MomentMatchingAgent(TabularAgent):
         self.buffer.append([s, a, r, s_])
     
     
-    def update_after_step(self, max_buffer_length):
-        
+    def update_after_step(self, max_buffer_length, log):
+            
         if len(self.buffer) >= max_buffer_length:
             
             self.update_posterior()
-            if self.thompson:
-                pi, mu_z_sa, var_z_sa_terms = self.greedy_policy_iteration_with_variance_output()
-                self.pi, self.mu_z_sa, self.var_z_sa_terms = pi, mu_z_sa, var_z_sa_terms
-            else:
-                self.pi = self.ucb_policy_iteration()
-    
-    
-    def update_after_episode(self):
-        if len(self.buffer) > 0:
-            self.update_posterior()
+            self.pi, self.mu_z_sa, self.var_z_sa, self.var_z_sa_terms = self.get_pi_mu_var()
+        
+        if log:
             
-            
-    def do_before_save(self):
-        
-        pi, mu_z_sa, var_terms = (None,) * 3
-        
-        if self.thompson:
-            pi, mu_z_sa, var_terms = self.greedy_policy_iteration_with_variance_output()
-        else:
-            pi, mu_z_sa, var_terms = self.ucb_policy_iteration(each_term=True)
-        
-        rew_var_dyn, rew_var_rew, cov_rew_val, val_var_dyn, val_var_val = var_terms
-        
-        self.pi = pi
-        self.mu_z_sa = mu_z_sa
-        self.rew_var_dyn = rew_var_dyn
-        self.rew_var_rew = rew_var_rew
-        self.cov_rew_val = cov_rew_val
-        self.val_var_dyn = val_var_dyn
-        self.val_var_val = val_var_val
+            self.pi_log.append(self.pi[:])
+            self.mu_log.append(self.mu_z_sa[:])
+            self.var_log.append(self.var_z_sa[:])
+            self.var_terms_log.append(deepcopy(self.var_z_sa_terms))
             
             
     def get_name(self):

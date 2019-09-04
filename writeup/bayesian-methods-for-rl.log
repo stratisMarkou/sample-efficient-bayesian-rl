@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2019.4.10)  2 SEP 2019 11:28
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2019.4.10)  3 SEP 2019 17:55
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -973,13 +973,13 @@ Package rerunfilecheck Info: File `bayesian-methods-for-rl.out' has not changed
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 475.
  ) 
 Here is how much of TeX's memory you used:
- 23432 strings out of 492649
- 435843 string characters out of 6129622
+ 23429 strings out of 492649
+ 435819 string characters out of 6129622
  550859 words of memory out of 5000000
  26657 multiletter control sequences out of 15000+600000
- 61258 words of font info for 185 fonts, out of 8000000 for 9000
+ 61033 words of font info for 183 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,22n,54p,940b,891s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 57i,22n,54p,968b,891s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/t
 exlive/2018/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/local/tex
 live/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texl
@@ -1010,7 +1010,7 @@ type1/public/cm-super/sftt1000.pfb></usr/local/texlive/2018/texmf-dist/fonts/ty
 pe1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/urw
 /times/utmb8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/urw/times/utm
 r8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on bayesian-methods-for-rl.pdf (12 pages, 324363 bytes).
+Output written on bayesian-methods-for-rl.pdf (12 pages, 324383 bytes).
 PDF statistics:
  431 PDF objects out of 1000 (max. 8388607)
  382 compressed objects within 4 object streams

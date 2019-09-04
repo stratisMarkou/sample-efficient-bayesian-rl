@@ -92,9 +92,9 @@
 
 Balancing exploration and exploitation is one of the central challenges in Reinforcement Learning (RL). On one hand, the agent should \textit{exploit} regions of its environment which are known to be rewarding, while on the other it should \textit{explore} in hope of larger rewards (\cite{suttonbarto}). Excessively exploitative or explorative behaviours are both suboptimal. In the former, the agent will fixate on small rewards and will be slow to discover the optimal policy. In the latter, it will keep exploring and making suboptimal moves, even though the collected data is sufficient to confidently determine the optimal policy.
 
-A guarantee for sufficient exploration is a crucial part of every RL algorithm. For example, Q-Learning (\cite{qlearning}) converges to the true $Q^*$-values, provided among other conditions, that every state-action is visited infinitely often in the limit. To guarantee sufficient exploration, $\epsilon$-greedy or Boltzmann (\cite{suttonbarto}) approaches are traditionally used. However, as demonstrated by \cite{iothesis}, such schemes can be very slow to learn, because their exploration is \textit{undirected}: they fail to consider the agent's \textit{uncertainty} and instead drive exploration by injecting random noise in action selection. Further, robust methods for annealing $\epsilon$ or $T$ cannot be found in the literature. In practice, most applications use constant exploration parameters (\cite{mnihatari}), at the expense of crude exploration-exploitation tradeoffs.
+A guarantee for sufficient exploration is a crucial part of every RL algorithm. For example, Q-Learning (\cite{qlearning}) converges to the true $Q^*$-values, provided among other conditions, that every state-action is visited infinitely often in the limit. To guarantee sufficient exploration, $\epsilon$-greedy or Boltzmann (\cite{suttonbarto}) approaches are traditionally used. However, as demonstrated by \cite{iothesis}, such schemes can be very slow to learn, because their exploration is \textit{undirected}: instead of considering the agent's \textit{uncertainty} and they drive exploration by injecting random noise in action selection. Robust methods for annealing the exploration parameters ($\epsilon$ or $T$) have yet to be found in the literature. In practice, most applications use simple-to-implement constant exploration parameters (\cite{mnihatari}), at the expense of crude exploration schemes.
 
-To improve the efficiency of RL algorithms, we argue that action-selection must be \textit{directed}, that is guided by a quantification of the agent's uncertainty, and Bayesian inference proves to be a natural method for this. By representing the agent's posterior beliefs and selecting actions accordingly, we can direct exploration, providing a principled \textit{transition mechanism} from exploration to exploitation, as the posterior distributions shrink. In this work we present certain Bayesian algorithms, in tabular Markov Decision Processes (MDPs), including our own novel approach.
+To improve the efficiency of RL algorithms, we argue that action-selection must be \textit{directed}, that is guided by a quantification of the agent's uncertainty, and Bayesian inference proves to be a natural method for achieving this. We can direct exploration by representing the agent's posterior beliefs and selecting actions accordingly. The \textit{transition mechanism} from exploration to exploitation is both intuitive and principled - the posteriors shrink and the agent converges to the optimal policy as further data are observed. In this work we present certain Bayesian algorithms, in tabular Markov Decision Processes (MDPs), including our own novel approach.
 
 \subsection{Notation convention}
 
@@ -459,11 +459,11 @@ where $\btheta$ loosely denotes all modelling parameters, $\s'$ denotes the next
 
 \subsection{PriorMDP}
 
-The aforementioned MDPs have very specific and handcrafted dynamics and rewards, so it is interesting to also compare the algorithms on environments which lack this sort of structure. For this we sample finite MDPs with $N_s$ states and $N_a$ action from a prior distribution, as in \cite{psrl}. $\mct$ is a Categorical with parameters $\{\bs{\kappa_{\s, \ac}}\}$ with:
+The aforementioned MDPs have very specific and handcrafted dynamics and rewards, so it is interesting to also compare the algorithms on environments which lack this sort of structure. For this we sample finite MDPs with $N_s$ states and $N_a$ action from a prior distribution, as in \cite{psrl}. $\mct$ is a Categorical with parameters $\{\bs{\eta_{\s, \ac}}\}$ with:
 \begin{align*}
-\bs{\kappa}_{\s, \ac} \sim \text{Dirichlet}(\bs{c}_{\s, \ac}),
+\bs{\eta}_{\s, \ac} \sim \text{Dirichlet}(\bs{\kappa}_{\s, \ac}),
 \end{align*}
-with pseudo-count parameters $\bs{c}_{\s, \ac} = \bm{1}$, while $\mcr \sim \mc{N}(\mu_{\s, \ac}, \tau_{\s, \ac}^{-1})$ with:
+with pseudo-count parameters $\bs{\kappa}_{\s, \ac} = \bm{1}$, while $\mcr \sim \mc{N}(\mu_{\s, \ac}, \tau_{\s, \ac}^{-1})$ with:
 \begin{align*}
 \mu_{\s, \ac}, \tau_{\s, \ac} \sim NG(\mu_{\s, \ac}, \tau_{\s, \ac} | \mu, \lambda, \alpha, \beta) \text{ with } (\mu, \lambda, \alpha, \beta) = (0.00, 3.00 \times 10^2, 4.00, 4.00).
 \end{align*}

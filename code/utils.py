@@ -81,8 +81,13 @@ def solve_tabular_continuing_PI(P, R, gamma, max_iter):
         Q = P_R + gamma * np.einsum('ijk, k -> ij', P, V)
 
         # Get greedy policy - break ties at random
-        pi = np.array([np.random.choice(np.argwhere(Qs == np.amax(Qs))[0]) \ 
-                       for Qs in Q])
+        pi_ = np.array([np.random.choice(np.argwhere(Qs == np.amax(Qs))[0]) \
+                        for Qs in Q])
+        
+        if np.prod(pi_ == pi) == 1:
+            break
+        else:
+            pi = pi_
 
     return pi, Q
 
