@@ -1,5 +1,10 @@
 \begin{thebibliography}{}
 
+\bibitem[Azizzadenesheli et~al., 2018]{bdqn}
+Azizzadenesheli, K., Brunskill, E., and Anandkumar, A. (2018).
+\newblock Efficient exploration through bayesian deep q-networks.
+\newblock {\em CoRR}, abs/1802.04412.
+
 \bibitem[Bellemare et~al., 2017]{distperrl}
 Bellemare, M.~G., Dabney, W., and Munos, R. (2017).
 \newblock A distributional perspective on reinforcement learning.
@@ -18,6 +23,12 @@ Dearden, R., Friedman, N., and Russell, S. (1998).
 \newblock Bayesian q-learning.
 \newblock In {\em In AAAI/IAAI}, pages 761--768. AAAI Press.
 
+\bibitem[Janz et~al., 2019]{su}
+Janz, D., Hron, J., Hernández-Lobato, J.~M., Hofmann, K., and Tschiatschek, S.
+  (2019).
+\newblock Successor uncertainties: exploration and uncertainty in temporal
+  difference learning.
+
 \bibitem[Mnih et~al., 2015]{mnihatari}
 Mnih, V., Kavukcuoglu, K., Silver, D., Rusu, A.~A., Veness, J., Bellemare,
   M.~G., Graves, A., Riedmiller, M., Fidjeland, A.~K., Ostrovski, G., Petersen,
@@ -31,8 +42,13 @@ Murphy, K.~P. (2007).
 \newblock Conjugate bayesian analysis of the gaussian distribution.
 \newblock Technical report.
 
-\bibitem[O'Donoghue, 2018]{deepsea}
-O'Donoghue, B. (2018).
+\bibitem[O'Donoghue, 2018a]{deepsea}
+O'Donoghue, B. (2018a).
+\newblock Variational bayesian reinforcement learning with regret bounds.
+\newblock {\em CoRR}, abs/1807.09647.
+
+\bibitem[O'Donoghue, 2018b]{rlvi}
+O'Donoghue, B. (2018b).
 \newblock Variational bayesian reinforcement learning with regret bounds.
 \newblock {\em CoRR}, abs/1807.09647.
 
@@ -57,6 +73,24 @@ Osband, I., Russo, D., and Van~Roy, B. (2013).
 Osband, I., Russo, D., Wen, Z., and Roy, B.~V. (2017).
 \newblock Deep exploration via randomized value functions.
 \newblock {\em CoRR}, abs/1703.07608.
+
+\bibitem[Quiñonero-Candela et~al., 2002]{quintechrep}
+Quiñonero-Candela, J., Girard, A., and Rasmussen, C.~E. (2002).
+\newblock Prediction at an uncertain input for gaussian processes and relevance
+  vector machines application to multiple-step ahead time-series forecasting.
+\newblock Technical report.
+
+\bibitem[Rasmussen and Kuss, 2004]{gpsinrl}
+Rasmussen, C. and Kuss, M. (2004).
+\newblock Gaussian processes in reinforcement learning.
+\newblock In {\em Advances in Neural Information Processing Systems 16}, pages
+  751--759, Cambridge, MA, USA. Max-Planck-Gesellschaft, MIT Press.
+
+\bibitem[Rasmussen and Williams, 2006]{gps_textbook}
+Rasmussen, C. and Williams, C. (2006).
+\newblock {\em Gaussian Processes for Machine Learning}.
+\newblock Adaptive Computation and Machine Learning. MIT Press, Cambridge, MA,
+  USA.
 
 \bibitem[Silver, 2015]{silver}
 Silver, D. (2015).

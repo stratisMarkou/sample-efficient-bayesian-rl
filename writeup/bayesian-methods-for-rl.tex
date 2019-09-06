@@ -77,19 +77,20 @@
 \item Conclusions.
 \item \st{Fix algorithm loops.}
 \item \st{Check action notation in moment matching.}
-\item Add agent parameter details.
+\item \st{Add agent parameter details.}
 \item \st{Change w to z equation in appendix.}
 \item \st{UBE: plots of types of uncertainty.}
+\item Add regret summary plots.
 \end{enumerate}
 
 Points to drive home
 \begin{enumerate}
 \item \st{Posterior uncertainty guides exploration. Agent does not need to be certain, just sure enough about the optimal action.}
 \item \st{UBE grossly over-estimates uncertainty and over-weighs dynamics uncertainty - important to calibrate $\zeta$.}
-\item BQL may suffer from bad updates and lack of a forgetting mechanism.
-\item MM produces well calibrated uncertainties in this setting, no need to tune $\zeta$.
-\item Correlations are very important for optimal action selection.
-\item No clear computational advantage of any of the methods over PSRL.
+\item \st{BQL may suffer from bad updates and lack of a forgetting mechanism.}
+\item \st{MM produces well calibrated uncertainties in this setting, no need to tune $\zeta$.}
+\item \st{Correlations are very important for optimal action selection.}
+\item \st{No clear computational advantage of any of the methods over PSRL.}
 \item More sophisticated action-selection schemes are possible.
 \end{enumerate}
 
@@ -97,7 +98,7 @@ Points to drive home
 \maketitle
 
 \begin{abstract}
-  Abstract goes here.
+The exploration-exploitation tradeoff is one of the central problems of Reinforcement Learning (RL). We explore how Bayesian modelling can be incorporated into RL to tackle this tradeoff, by quantifying relevant epistemic uncertainties and using them to efficiently guide the exploration. Empirical results of four Bayesian methods in the tabular setting - Bayesian Q-Learning (BQL), posterior sampling for RL (PSRL), the uncertainty Bellman equation (UBE) and our own moment matching (MM) approach - shows evidence that: BQL may suffer from a pathology whereby early incorrect posterior updates result in an overconfident and inaccurate posterior; the UBE greatly over-estimates uncertainties and places a much heavier emphasis on the dynamics than the rewards uncertainties; MM gives generally well-calibrated uncertainty estimates; factored posterior approximations (BQL, UBE, MM) have adverse effects on regret performance while PSRL, which involves posterior correlations, does not face the same issue.
 \end{abstract}
 
 \section{Introduction}
@@ -162,23 +163,38 @@ Our moment matching (MM) approach uses the BE to estimate epistemic uncertaintie
 
 We thus propose first solving for the greedy policy $\pi^*$ w.r.t. $p(\thetamct | \data)$ and $p(\thetamcr | \data)$, and then for the epistemic uncertainty in $\mu_{z^*_{\s, \ac}}$. The latter is used for Thompson sampling from a diagonal gaussian, resulting in a factored approximation of the posterior as in the UBE. An outline of the uncertainty decomposition and further details are given in appendix \ref{app:mm}.
 
-\section{Finite MDP environments}
+\section{Environments and methods}
 
-We compare the algorithms on three kinds of finite MDPs of variable sizes, and all experiments are in the continuing setting - exact specifications and illustrations given in \cref{app:env}. We measure performance by the cumulative regret to an oracle agent which acts under the optimal policy.
+We compare the algorithms on three kinds of finite MDPs of variable sizes, and all experiments\footnote{Implementations of the agents and environments, as well as notebooks for plotting all figures in this work are available at \texttt{\href{https://github.com/sample-efficient-bayesian-rl/nips-2019-rl-workshop}{https://github.com/sample-efficient-bayesian-rl}}.} are in the continuing setting - exact specifications and illustrations given in \cref{app:env}. We measure performance by the cumulative regret to an oracle agent which acts under the optimal policy.
 
 Our DeepSea MDP is a variant of those in \cite{rand_val_func, deepsea}, and is aimed at testing the algorithm's ability for sustained exploration despite initially receiving negative rewards. We also propose WideNarrow, an environment designed specifically to investigate the effect of factored posterior approximations made in BQL, UBE and MM. Finally, since the DeepSea and WideNarrow are handcrafted, we also compare the algorithms on MDPs drawn from a Dirichlet prior over $\thetamct$ and NG prior over $\thetamcr$ as in \cite{psrl} - we refer to this as PriorMDP.
 
 \section{Results and discussion}
 
-Visualisations of the posterior evolution on small MDPs illustrate a number of interesting phenomena (\crefrange{ql_deepsea_visual}{mm_deepsea_visual}, \crefrange{ql_widenarrow_visual}{mm_widenarrow_visual} and \crefrange{ql_priormdp_visual}{mm_priormdp_visual}). We also show evaluations of the algorithms in terms of cumulative regret to an oracle which always picks the optimal action.
+Visualisations of the posterior evolution and cumulative regret to an oracle on small MDPs, illustrate a number of interesting phenomena (\crefrange{ql_deepsea_visual}{mm_deepsea_visual}, \crefrange{ql_widenarrow_visual}{mm_widenarrow_visual} and \crefrange{ql_priormdp_visual}{mm_priormdp_visual}).
 
-In many cases, we observe that as training progresses, the posteriors concentrate on the true $Q^*$ values, the behaviour policy converges on the optimal policy and the agent smoothly transitions into greedy action selection. Further, the agent does not over-explore actions if it is confident that these are suboptimal. This is notably seen in \crefrange{bql_deepsea_visual}{mm_deepsea_visual}. There, although there is significant uncertainty in the expected return of the suboptimal action, the agent is confident that the optimal action $(\s = 4, \ac = \textit{right})$ is better than the suboptimal one $(\s = 4, \ac = \textit{left})$: the agent does not spend its time determining the exact expected return of an action if it is confident that it is suboptimal. However, there are often exceptions to the above behaviour.
+In many cases, we observe that as training progresses, the posteriors concentrate on the true $Q^*$ values, the behaviour policy converges on the optimal policy and the agent smoothly transitions into greedy action selection. Further, the agent does not over-explore actions if it is confident that these are suboptimal. This is notably seen in \crefrange{bql_deepsea_visual}{mm_deepsea_visual}. There, although there is significant uncertainty in the expected return of the suboptimal action, the agent is confident that the optimal action $(\s = 4, \ac = \textit{right})$ is better than the suboptimal one $(\s = 4, \ac = \textit{left})$: the agent does not spend its time determining the exact expected return of an action if it is confident that it is suboptimal. These two behaviours are central for achieving a principled and efficient approach to exploration, however we often observe exceptions where the agent does not perform in such a way.
 
-First, the UBE uncertainty estimate $u^*_{\s, \ac}$ is extremely loose, even after many time-steps have passed (\cref{ube_deepsea_visual1}, \cref{ube_widenarrow_visual1} and \cref{ube_priormdp_visual1}). Even though $\mu_{\zob}$ be close to $Q^*$, $u^*_{\s, \ac}$ is so large that the Thompson noise completely smooths out differences between actions, which are picked almost uniformly at random. Further, $u^*_{\s, \ac}$ shrinks very slowly and the transition to greedy behaviour takes an extremely long time, causing poor regret performance. These effects are due to the contribution of an extremely large term coming from the upper-bound derivation of \cite{ube} - this is the $Q_{max}$ term in \cref{eq:bellunc} and \cref{eq:localunc}). This term depends solely on the dynamics model, so $u^*_{\s, \ac}$ is dominated by the dynamics uncertainty, while the rewards uncertainty is much smaller (\cref{ube_unc_terms}). Scaling the Thompson noise by $\zeta < 1.0$, improves regret performance in some cases (e.g. \cref{ube_deepsea_visual01}). However, one is further faced by the challenge of tuning $\zeta$, which may be expensive for large problems.
+First, the UBE uncertainty estimate $u^*_{\s, \ac}$ remains extremely loose even after a large number of time-steps (\cref{ube_deepsea_visual1}, \cref{ube_widenarrow_visual1} and \cref{ube_priormdp_visual1}). Even though $\mu_{\zob}$ be close to $Q^*$, $u^*_{\s, \ac}$ is so large that the Thompson noise completely smooths out differences between actions, which are picked almost uniformly at random. Further, $u^*_{\s, \ac}$ shrinks very slowly and the transition to greedy behaviour takes an extremely long time, causing poor regret performance. These effects are due to the contribution of an extremely large term coming from the upper-bound derivation of \cite{ube} - this is the $Q_{max}$ term in \cref{eq:bellunc} and \cref{eq:localunc}). Further, this term depends solely on the dynamics model, so $u^*_{\s, \ac}$ is dominated by the dynamics uncertainty, while the rewards uncertainty is much smaller (\cref{ube_unc_terms}). Scaling the Thompson noise by $\zeta < 1.0$, improves regret performance in some cases (e.g. \cref{ube_deepsea_visual01}). However, one is further faced by the challenge of tuning $\zeta$, which may be expensive and challenging for large problems.
 
-Second, we observe that the BQL posterior sometimes fails to concentrate on the true $Q^*$ values (e.g. \cref{bql_deepsea_visual} and \cref{bql_priormdp_visual}). In such cases, the posterior is overconfident about incorrect predictions of $\mu_{\zob}$. In our experiments, we observed that this effect persists for different random seeds and is affected by the prior used. In particular, using an NG prior with a mean $\mu_0$ that is closer to the true $Q^*$ values, results in the posterior concentrating on the true $Q^*$. These effects can be explained through the update rule used in BQL (\cref{eq:mixture}). The update rule uses the next-state-action posterior $p(\zonb | \data)$ to update the current state-action posterior. If the former is inaccurate and overconfident, so will be the corresponding hyperparameter updates. BQL can hardly escape from this situation because it does not involve a \textit{forgetting mechanism} for inaccurate updates far in the past. Contrast this with $Q$-Learning, in which the Temporal Difference (TD) updates result in forgetting of past $Q$-values.
+By contrast, our MM approach produces more well-calibrated uncertainty estimates than the UBE (see \cref{mm_deepsea_visual}, \cref{mm_widenarrow_visual} and \cref{mm_priormdp_visual}). As a result, MM shows typically better regret performance than UBE without a need to tune $\zeta$. This could give an advantage to MM over the UBE in settings where tuning may be expensive or difficult.
 
-\section{Conslusions \& Further work}
+Second, we observe that the BQL posterior sometimes fails to concentrate on the true $Q^*$ values (e.g. \cref{bql_deepsea_visual} and \cref{bql_priormdp_visual}), where the posterior is overconfident about incorrect predictions of $\mu_{\zob}$. This effect persists for different random seeds and is affected by the prior used. In particular, using an NG prior with a mean $\mu_0$ that is closer to the true $Q^*$ values, results in the posterior concentrating on the true $Q^*$. These effects can be explained through the update rule used in BQL (\cref{eq:mixture}). The update rule uses the next-state-action posterior $p(\zonb | \data)$ to update the current state-action posterior. If the former is inaccurate and overconfident, the updated hyperparameters are affected accordingly. BQL can hardly escape from this situation because it does not involve a \textit{forgetting mechanism} for inaccurate updates far in the past. Contrast this with $Q$-Learning, in which the Temporal Difference (TD) updates result in a moving average of observed rewards. Model-free Bayesian approaches with a rule similar to BQL may suffer from a similar pathology.
+
+Third, there is strong evidence that factored approximations made by BQL, UBE and MM have a significant effect on regret performance. Factored approximations result in overly loose posteriors (see \cref{correlations_widenarrow_500}, \cref{correlations_widenarrow_2500}, \cref{correlations_priormdp_500} and \cref{correlations_priormdp_2500}) and as a result, the Thompson-sampled $\mu_{\zob}$ often correspond to picking a sub-optimal action\footnote{In our Thompson-sample plots, an action is optimal only if the sample lies on the same side of the black dashed line as the black cross, across all plots.}. By contrast, PSRL draws samples from the exact posterior and thereby accounts for correlations between different state-actions, which are in fact quite significant. The exact posterior often has marginals of similar scale as those of BQL or MM, however by incorporating correlations PSRL selects optimal actions much more often and thus achieves a better regret performance. Accounting for these correlations is an important factor in ensuring the transition from exploration to exploitation occurs quickly enough. PSRL typically outperforms BQL, UBE and MM as a result of these correlations at no additional computational cost.
+
+\section{Conclusions \& Further work}
+
+Our comparison of BQL, PSRL, UBE and MM has yielded a number of insights about these algorithms: BQL suffers from a pathology whereby incorrect posterior updates result in an overconfident posterior in the absence of a forgetting mechanism, an effect from which other model-free approaches without forgetting may suffer from; the UBE uncertainty estimate $u^*_{\s, \ac}$ is extremely loose, results in undirected exploration if $\zeta$ is not tuned and places a much larger emphasis on the dynamics than the rewards uncertainties; factored approximations to the posterior as those in BQL, UBE and MM, have adverse effects on regret performance, while PSRL does not suffer from the same phenomenon since it samples from the true posterior with correlations; MM gives generally well-calibrated uncertainty estimates, however it still suffers from the factored posterior approximation.
+
+We conclude with points for future work:
+\begin{itemize}
+\item PSRL outperformed the other methods in our experiments. Inspired by this one could explore how to extend PSRL to tasks with continuous state-actions, for example by using Gaussian Process (GP) \cite{gps_textbook}.
+\item MM can also be performed in continuous state-action tasks. We have conducted preliminary work for GP-based MM, using the approaches from \cite{gpsinrl, quintechrep} but further investigation is needed for this work to come to fruition.
+\item Devising a principled forgetting mechanism for BQL and examining whether this remedies the observed pathology would be an interesting direction of work.
+\item A comparison with other approaches such as \cite{bdqn}, \cite{su} and \cite{rlvi} would give a more complete picture of performance across a broader set of algorithms.
+\item We have used Thompson sampling, however alternative action selection methods, such as those presented in \cite{bqlearning}, could be explored.
+\end{itemize}
 
 \clearpage
 
@@ -189,7 +205,7 @@ Second, we observe that the BQL posterior sometimes fails to concentrate on the 
 \begin{appendices}
 \section{Additional algorithm details}
 
-Here we provide additional details on each algorithm, including elaborations of the assumptions made in each case and pseudocode listings.
+Here we provide additional details on each algorithm, including elaborations of the assumptions made in each case and pseudocode listings. For all Dirichlet priors we use hyperparameters $\bs{\eta}_{\s, \ac} = \bm{1}$ and for all NG priors we use $(\mu_0, \lambda, \alpha, \beta)_{\s, \ac} = (0.0, 4.0, 3.0, 3.0)$.
 
 \subsection{Bayesian Q-Learning} \label{app:bql}
 
@@ -495,6 +511,21 @@ We chose these hyperparameters because they give $Q^*$-values in a reasonable ra
 \clearpage
 \section{Supplementary figures}
 
+\subsection{Regret summaries}
+
+The following plots summarise the regret of each algorithm to the oracle agent. The regrets have been normalised by the total reward received by the agent, to make the numbers comparable across environments.
+
+\begin{figure}[h!]
+\centering
+\begin{subfigure}{0.8\textwidth}
+\includegraphics[width=\linewidth]{img/regret_summary_deepsea.pdf}
+\end{subfigure}
+\captionsetup{width=0.9\linewidth}
+\caption{Summary of regret performances to oracle on DeepSea.}\label{deepsea_regret_summary}
+\end{figure}
+
+\clearpage
+
 \subsection{DeepSea}
 
 \begin{figure}[h!]
@@ -512,10 +543,10 @@ We chose these hyperparameters because they give $Q^*$-values in a reasonable ra
 \begin{figure}[h!]
 \centering
 \begin{subfigure}{0.65\textwidth}
-\includegraphics[width=\linewidth]{img/bql-0_0-1_0-2_0-2_0-posterior-deepsea-4.pdf}
+\includegraphics[width=\linewidth]{img/bql-0_0-4_0-3_0-3_0-posterior-deepsea-4.pdf}
 \end{subfigure}
 \begin{subfigure}{0.34\textwidth}
-\includegraphics[width=\linewidth]{img/bql-0_0-1_0-2_0-2_0-regret-deepsea-4.pdf}~\\~\\
+\includegraphics[width=\linewidth]{img/bql-0_0-4_0-3_0-3_0-regret-deepsea-4.pdf}~\\~\\
 \end{subfigure}
 \captionsetup{width=0.9\linewidth}
 \caption{BQL posterior and regret on DeepSea.}\label{bql_deepsea_visual}
@@ -524,10 +555,10 @@ We chose these hyperparameters because they give $Q^*$-values in a reasonable ra
 \begin{figure}[h!]
 \centering
 \begin{subfigure}{0.65\textwidth}
-\includegraphics[width=\linewidth]{img/psrl-0_0-1_0-2_0-2_0-posterior-deepsea-4.pdf}
+\includegraphics[width=\linewidth]{img/psrl-0_0-4_0-3_0-3_0-posterior-deepsea-4.pdf}
 \end{subfigure}
 \begin{subfigure}{0.34\textwidth}
-\includegraphics[width=\linewidth]{img/psrl-0_0-1_0-2_0-2_0-regret-deepsea-4.pdf}~\\~\\
+\includegraphics[width=\linewidth]{img/psrl-0_0-4_0-3_0-3_0-regret-deepsea-4.pdf}~\\~\\
 \end{subfigure}
 \captionsetup{width=0.9\linewidth}
 \caption{PSRL posterior and regret on DeepSea.}\label{psrl_deepsea_visual}
@@ -536,10 +567,10 @@ We chose these hyperparameters because they give $Q^*$-values in a reasonable ra
 \begin{figure}[h!]
 \centering
 \begin{subfigure}{0.65\textwidth}
-\includegraphics[width=\linewidth]{img/ube-0_0-1_0-2_0-2_0-1_0-posterior-deepsea-4.pdf}
+\includegraphics[width=\linewidth]{img/ube-0_0-4_0-3_0-3_0-1_0-posterior-deepsea-4.pdf}
 \end{subfigure}
 \begin{subfigure}{0.34\textwidth}
-\includegraphics[width=\linewidth]{img/ube-0_0-1_0-2_0-2_0-1_0-regret-deepsea-4.pdf}~\\~\\
+\includegraphics[width=\linewidth]{img/ube-0_0-4_0-3_0-3_0-1_0-regret-deepsea-4.pdf}~\\~\\
 \end{subfigure}
 \captionsetup{width=0.9\linewidth}
 \caption{UBE posterior and regret on DeepSea.}\label{ube_deepsea_visual1}
@@ -549,10 +580,10 @@ We chose these hyperparameters because they give $Q^*$-values in a reasonable ra
 \centering
 \vspace{-1cm}
 \begin{subfigure}{0.65\textwidth}
-\includegraphics[width=\linewidth]{img/ube-0_0-1_0-2_0-2_0-0_1-posterior-deepsea-4.pdf}
+\includegraphics[width=\linewidth]{img/ube-0_0-4_0-3_0-3_0-0_1-posterior-deepsea-4.pdf}
 \end{subfigure}
 \begin{subfigure}{0.34\textwidth}
-\includegraphics[width=\linewidth]{img/ube-0_0-1_0-2_0-2_0-0_1-regret-deepsea-4.pdf}~\\~\\
+\includegraphics[width=\linewidth]{img/ube-0_0-4_0-3_0-3_0-0_1-regret-deepsea-4.pdf}~\\~\\
 \end{subfigure}
 \captionsetup{width=0.9\linewidth}
 \caption{UBE posterior and regret on DeepSea.}\label{ube_deepsea_visual01}
@@ -570,10 +601,10 @@ We chose these hyperparameters because they give $Q^*$-values in a reasonable ra
 \begin{figure}[h!]
 \centering
 \begin{subfigure}{0.65\textwidth}
-\includegraphics[width=\linewidth]{img/mm-0_0-1_0-2_0-2_0-1_0-posterior-deepsea-4.pdf}
+\includegraphics[width=\linewidth]{img/mm-0_0-4_0-3_0-3_0-1_0-posterior-deepsea-4.pdf}
 \end{subfigure}
 \begin{subfigure}{0.34\textwidth}
-\includegraphics[width=\linewidth]{img/mm-0_0-1_0-2_0-2_0-1_0-regret-deepsea-4.pdf}~\\~\\
+\includegraphics[width=\linewidth]{img/mm-0_0-4_0-3_0-3_0-1_0-regret-deepsea-4.pdf}~\\~\\
 \end{subfigure}
 \captionsetup{width=0.9\linewidth}
 \caption{MM posterior and regret on DeepSea.}\label{mm_deepsea_visual}
@@ -601,10 +632,10 @@ We chose these hyperparameters because they give $Q^*$-values in a reasonable ra
 \begin{figure}[h!]
 \centering
 \begin{subfigure}{0.65\textwidth}
-\includegraphics[width=\linewidth]{img/bql-1_5-1_0-2_0-2_0-posterior-widenarrow-1-6.pdf}
+\includegraphics[width=\linewidth]{img/bql-1_5-4_0-3_0-3_0-posterior-widenarrow-1-6.pdf}
 \end{subfigure}
 \begin{subfigure}{0.34\textwidth}
-\includegraphics[width=\linewidth]{img/bql-1_5-1_0-2_0-2_0-regret-widenarrow-1-6.pdf}~\\~\\
+\includegraphics[width=\linewidth]{img/bql-1_5-4_0-3_0-3_0-regret-widenarrow-1-6.pdf}~\\~\\
 \end{subfigure}
 \captionsetup{width=0.9\linewidth}
 \caption{BQL posterior and regret on WideNarrow.}\label{bql_widenarrow_visual}
@@ -613,10 +644,10 @@ We chose these hyperparameters because they give $Q^*$-values in a reasonable ra
 \begin{figure}[h!]
 \centering
 \begin{subfigure}{0.65\textwidth}
-\includegraphics[width=\linewidth]{img/psrl-0_0-1_0-2_0-2_0-posterior-widenarrow-1-6.pdf}
+\includegraphics[width=\linewidth]{img/psrl-0_0-4_0-3_0-3_0-posterior-widenarrow-1-6.pdf}
 \end{subfigure}
 \begin{subfigure}{0.34\textwidth}
-\includegraphics[width=\linewidth]{img/psrl-0_0-1_0-2_0-2_0-regret-widenarrow-1-6.pdf}~\\~\\
+\includegraphics[width=\linewidth]{img/psrl-0_0-4_0-3_0-3_0-regret-widenarrow-1-6.pdf}~\\~\\
 \end{subfigure}
 \captionsetup{width=0.9\linewidth}
 \caption{PSRL posterior and regret on WideNarrow.}\label{psrl_widenarrow_visual}
@@ -625,10 +656,10 @@ We chose these hyperparameters because they give $Q^*$-values in a reasonable ra
 \begin{figure}[h!]
 \centering
 \begin{subfigure}{0.65\textwidth}
-\includegraphics[width=\linewidth]{img/ube-0_0-1_0-2_0-2_0-1_0-posterior-widenarrow-1-6.pdf}
+\includegraphics[width=\linewidth]{img/ube-0_0-4_0-3_0-3_0-1_0-posterior-widenarrow-1-6.pdf}
 \end{subfigure}
 \begin{subfigure}{0.34\textwidth}
-\includegraphics[width=\linewidth]{img/ube-0_0-1_0-2_0-2_0-1_0-regret-widenarrow-1-6.pdf}~\\~\\
+\includegraphics[width=\linewidth]{img/ube-0_0-4_0-3_0-3_0-1_0-regret-widenarrow-1-6.pdf}~\\~\\
 \end{subfigure}
 \captionsetup{width=0.9\linewidth}
 \caption{UBE posterior and regret on WideNarrow.}\label{ube_widenarrow_visual1}
@@ -638,10 +669,10 @@ We chose these hyperparameters because they give $Q^*$-values in a reasonable ra
 \centering
 \vspace{-1cm}
 \begin{subfigure}{0.65\textwidth}
-\includegraphics[width=\linewidth]{img/ube-0_0-1_0-2_0-2_0-0_1-posterior-widenarrow-1-6.pdf}
+\includegraphics[width=\linewidth]{img/ube-0_0-4_0-3_0-3_0-0_1-posterior-widenarrow-1-6.pdf}
 \end{subfigure}
 \begin{subfigure}{0.34\textwidth}
-\includegraphics[width=\linewidth]{img/ube-0_0-1_0-2_0-2_0-0_1-regret-widenarrow-1-6.pdf}~\\~\\
+\includegraphics[width=\linewidth]{img/ube-0_0-4_0-3_0-3_0-0_1-regret-widenarrow-1-6.pdf}~\\~\\
 \end{subfigure}
 \captionsetup{width=0.9\linewidth}
 \caption{UBE posterior and regret on WideNarrow.}\label{ube_widenarrow_visual01}
@@ -650,10 +681,10 @@ We chose these hyperparameters because they give $Q^*$-values in a reasonable ra
 \begin{figure}[h!]
 \centering
 \begin{subfigure}{0.65\textwidth}
-\includegraphics[width=\linewidth]{img/mm-0_0-1_0-2_0-2_0-1_0-posterior-widenarrow-1-6.pdf}
+\includegraphics[width=\linewidth]{img/mm-0_0-4_0-3_0-3_0-1_0-posterior-widenarrow-1-6.pdf}
 \end{subfigure}
 \begin{subfigure}{0.34\textwidth}
-\includegraphics[width=\linewidth]{img/mm-0_0-1_0-2_0-2_0-1_0-regret-widenarrow-1-6.pdf}~\\~\\
+\includegraphics[width=\linewidth]{img/mm-0_0-4_0-3_0-3_0-1_0-regret-widenarrow-1-6.pdf}~\\~\\
 \end{subfigure}
 \captionsetup{width=0.9\linewidth}
 \caption{MM posterior and regret on WideNarrow.}\label{mm_widenarrow_visual}
@@ -664,49 +695,49 @@ We chose these hyperparameters because they give $Q^*$-values in a reasonable ra
 \begin{figure}[h!]
 \centering
 \begin{subfigure}{1.0\textwidth}
-\includegraphics[width=\linewidth]{img/bql-0_0-1_0-2_0-2_0-scatter-widenarrow-1-6-500.pdf}
+\includegraphics[width=\linewidth]{img/bql-0_0-4_0-3_0-3_0-scatter-widenarrow-1-6-1000.pdf}
 \end{subfigure}\\
 ~\\
 ~\\
 \begin{subfigure}{1.0\textwidth}
-\includegraphics[width=\linewidth]{img/psrl-0_0-1_0-2_0-2_0-scatter-widenarrow-1-6-500.pdf}
+\includegraphics[width=\linewidth]{img/psrl-0_0-4_0-3_0-3_0-scatter-widenarrow-1-6-1000.pdf}
 \end{subfigure}\\
 ~\\
 ~\\
 \begin{subfigure}{1.0\textwidth}
-\includegraphics[width=\linewidth]{img/ube-0_0-1_0-2_0-2_0-0_1-scatter-widenarrow-1-6-500.pdf}
+\includegraphics[width=\linewidth]{img/ube-0_0-4_0-3_0-3_0-0_1-scatter-widenarrow-1-6-1000.pdf}
 \end{subfigure}\\
 ~\\
 ~\\
 \begin{subfigure}{1.0\textwidth}
-\includegraphics[width=\linewidth]{img/mm-0_0-1_0-2_0-2_0-1_0-scatter-widenarrow-1-6-500.pdf}
+\includegraphics[width=\linewidth]{img/mm-0_0-4_0-3_0-3_0-1_0-scatter-widenarrow-1-6-1000.pdf}
 \end{subfigure}\\
 \captionsetup{width=0.9\linewidth}
-\caption{Correlation plots for WideNarrow at time step $t = 500$.}\label{correlations_widenarrow_500}
+\caption{Correlation plots for WideNarrow at time step $t = 1,000$.}\label{correlations_widenarrow_500}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \begin{subfigure}{1.0\textwidth}
-\includegraphics[width=\linewidth]{img/bql-0_0-1_0-2_0-2_0-scatter-widenarrow-1-6-2500.pdf}
+\includegraphics[width=\linewidth]{img/bql-0_0-4_0-3_0-3_0-scatter-widenarrow-1-6-5000.pdf}
 \end{subfigure}\\
 ~\\
 ~\\
 \begin{subfigure}{1.0\textwidth}
-\includegraphics[width=\linewidth]{img/psrl-0_0-1_0-2_0-2_0-scatter-widenarrow-1-6-2500.pdf}
+\includegraphics[width=\linewidth]{img/psrl-0_0-4_0-3_0-3_0-scatter-widenarrow-1-6-5000.pdf}
 \end{subfigure}\\
 ~\\
 ~\\
 \begin{subfigure}{1.0\textwidth}
-\includegraphics[width=\linewidth]{img/ube-0_0-1_0-2_0-2_0-0_1-scatter-widenarrow-1-6-2500.pdf}
+\includegraphics[width=\linewidth]{img/ube-0_0-4_0-3_0-3_0-0_1-scatter-widenarrow-1-6-5000.pdf}
 \end{subfigure}\\
 ~\\
 ~\\
 \begin{subfigure}{1.0\textwidth}
-\includegraphics[width=\linewidth]{img/mm-0_0-1_0-2_0-2_0-1_0-scatter-widenarrow-1-6-2500.pdf}
+\includegraphics[width=\linewidth]{img/mm-0_0-4_0-3_0-3_0-1_0-scatter-widenarrow-1-6-5000.pdf}
 \end{subfigure}\\
 \captionsetup{width=0.9\linewidth}
-\caption{Correlation plots for WideNarrow at time step $t = 2,500$.}\label{correlations_widenarrow_2500}
+\caption{Correlation plots for WideNarrow at time step $t = 5,000$.}\label{correlations_widenarrow_2500}
 \end{figure}
 
 % ============================================================
@@ -733,10 +764,10 @@ We chose these hyperparameters because they give $Q^*$-values in a reasonable ra
 \begin{figure}[h!]
 \centering
 \begin{subfigure}{0.65\textwidth}
-\includegraphics[width=\linewidth]{img/bql-0_0-1_0-2_0-2_0-posterior-priormdp-4-2.pdf}
+\includegraphics[width=\linewidth]{img/bql-0_0-4_0-3_0-3_0-posterior-priormdp-4-2.pdf}
 \end{subfigure}
 \begin{subfigure}{0.34\textwidth}
-\includegraphics[width=\linewidth]{img/bql-0_0-1_0-2_0-2_0-regret-priormdp-4-2.pdf}~\\~\\
+\includegraphics[width=\linewidth]{img/bql-0_0-4_0-3_0-3_0-regret-priormdp-4-2.pdf}~\\~\\
 \end{subfigure}
 \captionsetup{width=0.9\linewidth}
 \caption{BQL posterior and regret on PriorMDP.}\label{bql_priormdp_visual}
@@ -745,10 +776,10 @@ We chose these hyperparameters because they give $Q^*$-values in a reasonable ra
 \begin{figure}[h!]
 \centering
 \begin{subfigure}{0.65\textwidth}
-\includegraphics[width=\linewidth]{img/psrl-0_0-1_0-2_0-2_0-posterior-priormdp-4-2.pdf}
+\includegraphics[width=\linewidth]{img/psrl-0_0-4_0-3_0-3_0-posterior-priormdp-4-2.pdf}
 \end{subfigure}
 \begin{subfigure}{0.34\textwidth}
-\includegraphics[width=\linewidth]{img/psrl-0_0-1_0-2_0-2_0-regret-priormdp-4-2.pdf}~\\~\\
+\includegraphics[width=\linewidth]{img/psrl-0_0-4_0-3_0-3_0-regret-priormdp-4-2.pdf}~\\~\\
 \end{subfigure}
 \captionsetup{width=0.9\linewidth}
 \caption{PSRL posterior and regret on PriorMDP.}\label{psrl_priormdp_visual}
@@ -757,10 +788,10 @@ We chose these hyperparameters because they give $Q^*$-values in a reasonable ra
 \begin{figure}[h!]
 \centering
 \begin{subfigure}{0.65\textwidth}
-\includegraphics[width=\linewidth]{img/ube-0_0-1_0-2_0-2_0-1_0-posterior-priormdp-4-2.pdf}
+\includegraphics[width=\linewidth]{img/ube-0_0-4_0-3_0-3_0-1_0-posterior-priormdp-4-2.pdf}
 \end{subfigure}
 \begin{subfigure}{0.34\textwidth}
-\includegraphics[width=\linewidth]{img/ube-0_0-1_0-2_0-2_0-1_0-regret-priormdp-4-2.pdf}~\\~\\
+\includegraphics[width=\linewidth]{img/ube-0_0-4_0-3_0-3_0-1_0-regret-priormdp-4-2.pdf}~\\~\\
 \end{subfigure}
 \captionsetup{width=0.9\linewidth}
 \caption{UBE posterior and regret on PriorMDP.}\label{ube_priormdp_visual1}
@@ -769,10 +800,10 @@ We chose these hyperparameters because they give $Q^*$-values in a reasonable ra
 \begin{figure}[h!]
 \centering
 \begin{subfigure}{0.65\textwidth}
-\includegraphics[width=\linewidth]{img/ube-0_0-1_0-2_0-2_0-0_1-posterior-priormdp-4-2.pdf}
+\includegraphics[width=\linewidth]{img/ube-0_0-4_0-3_0-3_0-0_1-posterior-priormdp-4-2.pdf}
 \end{subfigure}
 \begin{subfigure}{0.34\textwidth}
-\includegraphics[width=\linewidth]{img/ube-0_0-1_0-2_0-2_0-0_1-regret-priormdp-4-2.pdf}~\\~\\
+\includegraphics[width=\linewidth]{img/ube-0_0-4_0-3_0-3_0-0_1-regret-priormdp-4-2.pdf}~\\~\\
 \end{subfigure}
 \captionsetup{width=0.9\linewidth}
 \caption{UBE posterior and regret on PriorMDP.}\label{ube_priormdp_visual1}
@@ -781,10 +812,10 @@ We chose these hyperparameters because they give $Q^*$-values in a reasonable ra
 \begin{figure}[h!]
 \centering
 \begin{subfigure}{0.65\textwidth}
-\includegraphics[width=\linewidth]{img/mm-0_0-1_0-2_0-2_0-1_0-posterior-priormdp-4-2.pdf}
+\includegraphics[width=\linewidth]{img/mm-0_0-4_0-3_0-3_0-1_0-posterior-priormdp-4-2.pdf}
 \end{subfigure}
 \begin{subfigure}{0.34\textwidth}
-\includegraphics[width=\linewidth]{img/mm-0_0-1_0-2_0-2_0-1_0-regret-priormdp-4-2.pdf}~\\~\\
+\includegraphics[width=\linewidth]{img/mm-0_0-4_0-3_0-3_0-1_0-regret-priormdp-4-2.pdf}~\\~\\
 \end{subfigure}
 \captionsetup{width=0.9\linewidth}
 \caption{MM posterior and regret on PriorMDP.}\label{mm_priormdp_visual}
@@ -796,49 +827,49 @@ We chose these hyperparameters because they give $Q^*$-values in a reasonable ra
 \begin{figure}[h!]
 \centering
 \begin{subfigure}{1.0\textwidth}
-\includegraphics[width=\linewidth]{img/bql-0_0-1_0-2_0-2_0-scatter-priormdp-4-2-500.pdf}
+\includegraphics[width=\linewidth]{img/bql-0_0-4_0-3_0-3_0-scatter-priormdp-4-2-1000.pdf}
 \end{subfigure}\\
 ~\\
 ~\\
 \begin{subfigure}{1.0\textwidth}
-\includegraphics[width=\linewidth]{img/psrl-0_0-1_0-2_0-2_0-scatter-priormdp-4-2-500.pdf}
+\includegraphics[width=\linewidth]{img/psrl-0_0-4_0-3_0-3_0-scatter-priormdp-4-2-1000.pdf}
 \end{subfigure}\\
 ~\\
 ~\\
 \begin{subfigure}{1.0\textwidth}
-\includegraphics[width=\linewidth]{img/ube-0_0-1_0-2_0-2_0-0_1-scatter-priormdp-4-2-500.pdf}
+\includegraphics[width=\linewidth]{img/ube-0_0-4_0-3_0-3_0-0_1-scatter-priormdp-4-2-1000.pdf}
 \end{subfigure}\\
 ~\\
 ~\\
 \begin{subfigure}{1.0\textwidth}
-\includegraphics[width=\linewidth]{img/mm-0_0-1_0-2_0-2_0-1_0-scatter-priormdp-4-2-500.pdf}
+\includegraphics[width=\linewidth]{img/mm-0_0-4_0-3_0-3_0-1_0-scatter-priormdp-4-2-1000.pdf}
 \end{subfigure}\\
 \captionsetup{width=0.9\linewidth}
-\caption{Correlation plots for PriorMDP at time step $t = 500$.}\label{correlations_priormdp_500}
+\caption{Correlation plots for PriorMDP at time step $t = 1,000$.}\label{correlations_priormdp_500}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \begin{subfigure}{1.0\textwidth}
-\includegraphics[width=\linewidth]{img/bql-0_0-1_0-2_0-2_0-scatter-priormdp-4-2-2500.pdf}
+\includegraphics[width=\linewidth]{img/bql-0_0-4_0-3_0-3_0-scatter-priormdp-4-2-5000.pdf}
 \end{subfigure}\\
 ~\\
 ~\\
 \begin{subfigure}{1.0\textwidth}
-\includegraphics[width=\linewidth]{img/psrl-0_0-1_0-2_0-2_0-scatter-priormdp-4-2-2500.pdf}
+\includegraphics[width=\linewidth]{img/psrl-0_0-4_0-3_0-3_0-scatter-priormdp-4-2-5000.pdf}
 \end{subfigure}\\
 ~\\
 ~\\
 \begin{subfigure}{1.0\textwidth}
-\includegraphics[width=\linewidth]{img/ube-0_0-1_0-2_0-2_0-0_1-scatter-priormdp-4-2-2500.pdf}
+\includegraphics[width=\linewidth]{img/ube-0_0-4_0-3_0-3_0-0_1-scatter-priormdp-4-2-5000.pdf}
 \end{subfigure}\\
 ~\\
 ~\\
 \begin{subfigure}{1.0\textwidth}
-\includegraphics[width=\linewidth]{img/mm-0_0-1_0-2_0-2_0-1_0-scatter-priormdp-4-2-2500.pdf}
+\includegraphics[width=\linewidth]{img/mm-0_0-4_0-3_0-3_0-1_0-scatter-priormdp-4-2-5000.pdf}
 \end{subfigure}\\
 \captionsetup{width=0.9\linewidth}
-\caption{Correlation plots for PriorMDP at time step $t = 2,500$.}\label{correlations_priormdp_2500}
+\caption{Correlation plots for PriorMDP at time step $t = 5,000$.}\label{correlations_priormdp_2500}
 \end{figure}
 
 \end{appendices}

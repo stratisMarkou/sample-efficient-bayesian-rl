@@ -185,7 +185,7 @@ def load_agent(environment, agent, seed):
     return agent
 
 
-def get_agent_and_oracle_regret(environment, agent, seeds, num_time_steps, max_iter):
+def get_agent_regret(environment, agent, seeds, num_time_steps, max_iter):
 
     agent_rs, oracle_rs = [], []
     for seed in seeds:
