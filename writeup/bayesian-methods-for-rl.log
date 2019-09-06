@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2019.4.10)  3 SEP 2019 17:55
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2019.4.10)  6 SEP 2019 19:12
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -741,7 +741,14 @@ Package microtype Info: Loading configuration file microtype.cfg.
 File: microtype.cfg 2018/01/14 v2.7a microtype main configuration file (RS)
 ))
 (/usr/local/texlive/2018/texmf-dist/tex/generic/bibtex/apalike.sty)
-(./bayesian-methods-for-rl.aux)
+(./bayesian-methods-for-rl.aux
+
+LaTeX Warning: Label `ube_priormdp_visual1' multiply defined.
+
+
+LaTeX Warning: Label `ube_priormdp_visual1@cref' multiply defined.
+
+)
 \openout1 = `bayesian-methods-for-rl.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 71.
@@ -759,8 +766,7 @@ LaTeX Font Info:    ... okay on input line 71.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 71.
 LaTeX Font Info:    ... okay on input line 71.
 LaTeX Font Info:    Try loading font information for T1+ptm on input line 71.
-
-(/usr/local/texlive/2018/texmf-dist/tex/latex/psnfss/t1ptm.fd
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/psnfss/t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 )
 Package caption Info: Begin \AtBeginDocument code.
@@ -906,18 +912,12 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `phv' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
- [1
-
-
-{/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <17.28> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 83.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/microtype/mt-cmr.cfg
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
 (RS)
 )
-LaTeX Font Info:    Try loading font information for U+msa on input line 83.
+LaTeX Font Info:    Try loading font information for U+msa on input line 88.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
@@ -925,17 +925,22 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (/usr/local/texlive/2018/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 83.
+LaTeX Font Info:    Try loading font information for U+msb on input line 88.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 (/usr/local/texlive/2018/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
-)
+) [1
+
+
+{/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <17.28> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 97.
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 83.
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 83.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 97.
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 97.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
@@ -945,7 +950,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 85.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 99.
  [2
 
 ] [3] [4]
@@ -953,33 +958,893 @@ LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
 
 ]
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <20.74> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 167.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 189.
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 198.
+put line 220.
  [7
 
 ] [8] [9] [10] [11
 
 ] [12]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 475.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 475.
+<img/ql-0_5-qestimates-deepsea-4.pdf, id=370, 714.8927pt x 429.3641pt>
+File: img/ql-0_5-qestimates-deepsea-4.pdf Graphic file (type pdf)
+<use img/ql-0_5-qestimates-deepsea-4.pdf>
+Package pdftex.def Info: img/ql-0_5-qestimates-deepsea-4.pdf  used on input lin
+e 503.
+(pdftex.def)             Requested size: 258.36281pt x 155.17369pt.
+<img/ql-0_5-regret-deepsea-4.pdf, id=371, 413.60461pt x 441.81061pt>
+File: img/ql-0_5-regret-deepsea-4.pdf Graphic file (type pdf)
+<use img/ql-0_5-regret-deepsea-4.pdf>
+Package pdftex.def Info: img/ql-0_5-regret-deepsea-4.pdf  used on input line 50
+6.
+(pdftex.def)             Requested size: 135.14343pt x 144.36201pt.
 
-(./bayesian-methods-for-rl.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 475.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 475.
+Underfull \hbox (badness 10000) in paragraph at lines 506--507
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 506--507
+
+ []
+
+<img/bql-0_0-1_0-2_0-2_0-posterior-deepsea-4.pdf, id=372, 715.89644pt x 429.364
+1pt>
+File: img/bql-0_0-1_0-2_0-2_0-posterior-deepsea-4.pdf Graphic file (type pdf)
+<use img/bql-0_0-1_0-2_0-2_0-posterior-deepsea-4.pdf>
+Package pdftex.def Info: img/bql-0_0-1_0-2_0-2_0-posterior-deepsea-4.pdf  used 
+on input line 515.
+(pdftex.def)             Requested size: 258.36281pt x 154.95749pt.
+<img/bql-0_0-1_0-2_0-2_0-regret-deepsea-4.pdf, id=373, 434.05602pt x 441.81061p
+t>
+File: img/bql-0_0-1_0-2_0-2_0-regret-deepsea-4.pdf Graphic file (type pdf)
+<use img/bql-0_0-1_0-2_0-2_0-regret-deepsea-4.pdf>
+Package pdftex.def Info: img/bql-0_0-1_0-2_0-2_0-regret-deepsea-4.pdf  used on 
+input line 518.
+(pdftex.def)             Requested size: 135.14343pt x 137.55986pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 518--519
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 518--519
+
+ []
+
+<img/psrl-0_0-1_0-2_0-2_0-posterior-deepsea-4.pdf, id=374, 714.53197pt x 429.36
+41pt>
+File: img/psrl-0_0-1_0-2_0-2_0-posterior-deepsea-4.pdf Graphic file (type pdf)
+<use img/psrl-0_0-1_0-2_0-2_0-posterior-deepsea-4.pdf>
+Package pdftex.def Info: img/psrl-0_0-1_0-2_0-2_0-posterior-deepsea-4.pdf  used
+ on input line 527.
+(pdftex.def)             Requested size: 258.36281pt x 155.25232pt.
+<img/psrl-0_0-1_0-2_0-2_0-regret-deepsea-4.pdf, id=375, 434.05602pt x 441.81061
+pt>
+File: img/psrl-0_0-1_0-2_0-2_0-regret-deepsea-4.pdf Graphic file (type pdf)
+<use img/psrl-0_0-1_0-2_0-2_0-regret-deepsea-4.pdf>
+Package pdftex.def Info: img/psrl-0_0-1_0-2_0-2_0-regret-deepsea-4.pdf  used on
+ input line 530.
+(pdftex.def)             Requested size: 135.14343pt x 137.55986pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 530--531
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 530--531
+
+ []
+
+<img/ube-0_0-1_0-2_0-2_0-1_0-posterior-deepsea-4.pdf, id=376, 715.92781pt x 429
+.3641pt>
+File: img/ube-0_0-1_0-2_0-2_0-1_0-posterior-deepsea-4.pdf Graphic file (type pd
+f)
+<use img/ube-0_0-1_0-2_0-2_0-1_0-posterior-deepsea-4.pdf>
+Package pdftex.def Info: img/ube-0_0-1_0-2_0-2_0-1_0-posterior-deepsea-4.pdf  u
+sed on input line 539.
+(pdftex.def)             Requested size: 258.36281pt x 154.95094pt.
+<img/ube-0_0-1_0-2_0-2_0-1_0-regret-deepsea-4.pdf, id=377, 434.05602pt x 442.73
+279pt>
+File: img/ube-0_0-1_0-2_0-2_0-1_0-regret-deepsea-4.pdf Graphic file (type pdf)
+<use img/ube-0_0-1_0-2_0-2_0-1_0-regret-deepsea-4.pdf>
+Package pdftex.def Info: img/ube-0_0-1_0-2_0-2_0-1_0-regret-deepsea-4.pdf  used
+ on input line 542.
+(pdftex.def)             Requested size: 135.14343pt x 137.84698pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 542--543
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 542--543
+
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<img/ube-0_0-1_0-2_0-2_0-0_1-posterior-deepsea-4.pdf, id=378, 715.92781pt x 429
+.3641pt>
+File: img/ube-0_0-1_0-2_0-2_0-0_1-posterior-deepsea-4.pdf Graphic file (type pd
+f)
+<use img/ube-0_0-1_0-2_0-2_0-0_1-posterior-deepsea-4.pdf>
+Package pdftex.def Info: img/ube-0_0-1_0-2_0-2_0-0_1-posterior-deepsea-4.pdf  u
+sed on input line 552.
+(pdftex.def)             Requested size: 258.36281pt x 154.95094pt.
+<img/ube-0_0-1_0-2_0-2_0-0_1-regret-deepsea-4.pdf, id=379, 434.05602pt x 442.73
+279pt>
+File: img/ube-0_0-1_0-2_0-2_0-0_1-regret-deepsea-4.pdf Graphic file (type pdf)
+<use img/ube-0_0-1_0-2_0-2_0-0_1-regret-deepsea-4.pdf>
+Package pdftex.def Info: img/ube-0_0-1_0-2_0-2_0-0_1-regret-deepsea-4.pdf  used
+ on input line 555.
+(pdftex.def)             Requested size: 135.14343pt x 137.84698pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 555--556
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 555--556
+
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<img/ube-uncertainty-terms.pdf, id=380, 781.7018pt x 388.09366pt>
+File: img/ube-uncertainty-terms.pdf Graphic file (type pdf)
+<use img/ube-uncertainty-terms.pdf>
+Package pdftex.def Info: img/ube-uncertainty-terms.pdf  used on input line 564.
+
+(pdftex.def)             Requested size: 278.23827pt x 138.1384pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<img/mm-0_0-1_0-2_0-2_0-1_0-posterior-deepsea-4.pdf, id=383, 715.89644pt x 429.
+3641pt>
+File: img/mm-0_0-1_0-2_0-2_0-1_0-posterior-deepsea-4.pdf Graphic file (type pdf
+)
+<use img/mm-0_0-1_0-2_0-2_0-1_0-posterior-deepsea-4.pdf>
+Package pdftex.def Info: img/mm-0_0-1_0-2_0-2_0-1_0-posterior-deepsea-4.pdf  us
+ed on input line 573.
+(pdftex.def)             Requested size: 258.36281pt x 154.95749pt.
+<img/mm-0_0-1_0-2_0-2_0-1_0-regret-deepsea-4.pdf, id=384, 434.05602pt x 442.732
+79pt>
+File: img/mm-0_0-1_0-2_0-2_0-1_0-regret-deepsea-4.pdf Graphic file (type pdf)
+<use img/mm-0_0-1_0-2_0-2_0-1_0-regret-deepsea-4.pdf>
+Package pdftex.def Info: img/mm-0_0-1_0-2_0-2_0-1_0-regret-deepsea-4.pdf  used 
+on input line 576.
+(pdftex.def)             Requested size: 135.14343pt x 137.84698pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 576--577
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 576--577
+
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[13
+
+ <./img/ql-0_5-qestimates-deepsea-4.pdf> <./img/ql-0_5-regret-deepsea-4.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/ql-0_5-regret-deepsea-
+4.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+> <./img/bql-0_0-1_0-2_0-2_0-posterior-deepsea-4.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/bql-0_0-1_0-2_0-2_0-po
+sterior-deepsea-4.pdf): PDF inclusion: multiple pdfs with page group included i
+n a single page
+> <./img/bql-0_0-1_0-2_0-2_0-regret-deepsea-4.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/bql-0_0-1_0-2_0-2_0-re
+gret-deepsea-4.pdf): PDF inclusion: multiple pdfs with page group included in a
+ single page
+> <./img/psrl-0_0-1_0-2_0-2_0-posterior-deepsea-4.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/psrl-0_0-1_0-2_0-2_0-p
+osterior-deepsea-4.pdf): PDF inclusion: multiple pdfs with page group included 
+in a single page
+> <./img/psrl-0_0-1_0-2_0-2_0-regret-deepsea-4.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/psrl-0_0-1_0-2_0-2_0-r
+egret-deepsea-4.pdf): PDF inclusion: multiple pdfs with page group included in 
+a single page
+>] [14 <./img/ube-0_0-1_0-2_0-2_0-1_0-posterior-deepsea-4.pdf> <./img/ube-0_0-1
+_0-2_0-2_0-1_0-regret-deepsea-4.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/ube-0_0-1_0-2_0-2_0-1_
+0-regret-deepsea-4.pdf): PDF inclusion: multiple pdfs with page group included 
+in a single page
+> <./img/ube-0_0-1_0-2_0-2_0-0_1-posterior-deepsea-4.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/ube-0_0-1_0-2_0-2_0-0_
+1-posterior-deepsea-4.pdf): PDF inclusion: multiple pdfs with page group includ
+ed in a single page
+> <./img/ube-0_0-1_0-2_0-2_0-0_1-regret-deepsea-4.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/ube-0_0-1_0-2_0-2_0-0_
+1-regret-deepsea-4.pdf): PDF inclusion: multiple pdfs with page group included 
+in a single page
+> <./img/ube-uncertainty-terms.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/ube-uncertainty-terms.
+pdf): PDF inclusion: multiple pdfs with page group included in a single page
+>] [15 <./img/mm-0_0-1_0-2_0-2_0-1_0-posterior-deepsea-4.pdf> <./img/mm-0_0-1_0
+-2_0-2_0-1_0-regret-deepsea-4.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/mm-0_0-1_0-2_0-2_0-1_0
+-regret-deepsea-4.pdf): PDF inclusion: multiple pdfs with page group included i
+n a single page
+>]
+<img/ql-0_2-qestimates-widenarrow-1-6.pdf, id=1071, 859.55817pt x 287.71492pt>
+File: img/ql-0_2-qestimates-widenarrow-1-6.pdf Graphic file (type pdf)
+<use img/ql-0_2-qestimates-widenarrow-1-6.pdf>
+Package pdftex.def Info: img/ql-0_2-qestimates-widenarrow-1-6.pdf  used on inpu
+t line 592.
+(pdftex.def)             Requested size: 258.36281pt x 86.48196pt.
+<img/ql-0_2-regret-widenarrow-1-6.pdf, id=1072, 413.60461pt x 441.81061pt>
+File: img/ql-0_2-regret-widenarrow-1-6.pdf Graphic file (type pdf)
+<use img/ql-0_2-regret-widenarrow-1-6.pdf>
+Package pdftex.def Info: img/ql-0_2-regret-widenarrow-1-6.pdf  used on input li
+ne 595.
+(pdftex.def)             Requested size: 135.14343pt x 144.36201pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 595--596
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 595--596
+
+ []
+
+<img/bql-1_5-1_0-2_0-2_0-posterior-widenarrow-1-6.pdf, id=1073, 860.56192pt x 2
+87.71492pt>
+File: img/bql-1_5-1_0-2_0-2_0-posterior-widenarrow-1-6.pdf Graphic file (type p
+df)
+<use img/bql-1_5-1_0-2_0-2_0-posterior-widenarrow-1-6.pdf>
+Package pdftex.def Info: img/bql-1_5-1_0-2_0-2_0-posterior-widenarrow-1-6.pdf  
+used on input line 604.
+(pdftex.def)             Requested size: 258.36281pt x 86.38098pt.
+<img/bql-1_5-1_0-2_0-2_0-regret-widenarrow-1-6.pdf, id=1074, 434.05602pt x 441.
+81061pt>
+File: img/bql-1_5-1_0-2_0-2_0-regret-widenarrow-1-6.pdf Graphic file (type pdf)
+
+<use img/bql-1_5-1_0-2_0-2_0-regret-widenarrow-1-6.pdf>
+Package pdftex.def Info: img/bql-1_5-1_0-2_0-2_0-regret-widenarrow-1-6.pdf  use
+d on input line 607.
+(pdftex.def)             Requested size: 135.14343pt x 137.55986pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 607--608
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 607--608
+
+ []
+
+<img/psrl-0_0-1_0-2_0-2_0-posterior-widenarrow-1-6.pdf, id=1075, 858.09334pt x 
+287.71492pt>
+File: img/psrl-0_0-1_0-2_0-2_0-posterior-widenarrow-1-6.pdf Graphic file (type 
+pdf)
+<use img/psrl-0_0-1_0-2_0-2_0-posterior-widenarrow-1-6.pdf>
+Package pdftex.def Info: img/psrl-0_0-1_0-2_0-2_0-posterior-widenarrow-1-6.pdf 
+ used on input line 616.
+(pdftex.def)             Requested size: 258.36281pt x 86.62683pt.
+<img/psrl-0_0-1_0-2_0-2_0-regret-widenarrow-1-6.pdf, id=1076, 434.05602pt x 441
+.81061pt>
+File: img/psrl-0_0-1_0-2_0-2_0-regret-widenarrow-1-6.pdf Graphic file (type pdf
+)
+<use img/psrl-0_0-1_0-2_0-2_0-regret-widenarrow-1-6.pdf>
+Package pdftex.def Info: img/psrl-0_0-1_0-2_0-2_0-regret-widenarrow-1-6.pdf  us
+ed on input line 619.
+(pdftex.def)             Requested size: 135.14343pt x 137.55986pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 619--620
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 619--620
+
+ []
+
+<img/ube-0_0-1_0-2_0-2_0-1_0-posterior-widenarrow-1-6.pdf, id=1077, 857.92204pt
+ x 287.71492pt>
+File: img/ube-0_0-1_0-2_0-2_0-1_0-posterior-widenarrow-1-6.pdf Graphic file (ty
+pe pdf)
+<use img/ube-0_0-1_0-2_0-2_0-1_0-posterior-widenarrow-1-6.pdf>
+Package pdftex.def Info: img/ube-0_0-1_0-2_0-2_0-1_0-posterior-widenarrow-1-6.p
+df  used on input line 628.
+(pdftex.def)             Requested size: 258.36281pt x 86.6444pt.
+<img/ube-0_0-1_0-2_0-2_0-1_0-regret-widenarrow-1-6.pdf, id=1078, 434.05602pt x 
+442.73279pt>
+File: img/ube-0_0-1_0-2_0-2_0-1_0-regret-widenarrow-1-6.pdf Graphic file (type 
+pdf)
+<use img/ube-0_0-1_0-2_0-2_0-1_0-regret-widenarrow-1-6.pdf>
+Package pdftex.def Info: img/ube-0_0-1_0-2_0-2_0-1_0-regret-widenarrow-1-6.pdf 
+ used on input line 631.
+(pdftex.def)             Requested size: 135.14343pt x 137.84698pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 631--632
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 631--632
+
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<img/ube-0_0-1_0-2_0-2_0-0_1-posterior-widenarrow-1-6.pdf, id=1079, 857.92204pt
+ x 287.71492pt>
+File: img/ube-0_0-1_0-2_0-2_0-0_1-posterior-widenarrow-1-6.pdf Graphic file (ty
+pe pdf)
+<use img/ube-0_0-1_0-2_0-2_0-0_1-posterior-widenarrow-1-6.pdf>
+Package pdftex.def Info: img/ube-0_0-1_0-2_0-2_0-0_1-posterior-widenarrow-1-6.p
+df  used on input line 641.
+(pdftex.def)             Requested size: 258.36281pt x 86.6444pt.
+<img/ube-0_0-1_0-2_0-2_0-0_1-regret-widenarrow-1-6.pdf, id=1080, 434.05602pt x 
+442.73279pt>
+File: img/ube-0_0-1_0-2_0-2_0-0_1-regret-widenarrow-1-6.pdf Graphic file (type 
+pdf)
+<use img/ube-0_0-1_0-2_0-2_0-0_1-regret-widenarrow-1-6.pdf>
+Package pdftex.def Info: img/ube-0_0-1_0-2_0-2_0-0_1-regret-widenarrow-1-6.pdf 
+ used on input line 644.
+(pdftex.def)             Requested size: 135.14343pt x 137.84698pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 644--645
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 644--645
+
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<img/mm-0_0-1_0-2_0-2_0-1_0-posterior-widenarrow-1-6.pdf, id=1081, 857.92204pt 
+x 287.71492pt>
+File: img/mm-0_0-1_0-2_0-2_0-1_0-posterior-widenarrow-1-6.pdf Graphic file (typ
+e pdf)
+<use img/mm-0_0-1_0-2_0-2_0-1_0-posterior-widenarrow-1-6.pdf>
+Package pdftex.def Info: img/mm-0_0-1_0-2_0-2_0-1_0-posterior-widenarrow-1-6.pd
+f  used on input line 653.
+(pdftex.def)             Requested size: 258.36281pt x 86.6444pt.
+<img/mm-0_0-1_0-2_0-2_0-1_0-regret-widenarrow-1-6.pdf, id=1082, 434.05602pt x 4
+42.73279pt>
+File: img/mm-0_0-1_0-2_0-2_0-1_0-regret-widenarrow-1-6.pdf Graphic file (type p
+df)
+<use img/mm-0_0-1_0-2_0-2_0-1_0-regret-widenarrow-1-6.pdf>
+Package pdftex.def Info: img/mm-0_0-1_0-2_0-2_0-1_0-regret-widenarrow-1-6.pdf  
+used on input line 656.
+(pdftex.def)             Requested size: 135.14343pt x 137.84698pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 656--657
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 656--657
+
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[16
+
+ <./img/ql-0_2-qestimates-widenarrow-1-6.pdf> <./img/ql-0_2-regret-widenarrow-1
+-6.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/ql-0_2-regret-widenarr
+ow-1-6.pdf): PDF inclusion: multiple pdfs with page group included in a single 
+page
+> <./img/bql-1_5-1_0-2_0-2_0-posterior-widenarrow-1-6.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/bql-1_5-1_0-2_0-2_0-po
+sterior-widenarrow-1-6.pdf): PDF inclusion: multiple pdfs with page group inclu
+ded in a single page
+> <./img/bql-1_5-1_0-2_0-2_0-regret-widenarrow-1-6.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/bql-1_5-1_0-2_0-2_0-re
+gret-widenarrow-1-6.pdf): PDF inclusion: multiple pdfs with page group included
+ in a single page
+> <./img/psrl-0_0-1_0-2_0-2_0-posterior-widenarrow-1-6.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/psrl-0_0-1_0-2_0-2_0-p
+osterior-widenarrow-1-6.pdf): PDF inclusion: multiple pdfs with page group incl
+uded in a single page
+> <./img/psrl-0_0-1_0-2_0-2_0-regret-widenarrow-1-6.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/psrl-0_0-1_0-2_0-2_0-r
+egret-widenarrow-1-6.pdf): PDF inclusion: multiple pdfs with page group include
+d in a single page
+>] [17 <./img/ube-0_0-1_0-2_0-2_0-1_0-posterior-widenarrow-1-6.pdf> <./img/ube-
+0_0-1_0-2_0-2_0-1_0-regret-widenarrow-1-6.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/ube-0_0-1_0-2_0-2_0-1_
+0-regret-widenarrow-1-6.pdf): PDF inclusion: multiple pdfs with page group incl
+uded in a single page
+> <./img/ube-0_0-1_0-2_0-2_0-0_1-posterior-widenarrow-1-6.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/ube-0_0-1_0-2_0-2_0-0_
+1-posterior-widenarrow-1-6.pdf): PDF inclusion: multiple pdfs with page group i
+ncluded in a single page
+> <./img/ube-0_0-1_0-2_0-2_0-0_1-regret-widenarrow-1-6.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/ube-0_0-1_0-2_0-2_0-0_
+1-regret-widenarrow-1-6.pdf): PDF inclusion: multiple pdfs with page group incl
+uded in a single page
+> <./img/mm-0_0-1_0-2_0-2_0-1_0-posterior-widenarrow-1-6.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/mm-0_0-1_0-2_0-2_0-1_0
+-posterior-widenarrow-1-6.pdf): PDF inclusion: multiple pdfs with page group in
+cluded in a single page
+> <./img/mm-0_0-1_0-2_0-2_0-1_0-regret-widenarrow-1-6.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/mm-0_0-1_0-2_0-2_0-1_0
+-regret-widenarrow-1-6.pdf): PDF inclusion: multiple pdfs with page group inclu
+ded in a single page
+>]
+<img/bql-0_0-1_0-2_0-2_0-scatter-widenarrow-1-6-500.pdf, id=1729, 909.07758pt x
+ 323.12721pt>
+File: img/bql-0_0-1_0-2_0-2_0-scatter-widenarrow-1-6-500.pdf Graphic file (type
+ pdf)
+<use img/bql-0_0-1_0-2_0-2_0-scatter-widenarrow-1-6-500.pdf>
+Package pdftex.def Info: img/bql-0_0-1_0-2_0-2_0-scatter-widenarrow-1-6-500.pdf
+  used on input line 667.
+(pdftex.def)             Requested size: 397.48499pt x 141.28398pt.
+<img/psrl-0_0-1_0-2_0-2_0-scatter-widenarrow-1-6-500.pdf, id=1730, 909.07758pt 
+x 323.12721pt>
+File: img/psrl-0_0-1_0-2_0-2_0-scatter-widenarrow-1-6-500.pdf Graphic file (typ
+e pdf)
+<use img/psrl-0_0-1_0-2_0-2_0-scatter-widenarrow-1-6-500.pdf>
+Package pdftex.def Info: img/psrl-0_0-1_0-2_0-2_0-scatter-widenarrow-1-6-500.pd
+f  used on input line 672.
+(pdftex.def)             Requested size: 397.48499pt x 141.28398pt.
+<img/ube-0_0-1_0-2_0-2_0-0_1-scatter-widenarrow-1-6-500.pdf, id=1731, 909.07758
+pt x 323.12721pt>
+File: img/ube-0_0-1_0-2_0-2_0-0_1-scatter-widenarrow-1-6-500.pdf Graphic file (
+type pdf)
+<use img/ube-0_0-1_0-2_0-2_0-0_1-scatter-widenarrow-1-6-500.pdf>
+Package pdftex.def Info: img/ube-0_0-1_0-2_0-2_0-0_1-scatter-widenarrow-1-6-500
+.pdf  used on input line 677.
+(pdftex.def)             Requested size: 397.48499pt x 141.28398pt.
+<img/mm-0_0-1_0-2_0-2_0-1_0-scatter-widenarrow-1-6-500.pdf, id=1732, 909.07758p
+t x 323.12721pt>
+File: img/mm-0_0-1_0-2_0-2_0-1_0-scatter-widenarrow-1-6-500.pdf Graphic file (t
+ype pdf)
+<use img/mm-0_0-1_0-2_0-2_0-1_0-scatter-widenarrow-1-6-500.pdf>
+Package pdftex.def Info: img/mm-0_0-1_0-2_0-2_0-1_0-scatter-widenarrow-1-6-500.
+pdf  used on input line 682.
+(pdftex.def)             Requested size: 397.48499pt x 141.28398pt.
+<img/bql-0_0-1_0-2_0-2_0-scatter-widenarrow-1-6-2500.pdf, id=1733, 909.07758pt 
+x 323.12721pt>
+File: img/bql-0_0-1_0-2_0-2_0-scatter-widenarrow-1-6-2500.pdf Graphic file (typ
+e pdf)
+<use img/bql-0_0-1_0-2_0-2_0-scatter-widenarrow-1-6-2500.pdf>
+Package pdftex.def Info: img/bql-0_0-1_0-2_0-2_0-scatter-widenarrow-1-6-2500.pd
+f  used on input line 691.
+(pdftex.def)             Requested size: 397.48499pt x 141.28398pt.
+<img/psrl-0_0-1_0-2_0-2_0-scatter-widenarrow-1-6-2500.pdf, id=1734, 909.07758pt
+ x 323.12721pt>
+File: img/psrl-0_0-1_0-2_0-2_0-scatter-widenarrow-1-6-2500.pdf Graphic file (ty
+pe pdf)
+<use img/psrl-0_0-1_0-2_0-2_0-scatter-widenarrow-1-6-2500.pdf>
+Package pdftex.def Info: img/psrl-0_0-1_0-2_0-2_0-scatter-widenarrow-1-6-2500.p
+df  used on input line 696.
+(pdftex.def)             Requested size: 397.48499pt x 141.28398pt.
+<img/ube-0_0-1_0-2_0-2_0-0_1-scatter-widenarrow-1-6-2500.pdf, id=1735, 909.0775
+8pt x 323.12721pt>
+File: img/ube-0_0-1_0-2_0-2_0-0_1-scatter-widenarrow-1-6-2500.pdf Graphic file 
+(type pdf)
+<use img/ube-0_0-1_0-2_0-2_0-0_1-scatter-widenarrow-1-6-2500.pdf>
+Package pdftex.def Info: img/ube-0_0-1_0-2_0-2_0-0_1-scatter-widenarrow-1-6-250
+0.pdf  used on input line 701.
+(pdftex.def)             Requested size: 397.48499pt x 141.28398pt.
+<img/mm-0_0-1_0-2_0-2_0-1_0-scatter-widenarrow-1-6-2500.pdf, id=1736, 909.07758
+pt x 323.12721pt>
+File: img/mm-0_0-1_0-2_0-2_0-1_0-scatter-widenarrow-1-6-2500.pdf Graphic file (
+type pdf)
+<use img/mm-0_0-1_0-2_0-2_0-1_0-scatter-widenarrow-1-6-2500.pdf>
+Package pdftex.def Info: img/mm-0_0-1_0-2_0-2_0-1_0-scatter-widenarrow-1-6-2500
+.pdf  used on input line 706.
+(pdftex.def)             Requested size: 397.48499pt x 141.28398pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[18
+
+ <./img/bql-0_0-1_0-2_0-2_0-scatter-widenarrow-1-6-500.pdf> <./img/psrl-0_0-1_0
+-2_0-2_0-scatter-widenarrow-1-6-500.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/psrl-0_0-1_0-2_0-2_0-s
+catter-widenarrow-1-6-500.pdf): PDF inclusion: multiple pdfs with page group in
+cluded in a single page
+> <./img/ube-0_0-1_0-2_0-2_0-0_1-scatter-widenarrow-1-6-500.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/ube-0_0-1_0-2_0-2_0-0_
+1-scatter-widenarrow-1-6-500.pdf): PDF inclusion: multiple pdfs with page group
+ included in a single page
+> <./img/mm-0_0-1_0-2_0-2_0-1_0-scatter-widenarrow-1-6-500.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/mm-0_0-1_0-2_0-2_0-1_0
+-scatter-widenarrow-1-6-500.pdf): PDF inclusion: multiple pdfs with page group 
+included in a single page
+>]
+
+LaTeX Warning: Text page 19 contains only floats.
+
+[19 <./img/bql-0_0-1_0-2_0-2_0-scatter-widenarrow-1-6-2500.pdf> <./img/psrl-0_0
+-1_0-2_0-2_0-scatter-widenarrow-1-6-2500.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/psrl-0_0-1_0-2_0-2_0-s
+catter-widenarrow-1-6-2500.pdf): PDF inclusion: multiple pdfs with page group i
+ncluded in a single page
+> <./img/ube-0_0-1_0-2_0-2_0-0_1-scatter-widenarrow-1-6-2500.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/ube-0_0-1_0-2_0-2_0-0_
+1-scatter-widenarrow-1-6-2500.pdf): PDF inclusion: multiple pdfs with page grou
+p included in a single page
+> <./img/mm-0_0-1_0-2_0-2_0-1_0-scatter-widenarrow-1-6-2500.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/mm-0_0-1_0-2_0-2_0-1_0
+-scatter-widenarrow-1-6-2500.pdf): PDF inclusion: multiple pdfs with page group
+ included in a single page
+>]
+<img/ql-0_2-qestimates-priormdp-4-2.pdf, id=2239, 715.01816pt x 429.3641pt>
+File: img/ql-0_2-qestimates-priormdp-4-2.pdf Graphic file (type pdf)
+<use img/ql-0_2-qestimates-priormdp-4-2.pdf>
+Package pdftex.def Info: img/ql-0_2-qestimates-priormdp-4-2.pdf  used on input 
+line 723.
+(pdftex.def)             Requested size: 258.36281pt x 155.14749pt.
+<img/ql-0_2-regret-priormdp-4-2.pdf, id=2240, 413.60461pt x 442.73279pt>
+File: img/ql-0_2-regret-priormdp-4-2.pdf Graphic file (type pdf)
+<use img/ql-0_2-regret-priormdp-4-2.pdf>
+Package pdftex.def Info: img/ql-0_2-regret-priormdp-4-2.pdf  used on input line
+ 726.
+(pdftex.def)             Requested size: 135.14343pt x 144.66333pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 726--727
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 726--727
+
+ []
+
+<img/bql-0_0-1_0-2_0-2_0-posterior-priormdp-4-2.pdf, id=2241, 716.02191pt x 429
+.3641pt>
+File: img/bql-0_0-1_0-2_0-2_0-posterior-priormdp-4-2.pdf Graphic file (type pdf
+)
+<use img/bql-0_0-1_0-2_0-2_0-posterior-priormdp-4-2.pdf>
+Package pdftex.def Info: img/bql-0_0-1_0-2_0-2_0-posterior-priormdp-4-2.pdf  us
+ed on input line 736.
+(pdftex.def)             Requested size: 258.36281pt x 154.93129pt.
+<img/bql-0_0-1_0-2_0-2_0-regret-priormdp-4-2.pdf, id=2242, 434.05602pt x 442.73
+279pt>
+File: img/bql-0_0-1_0-2_0-2_0-regret-priormdp-4-2.pdf Graphic file (type pdf)
+<use img/bql-0_0-1_0-2_0-2_0-regret-priormdp-4-2.pdf>
+Package pdftex.def Info: img/bql-0_0-1_0-2_0-2_0-regret-priormdp-4-2.pdf  used 
+on input line 739.
+(pdftex.def)             Requested size: 135.14343pt x 137.84698pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 739--740
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 739--740
+
+ []
+
+<img/psrl-0_0-1_0-2_0-2_0-posterior-priormdp-4-2.pdf, id=2243, 714.65744pt x 42
+9.3641pt>
+File: img/psrl-0_0-1_0-2_0-2_0-posterior-priormdp-4-2.pdf Graphic file (type pd
+f)
+<use img/psrl-0_0-1_0-2_0-2_0-posterior-priormdp-4-2.pdf>
+Package pdftex.def Info: img/psrl-0_0-1_0-2_0-2_0-posterior-priormdp-4-2.pdf  u
+sed on input line 748.
+(pdftex.def)             Requested size: 258.36281pt x 155.2261pt.
+<img/psrl-0_0-1_0-2_0-2_0-regret-priormdp-4-2.pdf, id=2244, 434.05602pt x 442.7
+3279pt>
+File: img/psrl-0_0-1_0-2_0-2_0-regret-priormdp-4-2.pdf Graphic file (type pdf)
+<use img/psrl-0_0-1_0-2_0-2_0-regret-priormdp-4-2.pdf>
+Package pdftex.def Info: img/psrl-0_0-1_0-2_0-2_0-regret-priormdp-4-2.pdf  used
+ on input line 751.
+(pdftex.def)             Requested size: 135.14343pt x 137.84698pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 751--752
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 751--752
+
+ []
+
+<img/ube-0_0-1_0-2_0-2_0-1_0-posterior-priormdp-4-2.pdf, id=2245, 716.05328pt x
+ 429.3641pt>
+File: img/ube-0_0-1_0-2_0-2_0-1_0-posterior-priormdp-4-2.pdf Graphic file (type
+ pdf)
+<use img/ube-0_0-1_0-2_0-2_0-1_0-posterior-priormdp-4-2.pdf>
+Package pdftex.def Info: img/ube-0_0-1_0-2_0-2_0-1_0-posterior-priormdp-4-2.pdf
+  used on input line 760.
+(pdftex.def)             Requested size: 258.36281pt x 154.92474pt.
+<img/ube-0_0-1_0-2_0-2_0-1_0-regret-priormdp-4-2.pdf, id=2246, 434.05602pt x 44
+2.73279pt>
+File: img/ube-0_0-1_0-2_0-2_0-1_0-regret-priormdp-4-2.pdf Graphic file (type pd
+f)
+<use img/ube-0_0-1_0-2_0-2_0-1_0-regret-priormdp-4-2.pdf>
+Package pdftex.def Info: img/ube-0_0-1_0-2_0-2_0-1_0-regret-priormdp-4-2.pdf  u
+sed on input line 763.
+(pdftex.def)             Requested size: 135.14343pt x 137.84698pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 763--764
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 763--764
+
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<img/ube-0_0-1_0-2_0-2_0-0_1-posterior-priormdp-4-2.pdf, id=2247, 716.05328pt x
+ 429.3641pt>
+File: img/ube-0_0-1_0-2_0-2_0-0_1-posterior-priormdp-4-2.pdf Graphic file (type
+ pdf)
+<use img/ube-0_0-1_0-2_0-2_0-0_1-posterior-priormdp-4-2.pdf>
+Package pdftex.def Info: img/ube-0_0-1_0-2_0-2_0-0_1-posterior-priormdp-4-2.pdf
+  used on input line 772.
+(pdftex.def)             Requested size: 258.36281pt x 154.92474pt.
+<img/ube-0_0-1_0-2_0-2_0-0_1-regret-priormdp-4-2.pdf, id=2248, 434.05602pt x 44
+2.73279pt>
+File: img/ube-0_0-1_0-2_0-2_0-0_1-regret-priormdp-4-2.pdf Graphic file (type pd
+f)
+<use img/ube-0_0-1_0-2_0-2_0-0_1-regret-priormdp-4-2.pdf>
+Package pdftex.def Info: img/ube-0_0-1_0-2_0-2_0-0_1-regret-priormdp-4-2.pdf  u
+sed on input line 775.
+(pdftex.def)             Requested size: 135.14343pt x 137.84698pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 775--776
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 775--776
+
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<img/mm-0_0-1_0-2_0-2_0-1_0-posterior-priormdp-4-2.pdf, id=2249, 716.02191pt x 
+429.3641pt>
+File: img/mm-0_0-1_0-2_0-2_0-1_0-posterior-priormdp-4-2.pdf Graphic file (type 
+pdf)
+<use img/mm-0_0-1_0-2_0-2_0-1_0-posterior-priormdp-4-2.pdf>
+Package pdftex.def Info: img/mm-0_0-1_0-2_0-2_0-1_0-posterior-priormdp-4-2.pdf 
+ used on input line 784.
+(pdftex.def)             Requested size: 258.36281pt x 154.93129pt.
+<img/mm-0_0-1_0-2_0-2_0-1_0-regret-priormdp-4-2.pdf, id=2250, 434.05602pt x 442
+.73279pt>
+File: img/mm-0_0-1_0-2_0-2_0-1_0-regret-priormdp-4-2.pdf Graphic file (type pdf
+)
+<use img/mm-0_0-1_0-2_0-2_0-1_0-regret-priormdp-4-2.pdf>
+Package pdftex.def Info: img/mm-0_0-1_0-2_0-2_0-1_0-regret-priormdp-4-2.pdf  us
+ed on input line 787.
+(pdftex.def)             Requested size: 135.14343pt x 137.84698pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 787--788
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 787--788
+
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[20
+
+ <./img/ql-0_2-qestimates-priormdp-4-2.pdf> <./img/ql-0_2-regret-priormdp-4-2.p
+df
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/ql-0_2-regret-priormdp
+-4-2.pdf): PDF inclusion: multiple pdfs with page group included in a single pa
+ge
+> <./img/bql-0_0-1_0-2_0-2_0-posterior-priormdp-4-2.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/bql-0_0-1_0-2_0-2_0-po
+sterior-priormdp-4-2.pdf): PDF inclusion: multiple pdfs with page group include
+d in a single page
+> <./img/bql-0_0-1_0-2_0-2_0-regret-priormdp-4-2.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/bql-0_0-1_0-2_0-2_0-re
+gret-priormdp-4-2.pdf): PDF inclusion: multiple pdfs with page group included i
+n a single page
+> <./img/psrl-0_0-1_0-2_0-2_0-posterior-priormdp-4-2.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/psrl-0_0-1_0-2_0-2_0-p
+osterior-priormdp-4-2.pdf): PDF inclusion: multiple pdfs with page group includ
+ed in a single page
+> <./img/psrl-0_0-1_0-2_0-2_0-regret-priormdp-4-2.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/psrl-0_0-1_0-2_0-2_0-r
+egret-priormdp-4-2.pdf): PDF inclusion: multiple pdfs with page group included 
+in a single page
+>] [21 <./img/ube-0_0-1_0-2_0-2_0-1_0-posterior-priormdp-4-2.pdf> <./img/ube-0_
+0-1_0-2_0-2_0-1_0-regret-priormdp-4-2.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/ube-0_0-1_0-2_0-2_0-1_
+0-regret-priormdp-4-2.pdf): PDF inclusion: multiple pdfs with page group includ
+ed in a single page
+> <./img/ube-0_0-1_0-2_0-2_0-0_1-posterior-priormdp-4-2.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/ube-0_0-1_0-2_0-2_0-0_
+1-posterior-priormdp-4-2.pdf): PDF inclusion: multiple pdfs with page group inc
+luded in a single page
+> <./img/ube-0_0-1_0-2_0-2_0-0_1-regret-priormdp-4-2.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/ube-0_0-1_0-2_0-2_0-0_
+1-regret-priormdp-4-2.pdf): PDF inclusion: multiple pdfs with page group includ
+ed in a single page
+> <./img/mm-0_0-1_0-2_0-2_0-1_0-posterior-priormdp-4-2.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/mm-0_0-1_0-2_0-2_0-1_0
+-posterior-priormdp-4-2.pdf): PDF inclusion: multiple pdfs with page group incl
+uded in a single page
+> <./img/mm-0_0-1_0-2_0-2_0-1_0-regret-priormdp-4-2.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/mm-0_0-1_0-2_0-2_0-1_0
+-regret-priormdp-4-2.pdf): PDF inclusion: multiple pdfs with page group include
+d in a single page
+>]
+<img/bql-0_0-1_0-2_0-2_0-scatter-priormdp-4-2-500.pdf, id=2898, 1074.34688pt x 
+358.5395pt>
+File: img/bql-0_0-1_0-2_0-2_0-scatter-priormdp-4-2-500.pdf Graphic file (type p
+df)
+<use img/bql-0_0-1_0-2_0-2_0-scatter-priormdp-4-2-500.pdf>
+Package pdftex.def Info: img/bql-0_0-1_0-2_0-2_0-scatter-priormdp-4-2-500.pdf  
+used on input line 799.
+(pdftex.def)             Requested size: 397.48499pt x 132.64659pt.
+<img/psrl-0_0-1_0-2_0-2_0-scatter-priormdp-4-2-500.pdf, id=2899, 1074.34688pt x
+ 358.5395pt>
+File: img/psrl-0_0-1_0-2_0-2_0-scatter-priormdp-4-2-500.pdf Graphic file (type 
+pdf)
+<use img/psrl-0_0-1_0-2_0-2_0-scatter-priormdp-4-2-500.pdf>
+Package pdftex.def Info: img/psrl-0_0-1_0-2_0-2_0-scatter-priormdp-4-2-500.pdf 
+ used on input line 804.
+(pdftex.def)             Requested size: 397.48499pt x 132.64659pt.
+<img/ube-0_0-1_0-2_0-2_0-0_1-scatter-priormdp-4-2-500.pdf, id=2900, 1074.34688p
+t x 358.5395pt>
+File: img/ube-0_0-1_0-2_0-2_0-0_1-scatter-priormdp-4-2-500.pdf Graphic file (ty
+pe pdf)
+<use img/ube-0_0-1_0-2_0-2_0-0_1-scatter-priormdp-4-2-500.pdf>
+Package pdftex.def Info: img/ube-0_0-1_0-2_0-2_0-0_1-scatter-priormdp-4-2-500.p
+df  used on input line 809.
+(pdftex.def)             Requested size: 397.48499pt x 132.64659pt.
+<img/mm-0_0-1_0-2_0-2_0-1_0-scatter-priormdp-4-2-500.pdf, id=2901, 1074.34688pt
+ x 358.5395pt>
+File: img/mm-0_0-1_0-2_0-2_0-1_0-scatter-priormdp-4-2-500.pdf Graphic file (typ
+e pdf)
+<use img/mm-0_0-1_0-2_0-2_0-1_0-scatter-priormdp-4-2-500.pdf>
+Package pdftex.def Info: img/mm-0_0-1_0-2_0-2_0-1_0-scatter-priormdp-4-2-500.pd
+f  used on input line 814.
+(pdftex.def)             Requested size: 397.48499pt x 132.64659pt.
+<img/bql-0_0-1_0-2_0-2_0-scatter-priormdp-4-2-2500.pdf, id=2902, 1074.34688pt x
+ 358.5395pt>
+File: img/bql-0_0-1_0-2_0-2_0-scatter-priormdp-4-2-2500.pdf Graphic file (type 
+pdf)
+<use img/bql-0_0-1_0-2_0-2_0-scatter-priormdp-4-2-2500.pdf>
+Package pdftex.def Info: img/bql-0_0-1_0-2_0-2_0-scatter-priormdp-4-2-2500.pdf 
+ used on input line 823.
+(pdftex.def)             Requested size: 397.48499pt x 132.64659pt.
+<img/psrl-0_0-1_0-2_0-2_0-scatter-priormdp-4-2-2500.pdf, id=2903, 1074.34688pt 
+x 358.5395pt>
+File: img/psrl-0_0-1_0-2_0-2_0-scatter-priormdp-4-2-2500.pdf Graphic file (type
+ pdf)
+<use img/psrl-0_0-1_0-2_0-2_0-scatter-priormdp-4-2-2500.pdf>
+Package pdftex.def Info: img/psrl-0_0-1_0-2_0-2_0-scatter-priormdp-4-2-2500.pdf
+  used on input line 828.
+(pdftex.def)             Requested size: 397.48499pt x 132.64659pt.
+<img/ube-0_0-1_0-2_0-2_0-0_1-scatter-priormdp-4-2-2500.pdf, id=2904, 1074.34688
+pt x 358.5395pt>
+File: img/ube-0_0-1_0-2_0-2_0-0_1-scatter-priormdp-4-2-2500.pdf Graphic file (t
+ype pdf)
+<use img/ube-0_0-1_0-2_0-2_0-0_1-scatter-priormdp-4-2-2500.pdf>
+Package pdftex.def Info: img/ube-0_0-1_0-2_0-2_0-0_1-scatter-priormdp-4-2-2500.
+pdf  used on input line 833.
+(pdftex.def)             Requested size: 397.48499pt x 132.64659pt.
+<img/mm-0_0-1_0-2_0-2_0-1_0-scatter-priormdp-4-2-2500.pdf, id=2905, 1074.34688p
+t x 358.5395pt>
+File: img/mm-0_0-1_0-2_0-2_0-1_0-scatter-priormdp-4-2-2500.pdf Graphic file (ty
+pe pdf)
+<use img/mm-0_0-1_0-2_0-2_0-1_0-scatter-priormdp-4-2-2500.pdf>
+Package pdftex.def Info: img/mm-0_0-1_0-2_0-2_0-1_0-scatter-priormdp-4-2-2500.p
+df  used on input line 838.
+(pdftex.def)             Requested size: 397.48499pt x 132.64659pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[22
+
+ <./img/bql-0_0-1_0-2_0-2_0-scatter-priormdp-4-2-500.pdf> <./img/psrl-0_0-1_0-2
+_0-2_0-scatter-priormdp-4-2-500.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/psrl-0_0-1_0-2_0-2_0-s
+catter-priormdp-4-2-500.pdf): PDF inclusion: multiple pdfs with page group incl
+uded in a single page
+> <./img/ube-0_0-1_0-2_0-2_0-0_1-scatter-priormdp-4-2-500.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/ube-0_0-1_0-2_0-2_0-0_
+1-scatter-priormdp-4-2-500.pdf): PDF inclusion: multiple pdfs with page group i
+ncluded in a single page
+> <./img/mm-0_0-1_0-2_0-2_0-1_0-scatter-priormdp-4-2-500.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/mm-0_0-1_0-2_0-2_0-1_0
+-scatter-priormdp-4-2-500.pdf): PDF inclusion: multiple pdfs with page group in
+cluded in a single page
+>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 846.
+ [23 <./img/bql-0_0-1_0-2_0-2_0-scatter-priormdp-4-2-2500.pdf> <./img/psrl-0_0-
+1_0-2_0-2_0-scatter-priormdp-4-2-2500.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/psrl-0_0-1_0-2_0-2_0-s
+catter-priormdp-4-2-2500.pdf): PDF inclusion: multiple pdfs with page group inc
+luded in a single page
+> <./img/ube-0_0-1_0-2_0-2_0-0_1-scatter-priormdp-4-2-2500.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/ube-0_0-1_0-2_0-2_0-0_
+1-scatter-priormdp-4-2-2500.pdf): PDF inclusion: multiple pdfs with page group 
+included in a single page
+> <./img/mm-0_0-1_0-2_0-2_0-1_0-scatter-priormdp-4-2-2500.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/mm-0_0-1_0-2_0-2_0-1_0
+-scatter-priormdp-4-2-2500.pdf): PDF inclusion: multiple pdfs with page group i
+ncluded in a single page
+>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 846.
+ (./bayesian-methods-for-rl.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 846.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 846.
 Package rerunfilecheck Info: File `bayesian-methods-for-rl.out' has not changed
 .
-(rerunfilecheck)             Checksum: 21A0AC86A54194BF1A8F66DAC5912CC9;1622.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 475.
+(rerunfilecheck)             Checksum: 5823CACCA69A81A08AC6FF8A8D73D690;1890.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 846.
  ) 
 Here is how much of TeX's memory you used:
- 23429 strings out of 492649
- 435819 string characters out of 6129622
- 550859 words of memory out of 5000000
- 26657 multiletter control sequences out of 15000+600000
- 61033 words of font info for 183 fonts, out of 8000000 for 9000
+ 23810 strings out of 492649
+ 453190 string characters out of 6129622
+ 553465 words of memory out of 5000000
+ 26931 multiletter control sequences out of 15000+600000
+ 63501 words of font info for 188 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,22n,54p,968b,891s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 57i,22n,54p,964b,891s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/t
 exlive/2018/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/local/tex
 live/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texl
@@ -1010,10 +1875,10 @@ type1/public/cm-super/sftt1000.pfb></usr/local/texlive/2018/texmf-dist/fonts/ty
 pe1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/urw
 /times/utmb8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/urw/times/utm
 r8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on bayesian-methods-for-rl.pdf (12 pages, 324383 bytes).
+Output written on bayesian-methods-for-rl.pdf (23 pages, 3951977 bytes).
 PDF statistics:
- 431 PDF objects out of 1000 (max. 8388607)
- 382 compressed objects within 4 object streams
- 83 named destinations out of 1000 (max. 500000)
- 29893 words of extra memory for PDF output out of 35830 (max. 10000000)
+ 3517 PDF objects out of 3580 (max. 8388607)
+ 1175 compressed objects within 12 object streams
+ 132 named destinations out of 1000 (max. 500000)
+ 31726 words of extra memory for PDF output out of 35830 (max. 10000000)
 

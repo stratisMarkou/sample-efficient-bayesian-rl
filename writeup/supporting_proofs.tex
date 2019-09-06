@@ -114,7 +114,7 @@ with which we conclude the expansion of the reward variance term. We apply the s
 \end{align}
 Decomposing each of the two terms in \cref{vvardecomp} by total variance, we obtain
 \begin{align*}
-\underbrace{\Var_{\ns, \thetamct}\sqb{\E_{w, \mcw} \sqb{\wnb | \ns, \thetamct}}}_{\substack{\text{State-return variance from transition unc.} \\ \text{aleatoric + epistemic unc.}}} =& \underbrace{\Var_{\thetamct} \sqb{\E_{\ns, w, \thetamcw} \sqb{\wnb | \thetamct}}}_{\substack{\text{State-return variance from transition unc.} \\ \text{purely epistemic}}} \\
+\underbrace{\Var_{\ns, \thetamct}\sqb{\E_{w, \thetamcw} \sqb{\wnb | \ns, \thetamct}}}_{\substack{\text{State-return variance from transition unc.} \\ \text{aleatoric + epistemic unc.}}} =& \underbrace{\Var_{\thetamct} \sqb{\E_{\ns, w, \thetamcw} \sqb{\wnb | \thetamct}}}_{\substack{\text{State-return variance from transition unc.} \\ \text{purely epistemic}}} \\
 & + \underbrace{\E_{\thetamct}\sqb{ \Var_{\ns} \sqb{\E_{w, \thetamcw} \sqb{\wnb | \ns, \thetamct}}}}_{\substack{\text{State-return variance from transition unc.} \\ \text{purely aleatoric}}},
 \end{align*}
 for the first term. For the second term:
@@ -124,7 +124,7 @@ for the first term. For the second term:
 \end{align*}
 which concludes the decomposition of the value variance terms. For the reward-value covariance term, we use the law of total covariance to obtain
 \begin{align}
-\underbrace{\Cov_{r, \thetamcr, w, \mcw, \ns, \thetamct}[\rsanb, \wnb]}_{\text{Reward-return covariance}} =&~\underbrace{\Cov_{\ns, \thetamct}\sqb{\E_{r, \thetamcr}\sqb{\rsanb | \ns, \thetamct}, \E_{w, \thetamcw}\sqb{\wnb | \ns, \thetamct}}}_{\substack{\text{Reward-return covariance due to transition unc.} \\ \text{epistemic + aleatoric}}} + \nonumber \\
+\underbrace{\Cov_{r, \thetamcr, w, \thetamcw, \ns, \thetamct}[\rsanb, \wnb]}_{\text{Reward-return covariance}} =&~\underbrace{\Cov_{\ns, \thetamct}\sqb{\E_{r, \thetamcr}\sqb{\rsanb | \ns, \thetamct}, \E_{w, \thetamcw}\sqb{\wnb | \ns, \thetamct}}}_{\substack{\text{Reward-return covariance due to transition unc.} \\ \text{epistemic + aleatoric}}} + \nonumber \\
 & + \cancel{\E_{\ns, \thetamct}\sqb{\Cov_{r, \thetamcr, w, \thetamcw}\sqb{\rsanb, \wnb | \ns, \thetamct}}}\label{appeq:covariance}
 \end{align}
 where the second term is 0 due to the conditional independence of $\rsanb$ and and $\wnb$ given $\ns$. Applying total covariance to \cref{appeq:covariance}:
@@ -138,7 +138,7 @@ This concludes the decomposition of all terms of the RHS of \cref{wvar}. We cons
 & + 2 \gamma \underbrace{\Cov_{\thetamct}\sqb{\E_{\ns, r, \thetamcr}\sqb{\rsanb | \thetamct}, \E_{\ns, w, \thetamcw}\sqb{\wnb | \thetamct}}}_{\substack{\text{Epistemic reward and state-return covariance} \\ \text{from dynamics unc.}}} \nonumber\\
 & + \gamma^2 \underbrace{\Var_{\thetamct} \sqb{\E_{\ns, w, \thetamcw} \sqb{\wnb | \thetamct}}}_{\substack{\text{Epistemic state-return unc. from} \\ \text{dynamics unc.}}}  + \gamma^2 \underbrace{\E_{\ns, \thetamct}\sqb{\Var_{\thetamcw} \sqb{ \E_w \sqb{\wnb | \ns, \thetamcw}}}}_{\substack{\text{Epistemic state-return unc. from} \\ \text{state-return unc.}}} \label{wepeq}
 \end{align}
-which concludes our derivation - note that wherever $\ac$ is seen as a free variable in the equation above, it is implied that $\ac = \pi(\s)$. Following nearly exactly the same argument, we obtain a consistency requirement for the action-returns:
+which concludes our derivation - note that wherever $\ac$ is seen as a free variable in the equation above, it is implied that $\ac = \pi(\s)$. Following the same argument, we obtain a consistency requirement for the action-returns:
 \begin{align}
 \underbrace{\Var_{\thetamcz} \sqb{\E_z\sqb{\zb | \thetamcz}}}_{\text{Epistemic action-return unc.}} =& \underbrace{\Var_{\thetamct} \sqb{ \E_{\ns, r, \thetamcr} \sqb{\rsanb \big| \thetamct}}}_{\substack{\text{Epistemic reward unc. from} \nonumber \\ \text{dynamics unc.}}} + \underbrace{\E_{\ns, \thetamct}\sqb{ \Var_{\thetamcr} \sqb{ \E_r \sqb{\rsanb \big| \ns, \thetamct, \thetamcr}}}}_{\substack{\text{Epistemic rewards unc. from} \\ \text{rewards unc.}}} + \\
 & + 2 \gamma \underbrace{\Cov_{\thetamct}\sqb{\E_{\ns, r, \thetamcr}\sqb{\rsanb | \thetamct}, \E_{\ns, z, \thetamcz}\sqb{\znb | \thetamct}}}_{\substack{\text{Epistemic reward and action-return covariance} \\ \text{from dynamics unc.}}} \nonumber \\

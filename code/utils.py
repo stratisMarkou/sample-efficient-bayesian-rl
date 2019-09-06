@@ -183,3 +183,24 @@ def load_agent(environment, agent, seed):
     agent = pickle.load(fhandle)
     
     return agent
+
+
+def get_agent_and_oracle_regret(environment, agent, seeds, num_time_steps, max_iter):
+
+    agent_rs, oracle_rs = [], []
+    for seed in seeds:
+
+        # Define agent
+        agent = load_agent(environment, agent, seed=seed)
+
+        agent_rs.append(agent.train_r)
+
+        oracle_r = run_oracle_experiment(environment=environment,
+                                         seed=seed,
+                                         gamma=0.9,
+                                         num_time_steps=num_time_steps,
+                                         num_PI_iter=max_iter)[2]
+
+        oracle_rs.append(oracle_r)
+        
+    return np.array(agent_rs), np.array(oracle_rs)

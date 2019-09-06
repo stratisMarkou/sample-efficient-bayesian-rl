@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2019.4.10)  1 SEP 2019 15:00
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2019.4.10)  6 SEP 2019 17:55
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -974,11 +974,11 @@ Package rerunfilecheck Info: File `supporting_proofs.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 155.
  ) 
 Here is how much of TeX's memory you used:
- 23063 strings out of 492649
- 428484 string characters out of 6129622
+ 23066 strings out of 492649
+ 428511 string characters out of 6129622
  542054 words of memory out of 5000000
  26474 multiletter control sequences out of 15000+600000
- 40331 words of font info for 85 fonts, out of 8000000 for 9000
+ 40461 words of font info for 87 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  57i,22n,54p,487b,365s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/t
@@ -1003,7 +1003,7 @@ texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2
 -dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2018/texmf-dist/font
 s/type1/urw/times/utmr8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/ur
 w/times/utmri8a.pfb>
-Output written on supporting_proofs.pdf (3 pages, 179984 bytes).
+Output written on supporting_proofs.pdf (3 pages, 179915 bytes).
 PDF statistics:
  152 PDF objects out of 1000 (max. 8388607)
  125 compressed objects within 2 object streams
