@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2019.4.10)  6 SEP 2019 17:55
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2019.4.10)  7 SEP 2019 08:37
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -976,7 +976,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 155.
 Here is how much of TeX's memory you used:
  23066 strings out of 492649
  428511 string characters out of 6129622
- 542054 words of memory out of 5000000
+ 542074 words of memory out of 5000000
  26474 multiletter control sequences out of 15000+600000
  40461 words of font info for 87 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1003,7 +1003,7 @@ texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2
 -dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2018/texmf-dist/font
 s/type1/urw/times/utmr8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/ur
 w/times/utmri8a.pfb>
-Output written on supporting_proofs.pdf (3 pages, 179915 bytes).
+Output written on supporting_proofs.pdf (3 pages, 180042 bytes).
 PDF statistics:
  152 PDF objects out of 1000 (max. 8388607)
  125 compressed objects within 2 object streams

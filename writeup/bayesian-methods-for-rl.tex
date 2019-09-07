@@ -28,6 +28,7 @@
 \usepackage{nicefrac}       % compact symbols for 1/2, etc.
 \usepackage{microtype}      % microtypography
 \usepackage{apalike}
+\usepackage{comment}
 
 
 
@@ -70,6 +71,7 @@
 
 \begin{document}
 
+\begin{comment}
 \begin{enumerate}
 \item \st{Write Bayesian algorithms intro.}
 \item \st{Environment and experiment description.}
@@ -80,7 +82,7 @@
 \item \st{Add agent parameter details.}
 \item \st{Change w to z equation in appendix.}
 \item \st{UBE: plots of types of uncertainty.}
-\item Add regret summary plots.
+\item \st{Add regret summary plots.}
 \end{enumerate}
 
 Points to drive home
@@ -91,10 +93,12 @@ Points to drive home
 \item \st{MM produces well calibrated uncertainties in this setting, no need to tune $\zeta$.}
 \item \st{Correlations are very important for optimal action selection.}
 \item \st{No clear computational advantage of any of the methods over PSRL.}
-\item More sophisticated action-selection schemes are possible.
+\item \st{More sophisticated action-selection schemes are possible.}
 \end{enumerate}
 
 \clearpage
+\end{comment}
+
 \maketitle
 
 \begin{abstract}
@@ -165,19 +169,24 @@ We thus propose first solving for the greedy policy $\pi^*$ w.r.t. $p(\thetamct 
 
 \section{Environments and methods}
 
-We compare the algorithms on three kinds of finite MDPs of variable sizes, and all experiments\footnote{Implementations of the agents and environments, as well as notebooks for plotting all figures in this work are available at \texttt{\href{https://github.com/sample-efficient-bayesian-rl/nips-2019-rl-workshop}{https://github.com/sample-efficient-bayesian-rl}}.} are in the continuing setting - exact specifications and illustrations given in \cref{app:env}. We measure performance by the cumulative regret to an oracle agent which acts under the optimal policy.
-
-Our DeepSea MDP is a variant of those in \cite{rand_val_func, deepsea}, and is aimed at testing the algorithm's ability for sustained exploration despite initially receiving negative rewards. We also propose WideNarrow, an environment designed specifically to investigate the effect of factored posterior approximations made in BQL, UBE and MM. Finally, since the DeepSea and WideNarrow are handcrafted, we also compare the algorithms on MDPs drawn from a Dirichlet prior over $\thetamct$ and NG prior over $\thetamcr$ as in \cite{psrl} - we refer to this as PriorMDP.
+We compare the algorithms on three kinds of finite MDPs of variable sizes, and all experiments\footnote{Implementations of the agents and environments, as well as notebooks for plotting all figures in this work are available at \texttt{\href{https://github.com/sample-efficient-bayesian-rl/nips-2019-rl-workshop}{https://github.com/sample-efficient-bayesian-rl}}.} are in the continuing setting - exact specifications and illustrations given in \cref{app:env}. We measure performance by the cumulative regret to an oracle agent which acts under the optimal policy. Our DeepSea MDP is a variant of those in \cite{rand_val_func, deepsea}, and is aimed at testing the algorithm's ability for sustained exploration despite initially receiving negative rewards. We also propose WideNarrow, an environment designed specifically to investigate the effect of factored posterior approximations made in BQL, UBE and MM. Finally, since the DeepSea and WideNarrow are handcrafted, we also compare the algorithms on MDPs drawn from a Dirichlet prior over $\thetamct$ and NG prior over $\thetamcr$ as in \cite{psrl} - we refer to this as PriorMDP.
 
 \section{Results and discussion}
 
-Visualisations of the posterior evolution and cumulative regret to an oracle on small MDPs, illustrate a number of interesting phenomena (\crefrange{ql_deepsea_visual}{mm_deepsea_visual}, \crefrange{ql_widenarrow_visual}{mm_widenarrow_visual} and \crefrange{ql_priormdp_visual}{mm_priormdp_visual}).
+Visualisations of the posterior evolution and cumulative regret to an oracle on small MDPs, illustrate a number of interesting phenomena (\crefrange{ql_deepsea_visual}{mm_deepsea_visual}, \crefrange{ql_widenarrow_visual}{mm_widenarrow_visual} and \crefrange{ql_priormdp_visual}{mm_priormdp_visual}). A summary of regret performance is shown in \cref{combined_regret_summary} while more extensive results are given in \crefrange{deepsea_regret_summary}{priormdp_regret_summary}.
 
-In many cases, we observe that as training progresses, the posteriors concentrate on the true $Q^*$ values, the behaviour policy converges on the optimal policy and the agent smoothly transitions into greedy action selection. Further, the agent does not over-explore actions if it is confident that these are suboptimal. This is notably seen in \crefrange{bql_deepsea_visual}{mm_deepsea_visual}. There, although there is significant uncertainty in the expected return of the suboptimal action, the agent is confident that the optimal action $(\s = 4, \ac = \textit{right})$ is better than the suboptimal one $(\s = 4, \ac = \textit{left})$: the agent does not spend its time determining the exact expected return of an action if it is confident that it is suboptimal. These two behaviours are central for achieving a principled and efficient approach to exploration, however we often observe exceptions where the agent does not perform in such a way.
+\begin{figure}[h!]
+\centering
+\begin{subfigure}{0.55\textwidth}
+\includegraphics[width=\linewidth]{img/regret_summary_combined.pdf}
+\end{subfigure}
+\captionsetup{width=0.9\linewidth}
+\caption{Summary of regret performances to oracle on selected environments - see \crefrange{deepsea_regret_summary}{priormdp_regret_summary} for additional results.}\label{combined_regret_summary}
+\end{figure}
 
-First, the UBE uncertainty estimate $u^*_{\s, \ac}$ remains extremely loose even after a large number of time-steps (\cref{ube_deepsea_visual1}, \cref{ube_widenarrow_visual1} and \cref{ube_priormdp_visual1}). Even though $\mu_{\zob}$ be close to $Q^*$, $u^*_{\s, \ac}$ is so large that the Thompson noise completely smooths out differences between actions, which are picked almost uniformly at random. Further, $u^*_{\s, \ac}$ shrinks very slowly and the transition to greedy behaviour takes an extremely long time, causing poor regret performance. These effects are due to the contribution of an extremely large term coming from the upper-bound derivation of \cite{ube} - this is the $Q_{max}$ term in \cref{eq:bellunc} and \cref{eq:localunc}). Further, this term depends solely on the dynamics model, so $u^*_{\s, \ac}$ is dominated by the dynamics uncertainty, while the rewards uncertainty is much smaller (\cref{ube_unc_terms}). Scaling the Thompson noise by $\zeta < 1.0$, improves regret performance in some cases (e.g. \cref{ube_deepsea_visual01}). However, one is further faced by the challenge of tuning $\zeta$, which may be expensive and challenging for large problems.
+We often observe that as training progresses, the posteriors concentrate on the true $Q^*$ values, the behaviour policy converges on the optimal one and the agent smoothly transitions into greedy action selection. Further, the agent does not over-explore actions if it is confident that these are suboptimal. This is notably seen in \crefrange{bql_deepsea_visual}{mm_deepsea_visual}. There, although there is significant uncertainty in the expected return of the suboptimal action, the agent is confident that the optimal action $(\s = 4, \ac = \textit{right})$ is better than the suboptimal one $(\s = 4, \ac = \textit{left})$: the agent does not spend its time determining the exact expected return of an action if it is confident that it is suboptimal. These two behaviours are central for achieving a principled and efficient approach to exploration, however we often observe exceptions where the agent does not perform in such a way.
 
-By contrast, our MM approach produces more well-calibrated uncertainty estimates than the UBE (see \cref{mm_deepsea_visual}, \cref{mm_widenarrow_visual} and \cref{mm_priormdp_visual}). As a result, MM shows typically better regret performance than UBE without a need to tune $\zeta$. This could give an advantage to MM over the UBE in settings where tuning may be expensive or difficult.
+First, the UBE uncertainty estimate $u^*_{\s, \ac}$ remains extremely loose even after a large number of time-steps (\cref{ube_deepsea_visual1}, \cref{ube_widenarrow_visual1} and \cref{ube_priormdp_visual1}). Even though $\mu_{\zob}$ be close to $Q^*$, $u^*_{\s, \ac}$ is so large that the Thompson noise completely smooths out differences between actions, which are picked almost uniformly at random. Further, $u^*_{\s, \ac}$ shrinks very slowly and the transition to greedy behaviour takes an extremely long time, causing poor regret performance. These effects are due to the contribution of an extremely large term coming from the upper-bound derivation of \cite{ube} - this is the $Q_{max}$ term in \cref{eq:bellunc} and \cref{eq:localunc}). Further, this term depends solely on the dynamics model, so $u^*_{\s, \ac}$ is dominated by the dynamics uncertainty, while the rewards uncertainty is much smaller (\cref{ube_unc_terms}). Scaling the Thompson noise by $\zeta < 1.0$, improves regret performance in some cases (e.g. \cref{ube_deepsea_visual01}). However, one is further faced by the challenge of tuning $\zeta$, which may be expensive and challenging for large problems. By contrast, MM produces more well-calibrated uncertainty estimates than the UBE (see \cref{mm_deepsea_visual}, \cref{mm_widenarrow_visual} and \cref{mm_priormdp_visual}). As a result, MM shows typically better regret performance than UBE without a need to tune $\zeta$. This could give an advantage to MM over the UBE in settings where tuning may be expensive or difficult.
 
 Second, we observe that the BQL posterior sometimes fails to concentrate on the true $Q^*$ values (e.g. \cref{bql_deepsea_visual} and \cref{bql_priormdp_visual}), where the posterior is overconfident about incorrect predictions of $\mu_{\zob}$. This effect persists for different random seeds and is affected by the prior used. In particular, using an NG prior with a mean $\mu_0$ that is closer to the true $Q^*$ values, results in the posterior concentrating on the true $Q^*$. These effects can be explained through the update rule used in BQL (\cref{eq:mixture}). The update rule uses the next-state-action posterior $p(\zonb | \data)$ to update the current state-action posterior. If the former is inaccurate and overconfident, the updated hyperparameters are affected accordingly. BQL can hardly escape from this situation because it does not involve a \textit{forgetting mechanism} for inaccurate updates far in the past. Contrast this with $Q$-Learning, in which the Temporal Difference (TD) updates result in a moving average of observed rewards. Model-free Bayesian approaches with a rule similar to BQL may suffer from a similar pathology.
 
@@ -185,9 +194,7 @@ Third, there is strong evidence that factored approximations made by BQL, UBE an
 
 \section{Conclusions \& Further work}
 
-Our comparison of BQL, PSRL, UBE and MM has yielded a number of insights about these algorithms: BQL suffers from a pathology whereby incorrect posterior updates result in an overconfident posterior in the absence of a forgetting mechanism, an effect from which other model-free approaches without forgetting may suffer from; the UBE uncertainty estimate $u^*_{\s, \ac}$ is extremely loose, results in undirected exploration if $\zeta$ is not tuned and places a much larger emphasis on the dynamics than the rewards uncertainties; factored approximations to the posterior as those in BQL, UBE and MM, have adverse effects on regret performance, while PSRL does not suffer from the same phenomenon since it samples from the true posterior with correlations; MM gives generally well-calibrated uncertainty estimates, however it still suffers from the factored posterior approximation.
-
-We conclude with points for future work:
+Our comparison of BQL, PSRL, UBE and MM has yielded a number of insights about these algorithms: BQL suffers from a pathology whereby incorrect posterior updates result in an overconfident posterior in the absence of a forgetting mechanism, an effect from which other model-free approaches without forgetting may suffer from; the UBE uncertainty estimate $u^*_{\s, \ac}$ is extremely loose, results in undirected exploration if $\zeta$ is not tuned and places a much larger emphasis on the dynamics than the rewards uncertainties; factored approximations to the posterior as those in BQL, UBE and MM, have adverse effects on regret performance, while PSRL does not suffer from the same phenomenon since it samples from the true posterior with correlations; MM gives generally well-calibrated uncertainty estimates, however it still suffers from the factored posterior approximation. There are several interesting directions for further work:
 \begin{itemize}
 \item PSRL outperformed the other methods in our experiments. Inspired by this one could explore how to extend PSRL to tasks with continuous state-actions, for example by using Gaussian Process (GP) \cite{gps_textbook}.
 \item MM can also be performed in continuous state-action tasks. We have conducted preliminary work for GP-based MM, using the approaches from \cite{gpsinrl, quintechrep} but further investigation is needed for this work to come to fruition.
@@ -517,11 +524,29 @@ The following plots summarise the regret of each algorithm to the oracle agent. 
 
 \begin{figure}[h!]
 \centering
-\begin{subfigure}{0.8\textwidth}
+\begin{subfigure}{0.7\textwidth}
 \includegraphics[width=\linewidth]{img/regret_summary_deepsea.pdf}
 \end{subfigure}
 \captionsetup{width=0.9\linewidth}
 \caption{Summary of regret performances to oracle on DeepSea.}\label{deepsea_regret_summary}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\begin{subfigure}{0.7\textwidth}
+\includegraphics[width=\linewidth]{img/regret_summary_widenarrow.pdf}
+\end{subfigure}
+\captionsetup{width=0.9\linewidth}
+\caption{Summary of regret performances to oracle on WideNarrow.}\label{widenarrow_regret_summary}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\begin{subfigure}{0.7\textwidth}
+\includegraphics[width=\linewidth]{img/regret_summary_priormdp.pdf}
+\end{subfigure}
+\captionsetup{width=0.9\linewidth}
+\caption{Summary of regret performances to oracle on PriorMDP.}\label{priormdp_regret_summary}
 \end{figure}
 
 \clearpage
