@@ -29,14 +29,6 @@ Janz, D., Hron, J., Hernández-Lobato, J.~M., Hofmann, K., and Tschiatschek, S.
 \newblock Successor uncertainties: exploration and uncertainty in temporal
   difference learning.
 
-\bibitem[Mnih et~al., 2015]{mnihatari}
-Mnih, V., Kavukcuoglu, K., Silver, D., Rusu, A.~A., Veness, J., Bellemare,
-  M.~G., Graves, A., Riedmiller, M., Fidjeland, A.~K., Ostrovski, G., Petersen,
-  S., Beattie, C., Sadik, A., Antonoglou, I., King, H., Kumaran, D., Wierstra,
-  D., Legg, S., and Hassabis, D. (2015).
-\newblock Human-level control through deep reinforcement learning.
-\newblock {\em Nature}, 518(7540):529--533.
-
 \bibitem[Murphy, 2007]{murphy}
 Murphy, K.~P. (2007).
 \newblock Conjugate bayesian analysis of the gaussian distribution.
@@ -107,11 +99,6 @@ Thompson, W.~R. (1933).
 \newblock {On the likelihood that one unknown probability exceeds another in
   view of the evidence of two samples}.
 \newblock {\em Biometrika}, 25(3-4):285--294.
-
-\bibitem[Watkins and Dayan, 1992]{qlearning}
-Watkins, C. J. C.~H. and Dayan, P. (1992).
-\newblock Q-learning.
-\newblock {\em Machine Learning}, 8(3):279--292.
 
 \bibitem[Weiss et~al., 2006]{weiss}
 Weiss, N., Holmes, P., and Hardy, M. (2006).

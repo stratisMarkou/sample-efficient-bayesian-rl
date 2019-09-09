@@ -5,49 +5,48 @@ The style file: apalike.bst
 Database file #1: references.bib
 A bad cross reference---entry "distperrl"
 refers to entry "DBLP:conf/icml/2017", which doesn't exist
-Warning--I didn't find a database entry for "bql"
 Warning--I didn't find a database entry for "DBLP:conf/icml/2017"
 Warning--empty institution in murphy
 Warning--empty institution in quintechrep
-You've used 21 entries,
+You've used 19 entries,
             1935 wiz_defined-function locations,
-            589 strings with 7092 characters,
-and the built_in function-call counts, 8425 in all, are:
-= -- 810
-> -- 398
-< -- 15
-+ -- 142
-- -- 135
-* -- 677
-:= -- 1492
-add.period$ -- 66
-call.type$ -- 21
-change.case$ -- 169
-chr.to.int$ -- 20
-cite$ -- 23
-duplicate$ -- 330
-empty$ -- 549
-format.name$ -- 164
-if$ -- 1654
+            573 strings with 6445 characters,
+and the built_in function-call counts, 7096 in all, are:
+= -- 693
+> -- 287
+< -- 14
++ -- 100
+- -- 93
+* -- 535
+:= -- 1254
+add.period$ -- 60
+call.type$ -- 19
+change.case$ -- 138
+chr.to.int$ -- 18
+cite$ -- 21
+duplicate$ -- 302
+empty$ -- 489
+format.name$ -- 118
+if$ -- 1413
 int.to.chr$ -- 2
 int.to.str$ -- 0
-missing$ -- 22
-newline$ -- 107
-num.names$ -- 65
-pop$ -- 162
+missing$ -- 20
+newline$ -- 97
+num.names$ -- 59
+pop$ -- 136
 preamble$ -- 1
-purify$ -- 170
+purify$ -- 139
 quote$ -- 0
-skip$ -- 260
+skip$ -- 239
 stack$ -- 0
-substring$ -- 461
-swap$ -- 55
+substring$ -- 387
+swap$ -- 53
 text.length$ -- 4
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 116
+type$ -- 104
 warning$ -- 2
-while$ -- 59
+while$ -- 51
 width$ -- 0
-write$ -- 274
+write$ -- 248
 (There was 1 error message)

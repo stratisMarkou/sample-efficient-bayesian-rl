@@ -2,12 +2,12 @@
 \BOOKMARK [2][-]{subsection.1.1}{Motivation}{section.1}% 2
 \BOOKMARK [2][-]{subsection.1.2}{Notation convention}{section.1}% 3
 \BOOKMARK [1][-]{section.2}{Types of uncertainty: epistemic and aleatoric}{}% 4
-\BOOKMARK [2][-]{subsection.2.1}{Bayesian modelling and the Bellman equations}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.1}{Bayesian modelling}{section.2}% 5
 \BOOKMARK [1][-]{section.3}{Bayesian RL algorithms}{}% 6
 \BOOKMARK [2][-]{subsection.3.1}{Bayesian Q-Learning}{section.3}% 7
 \BOOKMARK [2][-]{subsection.3.2}{Posterior sampling for reinforcement learning}{section.3}% 8
 \BOOKMARK [2][-]{subsection.3.3}{The uncertainty Bellman equation}{section.3}% 9
-\BOOKMARK [2][-]{subsection.3.4}{Moment Matching across the Bellman equation}{section.3}% 10
+\BOOKMARK [2][-]{subsection.3.4}{Moment matching across the Bellman equation}{section.3}% 10
 \BOOKMARK [1][-]{section.4}{Environments and methods}{}% 11
 \BOOKMARK [1][-]{section.5}{Results and discussion}{}% 12
 \BOOKMARK [1][-]{section.6}{Conclusions \046 Further work}{}% 13
