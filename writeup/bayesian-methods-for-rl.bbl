@@ -100,6 +100,11 @@ Thompson, W.~R. (1933).
   view of the evidence of two samples}.
 \newblock {\em Biometrika}, 25(3-4):285--294.
 
+\bibitem[Watkins and Dayan, 1992]{qlearning}
+Watkins, C. J. C.~H. and Dayan, P. (1992).
+\newblock Q-learning.
+\newblock {\em Machine Learning}, 8(3):279--292.
+
 \bibitem[Weiss et~al., 2006]{weiss}
 Weiss, N., Holmes, P., and Hardy, M. (2006).
 \newblock {\em A Course in Probability}.

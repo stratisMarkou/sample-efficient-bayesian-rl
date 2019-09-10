@@ -1,28 +1,28 @@
 \BOOKMARK [1][-]{section.1}{Introduction}{}% 1
 \BOOKMARK [2][-]{subsection.1.1}{Motivation}{section.1}% 2
 \BOOKMARK [2][-]{subsection.1.2}{Notation convention}{section.1}% 3
-\BOOKMARK [1][-]{section.2}{Types of uncertainty: epistemic and aleatoric}{}% 4
-\BOOKMARK [2][-]{subsection.2.1}{Bayesian modelling}{section.2}% 5
-\BOOKMARK [1][-]{section.3}{Bayesian RL algorithms}{}% 6
-\BOOKMARK [2][-]{subsection.3.1}{Bayesian Q-Learning}{section.3}% 7
-\BOOKMARK [2][-]{subsection.3.2}{Posterior sampling for reinforcement learning}{section.3}% 8
-\BOOKMARK [2][-]{subsection.3.3}{The uncertainty Bellman equation}{section.3}% 9
-\BOOKMARK [2][-]{subsection.3.4}{Moment matching across the Bellman equation}{section.3}% 10
-\BOOKMARK [1][-]{section.4}{Environments and methods}{}% 11
-\BOOKMARK [1][-]{section.5}{Results and discussion}{}% 12
-\BOOKMARK [1][-]{section.6}{Conclusions \046 Further work}{}% 13
-\BOOKMARK [1][-]{section*.4}{Appendices}{}% 14
-\BOOKMARK [1][-]{Appendix.1.A}{Additional algorithm details}{}% 15
-\BOOKMARK [2][-]{subsection.1.A.1}{Bayesian Q-Learning}{Appendix.1.A}% 16
-\BOOKMARK [2][-]{subsection.1.A.2}{Posterior Sampling for Reinforcement Learning}{Appendix.1.A}% 17
-\BOOKMARK [2][-]{subsection.1.A.3}{The uncertainty Bellman equation}{Appendix.1.A}% 18
-\BOOKMARK [2][-]{subsection.1.A.4}{Moment matching across the BE}{Appendix.1.A}% 19
-\BOOKMARK [1][-]{Appendix.1.B}{Additional environment details}{}% 20
-\BOOKMARK [2][-]{subsection.1.B.1}{DeepSea}{Appendix.1.B}% 21
-\BOOKMARK [2][-]{subsection.1.B.2}{WideNarrow}{Appendix.1.B}% 22
-\BOOKMARK [2][-]{subsection.1.B.3}{PriorMDP}{Appendix.1.B}% 23
-\BOOKMARK [1][-]{Appendix.1.C}{Supplementary figures}{}% 24
-\BOOKMARK [2][-]{subsection.1.C.1}{Regret summaries}{Appendix.1.C}% 25
-\BOOKMARK [2][-]{subsection.1.C.2}{DeepSea}{Appendix.1.C}% 26
-\BOOKMARK [2][-]{subsection.1.C.3}{WideNarrow}{Appendix.1.C}% 27
-\BOOKMARK [2][-]{subsection.1.C.4}{PriorMDP}{Appendix.1.C}% 28
+\BOOKMARK [1][-]{section.2}{Bayesian modelling}{}% 4
+\BOOKMARK [2][-]{subsection.2.1}{Types of uncertainty: epistemic and aleatoric}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.2}{Bayes' rule and conjugate priors}{section.2}% 6
+\BOOKMARK [1][-]{section.3}{Bayesian RL algorithms}{}% 7
+\BOOKMARK [2][-]{subsection.3.1}{Bayesian Q-Learning}{section.3}% 8
+\BOOKMARK [2][-]{subsection.3.2}{Posterior sampling for reinforcement learning}{section.3}% 9
+\BOOKMARK [2][-]{subsection.3.3}{The uncertainty Bellman equation}{section.3}% 10
+\BOOKMARK [2][-]{subsection.3.4}{Moment matching across the Bellman equation}{section.3}% 11
+\BOOKMARK [1][-]{section.4}{Environments and methods}{}% 12
+\BOOKMARK [1][-]{section.5}{Results and discussion}{}% 13
+\BOOKMARK [1][-]{section.6}{Conclusions \046 Further work}{}% 14
+\BOOKMARK [1][-]{section*.6}{Appendices}{}% 15
+\BOOKMARK [1][-]{Appendix.1.A}{Additional algorithm details}{}% 16
+\BOOKMARK [2][-]{subsection.1.A.1}{Bayesian Q-Learning}{Appendix.1.A}% 17
+\BOOKMARK [2][-]{subsection.1.A.2}{Posterior Sampling for Reinforcement Learning}{Appendix.1.A}% 18
+\BOOKMARK [2][-]{subsection.1.A.3}{The uncertainty Bellman equation}{Appendix.1.A}% 19
+\BOOKMARK [2][-]{subsection.1.A.4}{Moment matching across the BE}{Appendix.1.A}% 20
+\BOOKMARK [1][-]{Appendix.1.B}{Additional environment details}{}% 21
+\BOOKMARK [2][-]{subsection.1.B.1}{DeepSea}{Appendix.1.B}% 22
+\BOOKMARK [2][-]{subsection.1.B.2}{WideNarrow}{Appendix.1.B}% 23
+\BOOKMARK [2][-]{subsection.1.B.3}{PriorMDP}{Appendix.1.B}% 24
+\BOOKMARK [1][-]{Appendix.1.C}{Supplementary figures}{}% 25
+\BOOKMARK [2][-]{subsection.1.C.1}{DeepSea}{Appendix.1.C}% 26
+\BOOKMARK [2][-]{subsection.1.C.2}{WideNarrow}{Appendix.1.C}% 27
+\BOOKMARK [2][-]{subsection.1.C.3}{PriorMDP}{Appendix.1.C}% 28

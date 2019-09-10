@@ -22,21 +22,26 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {1.1}Motivation}{1}{subsection.1.1}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {1.2}Notation convention}{1}{subsection.1.2}}
 \citation{distperrl}
+\citation{qlearning}
 \citation{thompson}
 \citation{bishop}
 \citation{murphy}
 \citation{bqlearning}
-\@writefile{toc}{\contentsline {section}{\numberline {2}Types of uncertainty: epistemic and aleatoric}{2}{section.2}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Bayesian modelling}{2}{section.2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Types of uncertainty: epistemic and aleatoric}{2}{subsection.2.1}}
 \newlabel{eq:distributional}{{2}{2}{Types of uncertainty: epistemic and aleatoric}{equation.2.2}{}}
 \newlabel{eq:distributional@cref}{{[equation][2][]2}{[1][2][]2}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Bayesian modelling}{2}{subsection.2.1}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Distinction between aleatoric and epistemic uncertainty for a toy example. As more data are observed (black crosses), the range of plausible Gaussian models narrows down to the ground truth. The epistemic uncertainty in the mean (grey) shrinks, but the aleatoric uncertainty (black) does not reduce bellow the level of inherent noise.\relax }}{2}{figure.caption.2}}
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{ae_demo}{{1}{2}{Distinction between aleatoric and epistemic uncertainty for a toy example. As more data are observed (black crosses), the range of plausible Gaussian models narrows down to the ground truth. The epistemic uncertainty in the mean (grey) shrinks, but the aleatoric uncertainty (black) does not reduce bellow the level of inherent noise.\relax }{figure.caption.2}{}}
+\newlabel{ae_demo@cref}{{[figure][1][]1}{[1][2][]2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Bayes' rule and conjugate priors}{2}{subsection.2.2}}
 \@writefile{toc}{\contentsline {section}{\numberline {3}Bayesian RL algorithms}{2}{section.3}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Bayesian Q-Learning}{2}{subsection.3.1}}
 \citation{psrl}
-\citation{psrl}
 \citation{ube}
 \citation{weiss}
-\citation{rand_val_func,deepsea}
+\citation{deepsea}
 \citation{psrl}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Posterior sampling for reinforcement learning}{3}{subsection.3.2}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.3}The uncertainty Bellman equation}{3}{subsection.3.3}}
@@ -44,10 +49,12 @@
 \@writefile{toc}{\contentsline {section}{\numberline {4}Environments and methods}{3}{section.4}}
 \@writefile{toc}{\contentsline {section}{\numberline {5}Results and discussion}{3}{section.5}}
 \citation{ube}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Summary of regret performances to oracle on selected environments - see \crefrange  {deepsea_regret_summary}{priormdp_regret_summary} for additional results.\relax }}{4}{figure.caption.2}}
-\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{combined_regret_summary}{{1}{4}{Summary of regret performances to oracle on selected environments - see \crefrange {deepsea_regret_summary}{priormdp_regret_summary} for additional results.\relax }{figure.caption.2}{}}
-\newlabel{combined_regret_summary@cref}{{[figure][1][]1}{[1][3][]4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Summary performances in terms of regret to the oracle on selected environments. $N$, $W$, $N_s$ and $N_a$ are environment size parameters - see \cref  {app:env} for specifications.\relax }}{4}{figure.caption.3}}
+\newlabel{combined_regret_summary}{{2}{4}{Summary performances in terms of regret to the oracle on selected environments. $N$, $W$, $N_s$ and $N_a$ are environment size parameters - see \cref {app:env} for specifications.\relax }{figure.caption.3}{}}
+\newlabel{combined_regret_summary@cref}{{[figure][2][]2}{[1][3][]4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Plots of the evolution of the posterior on the same PriorMDP for each algorithm.\relax }}{4}{figure.caption.4}}
+\newlabel{combined_posterior_evolution}{{3}{4}{Plots of the evolution of the posterior on the same PriorMDP for each algorithm.\relax }{figure.caption.4}{}}
+\newlabel{combined_posterior_evolution@cref}{{[figure][3][]3}{[1][3][]4}}
 \citation{gps_textbook}
 \citation{gpsinrl,quintechrep}
 \citation{bdqn}
@@ -75,11 +82,12 @@
 \bibcite{silver}{{16}{2015}{{Silver}}{{}}}
 \bibcite{suttonbarto}{{17}{2018}{{Sutton and Barto}}{{}}}
 \bibcite{thompson}{{18}{1933}{{Thompson}}{{}}}
-\bibcite{weiss}{{19}{2006}{{Weiss et~al.}}{{}}}
+\bibcite{qlearning}{{19}{1992}{{Watkins and Dayan}}{{}}}
+\bibcite{weiss}{{20}{2006}{{Weiss et~al.}}{{}}}
 \citation{bqlearning}
 \citation{silver}
 \citation{psrl}
-\@writefile{toc}{\contentsline {section}{Appendices}{7}{section*.4}}
+\@writefile{toc}{\contentsline {section}{Appendices}{7}{section*.6}}
 \@writefile{toc}{\contentsline {section}{\numberline {A}Additional algorithm details}{7}{Appendix.1.A}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {A.1}Bayesian Q-Learning}{7}{subsection.1.A.1}}
 \newlabel{app:bql}{{A.1}{7}{Bayesian Q-Learning}{subsection.1.A.1}{}}
@@ -137,97 +145,89 @@
 \newlabel{app:env}{{B}{11}{Additional environment details}{Appendix.1.B}{}}
 \newlabel{app:env@cref}{{[section][2][]B}{[1][11][]11}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {B.1}DeepSea}{11}{subsection.1.B.1}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces DeepSea MDP}}{11}{figure.caption.5}}
-\newlabel{deepseaMDP}{{2}{11}{DeepSea MDP}{figure.caption.5}{}}
-\newlabel{deepseaMDP@cref}{{[figure][2][]2}{[1][11][]11}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces DeepSea MDP}}{11}{figure.caption.7}}
+\newlabel{deepseaMDP}{{4}{11}{DeepSea MDP}{figure.caption.7}{}}
+\newlabel{deepseaMDP@cref}{{[figure][4][]4}{[1][11][]11}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {B.2}WideNarrow}{11}{subsection.1.B.2}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces WideNarrow MDP}}{11}{figure.caption.6}}
-\newlabel{widenarrowMDP}{{3}{11}{WideNarrow MDP}{figure.caption.6}{}}
-\newlabel{widenarrowMDP@cref}{{[figure][3][]3}{[1][11][]11}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces WideNarrow MDP}}{11}{figure.caption.8}}
+\newlabel{widenarrowMDP}{{5}{11}{WideNarrow MDP}{figure.caption.8}{}}
+\newlabel{widenarrowMDP@cref}{{[figure][5][]5}{[1][11][]11}}
 \citation{psrl}
 \newlabel{eq:cov_demo}{{14}{12}{WideNarrow}{equation.1.B.14}{}}
 \newlabel{eq:cov_demo@cref}{{[equation][14][]14}{[1][11][]12}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {B.3}PriorMDP}{12}{subsection.1.B.3}}
 \@writefile{toc}{\contentsline {section}{\numberline {C}Supplementary figures}{13}{Appendix.1.C}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {C.1}Regret summaries}{13}{subsection.1.C.1}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Summary of regret performances to oracle on DeepSea.\relax }}{13}{figure.caption.7}}
-\newlabel{deepsea_regret_summary}{{4}{13}{Summary of regret performances to oracle on DeepSea.\relax }{figure.caption.7}{}}
-\newlabel{deepsea_regret_summary@cref}{{[figure][4][]4}{[1][13][]13}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Summary of regret performances to oracle on WideNarrow.\relax }}{13}{figure.caption.8}}
-\newlabel{widenarrow_regret_summary}{{5}{13}{Summary of regret performances to oracle on WideNarrow.\relax }{figure.caption.8}{}}
-\newlabel{widenarrow_regret_summary@cref}{{[figure][5][]5}{[1][13][]13}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Summary of regret performances to oracle on PriorMDP.\relax }}{13}{figure.caption.9}}
-\newlabel{priormdp_regret_summary}{{6}{13}{Summary of regret performances to oracle on PriorMDP.\relax }{figure.caption.9}{}}
-\newlabel{priormdp_regret_summary@cref}{{[figure][6][]6}{[1][13][]13}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {C.2}DeepSea}{14}{subsection.1.C.2}}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces QL $Q$-estimates and regret on DeepSea.\relax }}{14}{figure.caption.10}}
-\newlabel{ql_deepsea_visual}{{7}{14}{QL $Q$-estimates and regret on DeepSea.\relax }{figure.caption.10}{}}
-\newlabel{ql_deepsea_visual@cref}{{[figure][7][]7}{[1][14][]14}}
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces BQL posterior and regret on DeepSea.\relax }}{14}{figure.caption.11}}
-\newlabel{bql_deepsea_visual}{{8}{14}{BQL posterior and regret on DeepSea.\relax }{figure.caption.11}{}}
-\newlabel{bql_deepsea_visual@cref}{{[figure][8][]8}{[1][14][]14}}
-\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces PSRL posterior and regret on DeepSea.\relax }}{14}{figure.caption.12}}
-\newlabel{psrl_deepsea_visual}{{9}{14}{PSRL posterior and regret on DeepSea.\relax }{figure.caption.12}{}}
-\newlabel{psrl_deepsea_visual@cref}{{[figure][9][]9}{[1][14][]14}}
-\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces UBE posterior and regret on DeepSea.\relax }}{15}{figure.caption.13}}
-\newlabel{ube_deepsea_visual1}{{10}{15}{UBE posterior and regret on DeepSea.\relax }{figure.caption.13}{}}
-\newlabel{ube_deepsea_visual1@cref}{{[figure][10][]10}{[1][14][]15}}
-\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces UBE posterior and regret on DeepSea.\relax }}{15}{figure.caption.14}}
-\newlabel{ube_deepsea_visual01}{{11}{15}{UBE posterior and regret on DeepSea.\relax }{figure.caption.14}{}}
-\newlabel{ube_deepsea_visual01@cref}{{[figure][11][]11}{[1][14][]15}}
-\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces Contributions to the local variance $\nu ^*_{\mathbf  {s}, \mathbf  {a}}$ by the reward and the $Q_{max}$ term. This plot corresponds to \cref  {ube_deepsea_visual01}. Note the logarithmic scale.\relax }}{15}{figure.caption.15}}
-\newlabel{ube_unc_terms}{{12}{15}{Contributions to the local variance $\nu ^*_{\s , \ac }$ by the reward and the $Q_{max}$ term. This plot corresponds to \cref {ube_deepsea_visual01}. Note the logarithmic scale.\relax }{figure.caption.15}{}}
-\newlabel{ube_unc_terms@cref}{{[figure][12][]12}{[1][14][]15}}
-\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces MM posterior and regret on DeepSea.\relax }}{16}{figure.caption.16}}
-\newlabel{mm_deepsea_visual}{{13}{16}{MM posterior and regret on DeepSea.\relax }{figure.caption.16}{}}
-\newlabel{mm_deepsea_visual@cref}{{[figure][13][]13}{[1][14][]16}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {C.3}WideNarrow}{17}{subsection.1.C.3}}
-\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces QL $Q$-estimates and regret on WideNarrow.\relax }}{17}{figure.caption.17}}
-\newlabel{ql_widenarrow_visual}{{14}{17}{QL $Q$-estimates and regret on WideNarrow.\relax }{figure.caption.17}{}}
-\newlabel{ql_widenarrow_visual@cref}{{[figure][14][]14}{[1][17][]17}}
-\@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces BQL posterior and regret on WideNarrow.\relax }}{17}{figure.caption.18}}
-\newlabel{bql_widenarrow_visual}{{15}{17}{BQL posterior and regret on WideNarrow.\relax }{figure.caption.18}{}}
-\newlabel{bql_widenarrow_visual@cref}{{[figure][15][]15}{[1][17][]17}}
-\@writefile{lof}{\contentsline {figure}{\numberline {16}{\ignorespaces PSRL posterior and regret on WideNarrow.\relax }}{17}{figure.caption.19}}
-\newlabel{psrl_widenarrow_visual}{{16}{17}{PSRL posterior and regret on WideNarrow.\relax }{figure.caption.19}{}}
-\newlabel{psrl_widenarrow_visual@cref}{{[figure][16][]16}{[1][17][]17}}
-\@writefile{lof}{\contentsline {figure}{\numberline {17}{\ignorespaces UBE posterior and regret on WideNarrow.\relax }}{18}{figure.caption.20}}
-\newlabel{ube_widenarrow_visual1}{{17}{18}{UBE posterior and regret on WideNarrow.\relax }{figure.caption.20}{}}
-\newlabel{ube_widenarrow_visual1@cref}{{[figure][17][]17}{[1][17][]18}}
-\@writefile{lof}{\contentsline {figure}{\numberline {18}{\ignorespaces UBE posterior and regret on WideNarrow.\relax }}{18}{figure.caption.21}}
-\newlabel{ube_widenarrow_visual01}{{18}{18}{UBE posterior and regret on WideNarrow.\relax }{figure.caption.21}{}}
-\newlabel{ube_widenarrow_visual01@cref}{{[figure][18][]18}{[1][17][]18}}
-\@writefile{lof}{\contentsline {figure}{\numberline {19}{\ignorespaces MM posterior and regret on WideNarrow.\relax }}{18}{figure.caption.22}}
-\newlabel{mm_widenarrow_visual}{{19}{18}{MM posterior and regret on WideNarrow.\relax }{figure.caption.22}{}}
-\newlabel{mm_widenarrow_visual@cref}{{[figure][19][]19}{[1][17][]18}}
-\@writefile{lof}{\contentsline {figure}{\numberline {20}{\ignorespaces Correlation plots for WideNarrow at time step $t = 1,000$.\relax }}{19}{figure.caption.23}}
-\newlabel{correlations_widenarrow_500}{{20}{19}{Correlation plots for WideNarrow at time step $t = 1,000$.\relax }{figure.caption.23}{}}
-\newlabel{correlations_widenarrow_500@cref}{{[figure][20][]20}{[1][19][]19}}
-\@writefile{lof}{\contentsline {figure}{\numberline {21}{\ignorespaces Correlation plots for WideNarrow at time step $t = 5,000$.\relax }}{20}{figure.caption.24}}
-\newlabel{correlations_widenarrow_2500}{{21}{20}{Correlation plots for WideNarrow at time step $t = 5,000$.\relax }{figure.caption.24}{}}
-\newlabel{correlations_widenarrow_2500@cref}{{[figure][21][]21}{[1][19][]20}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {C.4}PriorMDP}{21}{subsection.1.C.4}}
-\@writefile{lof}{\contentsline {figure}{\numberline {22}{\ignorespaces QL $Q$-estimates and regret on PriorMDP.\relax }}{21}{figure.caption.25}}
-\newlabel{ql_priormdp_visual}{{22}{21}{QL $Q$-estimates and regret on PriorMDP.\relax }{figure.caption.25}{}}
-\newlabel{ql_priormdp_visual@cref}{{[figure][22][]22}{[1][21][]21}}
-\@writefile{lof}{\contentsline {figure}{\numberline {23}{\ignorespaces BQL posterior and regret on PriorMDP.\relax }}{21}{figure.caption.26}}
-\newlabel{bql_priormdp_visual}{{23}{21}{BQL posterior and regret on PriorMDP.\relax }{figure.caption.26}{}}
-\newlabel{bql_priormdp_visual@cref}{{[figure][23][]23}{[1][21][]21}}
-\@writefile{lof}{\contentsline {figure}{\numberline {24}{\ignorespaces PSRL posterior and regret on PriorMDP.\relax }}{21}{figure.caption.27}}
-\newlabel{psrl_priormdp_visual}{{24}{21}{PSRL posterior and regret on PriorMDP.\relax }{figure.caption.27}{}}
-\newlabel{psrl_priormdp_visual@cref}{{[figure][24][]24}{[1][21][]21}}
-\@writefile{lof}{\contentsline {figure}{\numberline {25}{\ignorespaces UBE posterior and regret on PriorMDP.\relax }}{22}{figure.caption.28}}
-\newlabel{ube_priormdp_visual1}{{25}{22}{UBE posterior and regret on PriorMDP.\relax }{figure.caption.28}{}}
-\newlabel{ube_priormdp_visual1@cref}{{[figure][25][]25}{[1][21][]22}}
-\@writefile{lof}{\contentsline {figure}{\numberline {26}{\ignorespaces UBE posterior and regret on PriorMDP.\relax }}{22}{figure.caption.29}}
-\newlabel{ube_priormdp_visual1}{{26}{22}{UBE posterior and regret on PriorMDP.\relax }{figure.caption.29}{}}
-\newlabel{ube_priormdp_visual1@cref}{{[figure][26][]26}{[1][21][]22}}
-\@writefile{lof}{\contentsline {figure}{\numberline {27}{\ignorespaces MM posterior and regret on PriorMDP.\relax }}{22}{figure.caption.30}}
-\newlabel{mm_priormdp_visual}{{27}{22}{MM posterior and regret on PriorMDP.\relax }{figure.caption.30}{}}
-\newlabel{mm_priormdp_visual@cref}{{[figure][27][]27}{[1][21][]22}}
-\@writefile{lof}{\contentsline {figure}{\numberline {28}{\ignorespaces Correlation plots for PriorMDP at time step $t = 1,000$.\relax }}{23}{figure.caption.31}}
-\newlabel{correlations_priormdp_500}{{28}{23}{Correlation plots for PriorMDP at time step $t = 1,000$.\relax }{figure.caption.31}{}}
-\newlabel{correlations_priormdp_500@cref}{{[figure][28][]28}{[1][23][]23}}
-\@writefile{lof}{\contentsline {figure}{\numberline {29}{\ignorespaces Correlation plots for PriorMDP at time step $t = 5,000$.\relax }}{24}{figure.caption.32}}
-\newlabel{correlations_priormdp_2500}{{29}{24}{Correlation plots for PriorMDP at time step $t = 5,000$.\relax }{figure.caption.32}{}}
-\newlabel{correlations_priormdp_2500@cref}{{[figure][29][]29}{[1][23][]24}}
+\newlabel{app:supfig}{{C}{13}{Supplementary figures}{Appendix.1.C}{}}
+\newlabel{app:supfig@cref}{{[section][3][]C}{[1][13][]13}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {C.1}DeepSea}{13}{subsection.1.C.1}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces QL $Q$-estimates and regret on DeepSea.\relax }}{13}{figure.caption.9}}
+\newlabel{ql_deepsea_visual}{{6}{13}{QL $Q$-estimates and regret on DeepSea.\relax }{figure.caption.9}{}}
+\newlabel{ql_deepsea_visual@cref}{{[figure][6][]6}{[1][13][]13}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces BQL posterior and regret on DeepSea.\relax }}{13}{figure.caption.10}}
+\newlabel{bql_deepsea_visual}{{7}{13}{BQL posterior and regret on DeepSea.\relax }{figure.caption.10}{}}
+\newlabel{bql_deepsea_visual@cref}{{[figure][7][]7}{[1][13][]13}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces PSRL posterior and regret on DeepSea.\relax }}{13}{figure.caption.11}}
+\newlabel{psrl_deepsea_visual}{{8}{13}{PSRL posterior and regret on DeepSea.\relax }{figure.caption.11}{}}
+\newlabel{psrl_deepsea_visual@cref}{{[figure][8][]8}{[1][13][]13}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces UBE posterior and regret on DeepSea.\relax }}{14}{figure.caption.12}}
+\newlabel{ube_deepsea_visual1}{{9}{14}{UBE posterior and regret on DeepSea.\relax }{figure.caption.12}{}}
+\newlabel{ube_deepsea_visual1@cref}{{[figure][9][]9}{[1][13][]14}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces UBE posterior and regret on DeepSea.\relax }}{14}{figure.caption.13}}
+\newlabel{ube_deepsea_visual01}{{10}{14}{UBE posterior and regret on DeepSea.\relax }{figure.caption.13}{}}
+\newlabel{ube_deepsea_visual01@cref}{{[figure][10][]10}{[1][13][]14}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Contributions to the local variance $\nu ^*_{\mathbf  {s}, \mathbf  {a}}$ by the reward and the $Q_{max}$ term. This plot corresponds to \cref  {ube_deepsea_visual01}. Note the logarithmic scale.\relax }}{14}{figure.caption.14}}
+\newlabel{ube_unc_terms}{{11}{14}{Contributions to the local variance $\nu ^*_{\s , \ac }$ by the reward and the $Q_{max}$ term. This plot corresponds to \cref {ube_deepsea_visual01}. Note the logarithmic scale.\relax }{figure.caption.14}{}}
+\newlabel{ube_unc_terms@cref}{{[figure][11][]11}{[1][13][]14}}
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces MM posterior and regret on DeepSea.\relax }}{15}{figure.caption.15}}
+\newlabel{mm_deepsea_visual}{{12}{15}{MM posterior and regret on DeepSea.\relax }{figure.caption.15}{}}
+\newlabel{mm_deepsea_visual@cref}{{[figure][12][]12}{[1][13][]15}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {C.2}WideNarrow}{16}{subsection.1.C.2}}
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces QL $Q$-estimates and regret on WideNarrow.\relax }}{16}{figure.caption.16}}
+\newlabel{ql_widenarrow_visual}{{13}{16}{QL $Q$-estimates and regret on WideNarrow.\relax }{figure.caption.16}{}}
+\newlabel{ql_widenarrow_visual@cref}{{[figure][13][]13}{[1][16][]16}}
+\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces BQL posterior and regret on WideNarrow.\relax }}{16}{figure.caption.17}}
+\newlabel{bql_widenarrow_visual}{{14}{16}{BQL posterior and regret on WideNarrow.\relax }{figure.caption.17}{}}
+\newlabel{bql_widenarrow_visual@cref}{{[figure][14][]14}{[1][16][]16}}
+\@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces PSRL posterior and regret on WideNarrow.\relax }}{16}{figure.caption.18}}
+\newlabel{psrl_widenarrow_visual}{{15}{16}{PSRL posterior and regret on WideNarrow.\relax }{figure.caption.18}{}}
+\newlabel{psrl_widenarrow_visual@cref}{{[figure][15][]15}{[1][16][]16}}
+\@writefile{lof}{\contentsline {figure}{\numberline {16}{\ignorespaces UBE posterior and regret on WideNarrow.\relax }}{17}{figure.caption.19}}
+\newlabel{ube_widenarrow_visual1}{{16}{17}{UBE posterior and regret on WideNarrow.\relax }{figure.caption.19}{}}
+\newlabel{ube_widenarrow_visual1@cref}{{[figure][16][]16}{[1][16][]17}}
+\@writefile{lof}{\contentsline {figure}{\numberline {17}{\ignorespaces UBE posterior and regret on WideNarrow.\relax }}{17}{figure.caption.20}}
+\newlabel{ube_widenarrow_visual01}{{17}{17}{UBE posterior and regret on WideNarrow.\relax }{figure.caption.20}{}}
+\newlabel{ube_widenarrow_visual01@cref}{{[figure][17][]17}{[1][16][]17}}
+\@writefile{lof}{\contentsline {figure}{\numberline {18}{\ignorespaces MM posterior and regret on WideNarrow.\relax }}{17}{figure.caption.21}}
+\newlabel{mm_widenarrow_visual}{{18}{17}{MM posterior and regret on WideNarrow.\relax }{figure.caption.21}{}}
+\newlabel{mm_widenarrow_visual@cref}{{[figure][18][]18}{[1][16][]17}}
+\@writefile{lof}{\contentsline {figure}{\numberline {19}{\ignorespaces Correlation plots for WideNarrow at time step $t = 1,000$.\relax }}{18}{figure.caption.22}}
+\newlabel{correlations_widenarrow_500}{{19}{18}{Correlation plots for WideNarrow at time step $t = 1,000$.\relax }{figure.caption.22}{}}
+\newlabel{correlations_widenarrow_500@cref}{{[figure][19][]19}{[1][18][]18}}
+\@writefile{lof}{\contentsline {figure}{\numberline {20}{\ignorespaces Correlation plots for WideNarrow at time step $t = 5,000$.\relax }}{19}{figure.caption.23}}
+\newlabel{correlations_widenarrow_2500}{{20}{19}{Correlation plots for WideNarrow at time step $t = 5,000$.\relax }{figure.caption.23}{}}
+\newlabel{correlations_widenarrow_2500@cref}{{[figure][20][]20}{[1][18][]19}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {C.3}PriorMDP}{20}{subsection.1.C.3}}
+\@writefile{lof}{\contentsline {figure}{\numberline {21}{\ignorespaces QL $Q$-estimates and regret on PriorMDP.\relax }}{20}{figure.caption.24}}
+\newlabel{ql_priormdp_visual}{{21}{20}{QL $Q$-estimates and regret on PriorMDP.\relax }{figure.caption.24}{}}
+\newlabel{ql_priormdp_visual@cref}{{[figure][21][]21}{[1][20][]20}}
+\@writefile{lof}{\contentsline {figure}{\numberline {22}{\ignorespaces BQL posterior and regret on PriorMDP.\relax }}{20}{figure.caption.25}}
+\newlabel{bql_priormdp_visual}{{22}{20}{BQL posterior and regret on PriorMDP.\relax }{figure.caption.25}{}}
+\newlabel{bql_priormdp_visual@cref}{{[figure][22][]22}{[1][20][]20}}
+\@writefile{lof}{\contentsline {figure}{\numberline {23}{\ignorespaces PSRL posterior and regret on PriorMDP.\relax }}{20}{figure.caption.26}}
+\newlabel{psrl_priormdp_visual}{{23}{20}{PSRL posterior and regret on PriorMDP.\relax }{figure.caption.26}{}}
+\newlabel{psrl_priormdp_visual@cref}{{[figure][23][]23}{[1][20][]20}}
+\@writefile{lof}{\contentsline {figure}{\numberline {24}{\ignorespaces UBE posterior and regret on PriorMDP.\relax }}{21}{figure.caption.27}}
+\newlabel{ube_priormdp_visual1}{{24}{21}{UBE posterior and regret on PriorMDP.\relax }{figure.caption.27}{}}
+\newlabel{ube_priormdp_visual1@cref}{{[figure][24][]24}{[1][20][]21}}
+\@writefile{lof}{\contentsline {figure}{\numberline {25}{\ignorespaces UBE posterior and regret on PriorMDP.\relax }}{21}{figure.caption.28}}
+\newlabel{ube_priormdp_visual1}{{25}{21}{UBE posterior and regret on PriorMDP.\relax }{figure.caption.28}{}}
+\newlabel{ube_priormdp_visual1@cref}{{[figure][25][]25}{[1][20][]21}}
+\@writefile{lof}{\contentsline {figure}{\numberline {26}{\ignorespaces MM posterior and regret on PriorMDP.\relax }}{21}{figure.caption.29}}
+\newlabel{mm_priormdp_visual}{{26}{21}{MM posterior and regret on PriorMDP.\relax }{figure.caption.29}{}}
+\newlabel{mm_priormdp_visual@cref}{{[figure][26][]26}{[1][20][]21}}
+\@writefile{lof}{\contentsline {figure}{\numberline {27}{\ignorespaces Correlation plots for PriorMDP at time step $t = 1,000$.\relax }}{22}{figure.caption.30}}
+\newlabel{correlations_priormdp_500}{{27}{22}{Correlation plots for PriorMDP at time step $t = 1,000$.\relax }{figure.caption.30}{}}
+\newlabel{correlations_priormdp_500@cref}{{[figure][27][]27}{[1][22][]22}}
+\@writefile{lof}{\contentsline {figure}{\numberline {28}{\ignorespaces Correlation plots for PriorMDP at time step $t = 5,000$.\relax }}{23}{figure.caption.31}}
+\newlabel{correlations_priormdp_2500}{{28}{23}{Correlation plots for PriorMDP at time step $t = 5,000$.\relax }{figure.caption.31}{}}
+\newlabel{correlations_priormdp_2500@cref}{{[figure][28][]28}{[1][22][]23}}
