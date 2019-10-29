@@ -14,7 +14,7 @@
 %     \usepackage[preprint]{neurips_2019}
 
 % to compile a camera-ready version, add the [final] option, e.g.:
-     \usepackage{neurips_2019}
+     \usepackage[final]{neurips_2019}
 
 % to avoid loading the natbib package, add option nonatbib:
 %     \usepackage[nonatbib]{neurips_2019}
@@ -43,26 +43,16 @@
 % \AND instead of \And before the third author name.
 
 \author{%
-  Duffy Duck\thanks{Additional information about author} \\
-  Disney Studios\\
-  \texttt{duffy@duck.com} \\
-  % examples of more authors
-  % \And
-  % Coauthor \\
-  % Affiliation \\
-  % Address \\
-  % \texttt{email} \\
+  Efstratios Markou \\
+  Department of Engineering\\
+  University of Cambridge\\
+  \texttt{stratismar@gmail.com} \\
+  \And
+  Carl E. Rasmussen \\
+  Department of Engineering\\
+  University of Cambridge\\
+  \texttt{cer54@cam.ac.uk}
   % \AND
-  % Coauthor \\
-  % Affiliation \\
-  % Address \\
-  % \texttt{email} \\
-  % \And
-  % Coauthor \\
-  % Affiliation \\
-  % Address \\
-  % \texttt{email} \\
-  % \And
   % Coauthor \\
   % Affiliation \\
   % Address \\
@@ -70,34 +60,6 @@
 }
 
 \begin{document}
-
-\begin{comment}
-\begin{enumerate}
-\item \st{Write Bayesian algorithms intro.}
-\item \st{Environment and experiment description.}
-\item Results and discussion.
-\item Conclusions.
-\item \st{Fix algorithm loops.}
-\item \st{Check action notation in moment matching.}
-\item \st{Add agent parameter details.}
-\item \st{Change w to z equation in appendix.}
-\item \st{UBE: plots of types of uncertainty.}
-\item \st{Add regret summary plots.}
-\end{enumerate}
-
-Points to drive home
-\begin{enumerate}
-\item \st{Posterior uncertainty guides exploration. Agent does not need to be certain, just sure enough about the optimal action.}
-\item \st{UBE grossly over-estimates uncertainty and over-weighs dynamics uncertainty - important to calibrate $\zeta$.}
-\item \st{BQL may suffer from bad updates and lack of a forgetting mechanism.}
-\item \st{MM produces well calibrated uncertainties in this setting, no need to tune $\zeta$.}
-\item \st{Correlations are very important for optimal action selection.}
-\item \st{No clear computational advantage of any of the methods over PSRL.}
-\item \st{More sophisticated action-selection schemes are possible.}
-\end{enumerate}
-
-\clearpage
-\end{comment}
 
 \maketitle
 
@@ -126,7 +88,7 @@ One recent and related approach is Distributional RL (DRL) \citep{distperrl}. Th
 \begin{align} \label{eq:distributional}
 \zb = \rsanb + \gamma \znb
 \end{align}
-where $\ns \sim \mct$, $\rsanb \sim \mcr$, $\ac' \sim \pi$, and equality means the two sides are identically distributed. Where traditional algorithms such as Q-Learning \citep{qlearning} learn $Q^*$, DRL learns $\mczo$, the distribution of $\zob$ whose expectation is $Q^*_{\mathbf{s}, \mathbf{a}}$. It is postulated that DRL improves performance because it leverages a richer learning signal and gracefully handles return multi-modalities. DRL models the \textit{aleatoric} or \textit{irreducible} uncertainty due to the inherent stochasticity in $\mct$ and $\mcr$. This leads to more meaningful models of the return, but is not useful for improving exploration.
+where $\ns \sim \mct$, $\rsanb \sim \mcr$, $\ac' \sim \pi$, and equality means the two sides are identically distributed. Where traditional algorithms such as Q-Learning \citep{qlearning} learn $Q^*$, DRL learns $\mczo$, the distribution of $\zob$ whose expectation is $Q^*_{\mathbf{s}, \mathbf{a}}$. It is postulated that DRL improves performance because it leverages a richer learning signal and gracefully handles multi-modal returns. DRL models the \textit{aleatoric} or \textit{irreducible} uncertainty due to the inherent stochasticity in $\mct$ and $\mcr$. This leads to more meaningful models of the return, but is not useful for improving exploration.
 
 \begin{figure}[h!]
 \centering
@@ -140,10 +102,10 @@ where $\ns \sim \mct$, $\rsanb \sim \mcr$, $\ac' \sim \pi$, and equality means t
 \includegraphics[width=\linewidth]{img/ae_demo_100.pdf}
 \end{subfigure}
 \captionsetup{width=0.9\linewidth}
-\caption{Distinction between aleatoric and epistemic uncertainty for a toy example. As more data are observed (black crosses), the range of plausible Gaussian models narrows down to the ground truth. The epistemic uncertainty in the mean (grey) shrinks, but the aleatoric uncertainty (black) does not reduce bellow the level of inherent noise.}\label{ae_demo}
+\caption{Distinction between aleatoric and epistemic uncertainty using a toy example. As more data are observed (black crosses), the range of plausible Gaussian models narrows down to the ground truth. The epistemic uncertainty in the Gaussian mean (grey) shrinks, but the aleatoric uncertainty (black) does not reduce bellow the level of inherent noise.}\label{ae_demo}
 \end{figure}
 
-Instead, the quantity relevant to exploration is the uncertainty in the parameterisation of $\mczo$ due to the finite amount data, known as the \textit{epistemic} uncertainty - see \cref{ae_demo}. In the limit of zero epistemic uncertainty, the agent is certain about the parameters of its models of $\mct$ and $\mcr$, so acting greedily is optimal given the current data and models - even though there is still aleatoric uncertainty. If the epistemic uncertainty is non-zero, the agent will be uncertain about the \textit{expected returns} and should account for this while exploring. A principled approach would therefore be to quantify the epistemic uncertainty and use it to direct the exploration, e.g. by Thompson sampling \citep{thompson}. This also provides an automatic transition into exploitation, as the posteriors become narrower.
+Instead, the quantity relevant to exploration is the uncertainty in the parameterisation of $\mczo$ due to the finite amount data, known as the \textit{epistemic} uncertainty - see \cref{ae_demo}. In the limit of zero epistemic uncertainty, the agent is certain about the parameters of its models of $\mct$ and $\mcr$, so acting greedily is optimal given the current data and models - even though aleatoric uncertainty is still present. If the epistemic uncertainty is non-zero, the agent will be uncertain about the \textit{expected returns} and should arguably account for this while exploring. A principled approach would therefore be to quantify the epistemic uncertainty and use it to direct the exploration, e.g. by Thompson sampling \citep{thompson}. This provides an automatic transition into exploitation, as the posteriors become narrower.
 
 \subsection{Bayes' rule and conjugate priors}
 
@@ -158,22 +120,22 @@ Choosing a \textit{conjugate} prior simplifies downstream calculations: for disc
 \subsection{Bayesian Q-Learning}
 Bayesian Q-Learning (BQL) \citep{bqlearning} is a model-free algorithm for the tabular setting. The agent models $\mczo$, the distribution over action-returns under $\pi^*$, and updates $p(\thetamczo | \data)$ as data arrive, using a heuristic update rule. The authors make the additional modelling assumptions: (1) the return from any state-action is Gaussian; (2) the prior over the mean and precision for each of these Gaussians is Normal-Gamma (NG); (3) the NG posterior\footnote{Since $\zob$ is modelled by a Gaussian with an NG prior over its mean and precision, the posterior is also NG.} factors over different state-actions.
 
-Although the first two are mild assumptions, the latter is more significant because it approximates the exact posterior by a factored distribution. In reality, the expected returns are related though the BE, so the exact posterior is not factored. See appendix \ref{app:bql} for further details.
+Although the first two are mild assumptions, the latter is more significant because it approximates the exact posterior by a factored distribution. In reality, the expected returns are related though the BE, so the exact posterior is not factored in general. See appendix \ref{app:bql} for further details.
 
 \subsection{Posterior sampling for reinforcement learning}
 
 Posterior Sampling for Reinforcement Learning (PSRL) \citep{psrl} is an elegantly simple and yet provably efficient model-based algorithm for sampling from the exact posterior over optimal policies $p(\pi^* | \data)$. It amounts to sampling $\thetamcthat \sim \thetamctpost$ and $\thetamcrhat \sim \thetamcrpost$, and solving the BE for $\hat{Q}^* | \thetamcthat, \thetamcrhat $ and $\hat{\pi}^* | \thetamcthat, \thetamcrhat$. Policy $\hat{\pi}^*$ is then followed for a single episode, or for a pre-defined horizon in continuing tasks. See appendix \ref{app:psrl} for further details.
 
 \subsection{The uncertainty Bellman equation}
-The Uncertainty Bellman Equation (UBE), is a model-based method proposed by \cite{ube}, for estimating the epistemic uncertainty in $\mu_{\zb} = \E_z [\zb | \thetamcz]$. The authors assume that: (1) the MDP is a directed acyclic graph (DAG) and the task is episodic with time variable $t = 1, ..., T$; (2) the mean rewards of the MDP are bounded within $[-R_{max}, R_{max}]$. Taking variances across the BE and defining an appropriate Bellman operator, they show that corresponding UBE has a unique solution $u_{\s, \ac, t}^\pi$ which upper bounds the epistemic uncertainty $\Var_{\thetamct, \thetamcr} \big[ \mu_{z^{\pi}_{\s, \ac, t}} \big]$.
+The Uncertainty Bellman Equation (UBE), is a model-based method proposed by \cite{ube}, for estimating the epistemic uncertainty in $\mu_{\zb} = \E_z [\zb | \thetamcz]$. The authors assume that: (1) the MDP is a directed acyclic graph (DAG) and the task is episodic with time variable $t = 1, ..., T$; (2) the mean rewards of the MDP are bounded within $[-R_{max}, R_{max}]$. Taking variances across the BE and defining an appropriate Bellman operator, they show that the derived UBE has a unique solution $u_{\s, \ac, t}^\pi$ which upper bounds the epistemic uncertainty $\Var_{\thetamct, \thetamcr} \big[ \mu_{z^{\pi}_{\s, \ac, t}} \big]$.
 
-In practice, assumption (1) must be violated to apply the UBE to non-DAG MDPs or in the continuing setting. Solving for the greedy policy ${\pi^*} | \thetamct, \thetamcr$ and then for $u_{\s, \ac}^{*}$, Thompson sampling can be performed from a diagonal Gaussian - leading to a factored posterior approximation. The Thompson noise is scaled by an appropriate scaling factor, $\zeta$. Further details are given in appendix \ref{app:ube}.
+In practice, the assumptions must be violated to apply the UBE to non-DAG MDPs or in the continuing setting. After solving for the greedy policy ${\pi^*} | \thetamct, \thetamcr$ and then for $u_{\s, \ac}^{*}$, Thompson sampling can be performed from a diagonal Gaussian, leading to a factored posterior approximation. The Thompson noise is scaled by an appropriate scaling factor, $\zeta$. Further details are given in appendix \ref{app:ube}.
 
 \subsection{Moment matching across the Bellman equation}
 
 Our moment matching (MM) approach uses the BE to estimate epistemic uncertainties, without resorting to computation of an upper bound. Instead, we require equality of first and second moments across the BE. The first-order equation gives the familiar BEs for $\V$ and $\Q$. Using the laws of total variance and covariance \citep{weiss}, the second-order moments can be decomposed into purely aleatoric and purely epistemic terms which, we argue, should satisfy two separate equations.
 
-We thus propose first solving for the greedy policy $\pi^*$ w.r.t. $p(\thetamct | \data)$ and $p(\thetamcr | \data)$, and then for the epistemic uncertainty in $\mu_{z^*_{\s, \ac}}$. The latter is used for Thompson sampling from a diagonal Gaussian - also yielding a factored approximation. Further details are given in appendix \ref{app:mm}.
+We thus propose solving for the greedy policy $\pi^*$ w.r.t. $p(\thetamct | \data)$ and $p(\thetamcr | \data)$, and then for the epistemic uncertainty in $\mu_{z^*_{\s, \ac}}$. The latter is used for Thompson sampling from a diagonal Gaussian - also yielding a factored approximation. Further details are given in appendix \ref{app:mm}.
 
 \section{Environments and methods}
 
@@ -207,23 +169,23 @@ We observe several trends in our results. \Cref{combined_regret_summary} shows t
 \captionsetup{width=0.9\linewidth}
 \caption{Plots of the evolution of the posterior on the same PriorMDP for each algorithm.}\label{combined_posterior_evolution}
 \end{figure}
-\Cref{combined_posterior_evolution} shows the evolution of the posterior of each algorithm on a PriorMDP during learning. Generally, as training progresses the posteriors concentrate on the true $Q^*$ values, the behaviour policy converges on the optimal one and the agent smoothly transitions into greedy action selection. Often, the agent does not over-explore actions if it is confident that these are suboptimal. For example, this is seen for BQL, $(\s = 1, \ac = 1)$, in \cref{combined_posterior_evolution} - see also \cref{bql_deepsea_visual} and \cref{psrl_deepsea_visual}. Although there is significant uncertainty in the $\mu_{\zob}$ of the suboptimal action, the agent is confident that the optimal action ($\ac = 1$) is better. It therefore does not waste time determining the exact $\mu_{\zob}$ of an action if it is confident that it is suboptimal. The aforementioned behaviours are central for achieving principled and efficient exploration. However we often observe cases where the algorithms depart from these desirable behaviours.
+\Cref{combined_posterior_evolution} shows the evolution of the posterior of each algorithm on a PriorMDP during learning. Generally, as training progresses the posteriors concentrate on the true $Q^*$ values, the behaviour policy converges on the optimal one and the agent smoothly transitions into greedy action selection. In some cases, the agent does not over-explore actions if it is confident that these are suboptimal. For example, this is seen for BQL, $(\s = 1, \ac = 1)$, in \cref{combined_posterior_evolution} - see also \cref{bql_deepsea_visual}. Although there is significant uncertainty in the $\mu_{\zob}$ of the suboptimal action, the agent is confident that the optimal action ($\ac = 1$) is better. It therefore does not waste time determining the exact $\mu_{\zob}$ of an action if it is confident that it is suboptimal. The aforementioned behaviours are central for achieving principled and efficient exploration. However we often observe cases where the algorithms depart from these desirable behaviours.
 
-First, the UBE uncertainty estimate $u^*_{\s, \ac}$ remains extremely loose even after a large number of time-steps (\cref{combined_posterior_evolution} and also \cref{ube_deepsea_visual1}, \cref{ube_widenarrow_visual1} and \cref{ube_priormdp_visual1}). Even though $\mu_{\zob}$ be close to $Q^*$, $u^*_{\s, \ac}$ is so large that the Thompson noise completely smooths out differences between actions, which are picked almost uniformly at random. Further, $u^*_{\s, \ac}$ shrinks very slowly and the transition to greedy behaviour takes an extremely long time, causing poor regret performance. These effects are due to the contribution of an extremely large term coming from the upper-bound derivation of \cite{ube} - this is the $Q_{max}$ term in \cref{eq:bellunc} and \cref{eq:localunc}. Further, inspecting contributions to $u^*_{\s, \ac}$ (\cref{ube_unc_terms}), reveals that an upper-bounding contribution from the dynamics uncertainty completely outweighs the rewards uncertainty, which is effectively neglected. Scaling the Thompson noise by $\zeta < 1.0$, improves regret performance in some cases. However, one is further faced by the challenge of tuning $\zeta$, which may be expensive and challenging for large problems. By contrast, MM produces better-calibrated uncertainty estimates than the UBE (\cref{combined_posterior_evolution} and also \cref{mm_deepsea_visual}, \cref{mm_widenarrow_visual} and \cref{mm_priormdp_visual}). As a result, MM shows typically better regret performance than the UBE without a need to tune $\zeta$. This could give an advantage to MM in settings where tuning $\zeta$ may be expensive or difficult.
+First, the UBE bound $u^*_{\s, \ac}$ remains extremely loose even after a large number of time-steps (\cref{combined_posterior_evolution} and also \cref{ube_deepsea_visual01}, \cref{ube_widenarrow_visual01} and \cref{ube_priormdp_visual01}). Even though $\mu_{\zob}$ may be close to $Q^*$, $u^*_{\s, \ac}$ is so large that the Thompson noise completely smooths out differences between actions, which are picked almost uniformly at random. Further, $u^*_{\s, \ac}$ shrinks very slowly and the transition to greedy behaviour takes an extremely long time, causing poor regret performance. These effects are due to the contribution of an extremely large term coming from the upper-bound derivation of \cite{ube} - this is the $Q_{max}$ term in \cref{eq:bellunc} and \cref{eq:localunc}. Further, inspecting contributions to $u^*_{\s, \ac}$ (\cref{ube_unc_terms}), reveals that an upper-bounding contribution from the dynamics uncertainty completely outweighs the rewards uncertainty, which is effectively neglected. Scaling the Thompson noise by $\zeta < 1.0$, improves regret performance in some cases. However, the task of tuning $\zeta$ may be expensive and challenging for large problems. By contrast, MM produces better-calibrated uncertainty estimates than the UBE (\cref{combined_posterior_evolution} and also \cref{mm_deepsea_visual}, \cref{mm_widenarrow_visual} and \cref{mm_priormdp_visual}). As a result, MM shows typically better regret performance than the UBE without a need to tune $\zeta$. This could give an advantage to MM in settings where tuning $\zeta$ may be expensive or difficult.
 
-Second, we observe that the BQL posterior sometimes fails to concentrate on the true $Q^*$ values (\cref{combined_posterior_evolution} and also \cref{bql_deepsea_visual} and \cref{bql_priormdp_visual}), where the posterior is overconfident about incorrect predictions of $\mu_{\zob}$. This effect persists for different random seeds and is affected by the prior used. In particular, using an NG prior with a mean $\mu_0$ that is closer to the true $Q^*$ values, results in the posterior concentrating on $Q^*$. These effects can be explained through the update rule used in BQL (\cref{eq:mixture}). The update rule uses the next-state-action posterior $p(\zonb | \data)$ to update the current state-action posterior. If the former is inaccurate and overconfident, the updated hyperparameters are affected accordingly. BQL can hardly escape from this situation because it does not involve a \textit{forgetting mechanism} for inaccurate updates far in the past. Contrast this with $Q$-Learning, in which the Temporal Difference updates result in forgetting past inaccurate $Q$-estimates. Model-free Bayesian approaches with a rule similar to BQL may suffer from a similar pathology.
+Second, we observe that the BQL posterior sometimes fails to concentrate on the true $Q^*$ values (\cref{combined_posterior_evolution} and also \cref{bql_deepsea_visual} and \cref{bql_priormdp_visual}), in which the posterior is overconfident about incorrect predictions of $\mu_{\zob}$. This effect persists for different random seeds and is affected by the prior used. In particular, using an NG prior with a mean $\mu_0$ that is closer to the true $Q^*$ values, results in the posterior concentrating on $Q^*$. These effects can be explained through the update rule used in BQL, \cref{eq:mixture}. The update rule uses the next-state-action posterior $p(\zonb | \data)$ to update the current state-action posterior. If the former is inaccurate and overconfident, the updated hyperparameters are affected accordingly. BQL can hardly escape from this situation, arguably because it does not involve a \textit{forgetting mechanism} for inaccurate updates far in the past. Contrast this with $Q$-Learning, in which the Temporal Difference updates result in forgetting past inaccurate $Q$-estimates. Model-free Bayesian approaches with a rule similar to BQL may suffer from a similar pathology.
 
-Third, there is strong evidence that factored approximations made by BQL, UBE and MM have a significant effect on regret performance. Factored approximations result in overly loose posteriors (see \cref{correlations_widenarrow_500}, \cref{correlations_widenarrow_2500}, \cref{correlations_priormdp_500} and \cref{correlations_priormdp_2500}) and as a result, the Thompson-sampled $\mu_{\zob}$ often correspond to picking a sub-optimal action. By contrast, PSRL draws samples from the exact posterior and thereby accounts for correlations between different state-actions, which are in fact quite significant. The exact posterior often has marginals of similar scale as those of BQL or MM, however by incorporating correlations PSRL selects optimal actions much more often and thus achieves a better regret performance - at no additional computational cost. Accounting for these correlations is an important factor for ensuring the transition from exploration to exploitation is sufficiently quick.
+Third, there is strong evidence that factored approximations made by BQL, UBE and MM have a significant effect on regret performance. Factored approximations result in overly loose posteriors (see \cref{correlations_widenarrow_500}) and as a result, the Thompson-sampled $\mu_{\zob}$ often correspond to picking a sub-optimal action. By contrast, PSRL draws samples from the exact posterior and thereby accounts for correlations between different state-actions, which are in fact quite significant. The exact posterior often has marginals of similar scale as those of BQL or MM, however by incorporating correlations PSRL selects optimal actions much more often and thus achieves a better regret performance, at no additional computational cost. Accounting for these correlations is an important factor for ensuring the transition from exploration to exploitation is sufficiently quick.
 
 \section{Conclusions \& Further work}
 
-Our comparison of BQL, PSRL, UBE and MM has yielded a number of insights: (1) BQL suffers from a pathology whereby incorrect posterior updates result in an overconfident posterior in the absence of a forgetting mechanism; (2) the UBE uncertainty estimate $u^*_{\s, \ac}$ is extremely loose, results in essentially undirected exploration if $\zeta$ is not tuned and (3) places a much larger emphasis on the dynamics than the rewards uncertainties; (4) factored posterior approximations in BQL, UBE and MM have adverse effects on regret performance, while PSRL avoids this since it incorporates correlations by sampling from the exact posterior; (5) MM gives generally well-calibrated uncertainty estimates, however it still suffers from the factored approximation. There are several interesting directions for further work:
+Our comparison of BQL, PSRL, UBE and MM has yielded a number of insights: (1) BQL suffers from a pathology whereby incorrect posterior updates result in an overconfident posterior in the absence of a forgetting mechanism; (2) the UBE uncertainty estimate $u^*_{\s, \ac}$ is extremely loose, it results in essentially undirected exploration if $\zeta$ is not tuned and (3) it places a much larger emphasis on the dynamics than the rewards uncertainties; (4) factored posterior approximations in BQL, UBE and MM have adverse effects on regret performance, while PSRL avoids this since it incorporates correlations by sampling from the exact posterior; (5) MM gives generally well-calibrated uncertainty estimates, however it still suffers from the factored approximation. There are several interesting directions for further work:
 \begin{itemize}
 \item PSRL outperformed the other methods in our experiments. Inspired by this one could explore how to extend PSRL to tasks with continuous state-actions, for example by using Gaussian Process (GP) \citep{gps_textbook}.
 \item MM can also be performed in continuous state-action tasks. We have conducted preliminary work for GP-based MM, using the approaches from \cite{gpsinrl, quintechrep} but further investigation is needed for this work to come to fruition.
-\item Devising a principled forgetting mechanism for BQL and examining whether this remedies the observed pathology would be an interesting direction of work.
+\item Devising a principled forgetting mechanism for BQL and examining whether this remedies the observed pathology.
 \item A comparison with other approaches such as those in \cite{bdqn}, \cite{su} and \cite{rlvi} would give a more complete picture of performance across a broader set of algorithms.
-\item We have used Thompson sampling, however more sophisticated action selection methods, such as those presented in \cite{bqlearning}, could be explored.
+\item We have used Thompson sampling, however more sophisticated action selection methods such as those presented in \cite{bqlearning} could be explored.
 \end{itemize}
 
 \clearpage
@@ -579,6 +541,7 @@ We chose these hyperparameters because they give $Q^*$-values in a reasonable ra
 \caption{PSRL posterior and regret on DeepSea.}\label{psrl_deepsea_visual}
 \end{figure}
 
+\begin{comment}
 \begin{figure}[h!]
 \centering
 \begin{subfigure}{0.65\textwidth}
@@ -590,6 +553,7 @@ We chose these hyperparameters because they give $Q^*$-values in a reasonable ra
 \captionsetup{width=0.9\linewidth}
 \caption{UBE posterior and regret on DeepSea.}\label{ube_deepsea_visual1}
 \end{figure}
+\end{comment}
 
 \begin{figure}[h!]
 \centering
@@ -668,6 +632,7 @@ We chose these hyperparameters because they give $Q^*$-values in a reasonable ra
 \caption{PSRL posterior and regret on WideNarrow.}\label{psrl_widenarrow_visual}
 \end{figure}
 
+\begin{comment}
 \begin{figure}[h!]
 \centering
 \begin{subfigure}{0.65\textwidth}
@@ -679,6 +644,7 @@ We chose these hyperparameters because they give $Q^*$-values in a reasonable ra
 \captionsetup{width=0.9\linewidth}
 \caption{UBE posterior and regret on WideNarrow.}\label{ube_widenarrow_visual1}
 \end{figure}
+\end{comment}
 
 \begin{figure}[h!]
 \centering
@@ -731,6 +697,7 @@ We chose these hyperparameters because they give $Q^*$-values in a reasonable ra
 \caption{Correlation plots for WideNarrow at time step $t = 1,000$.}\label{correlations_widenarrow_500}
 \end{figure}
 
+\begin{comment}
 \begin{figure}[h!]
 \centering
 \begin{subfigure}{1.0\textwidth}
@@ -754,6 +721,7 @@ We chose these hyperparameters because they give $Q^*$-values in a reasonable ra
 \captionsetup{width=0.9\linewidth}
 \caption{Correlation plots for WideNarrow at time step $t = 5,000$.}\label{correlations_widenarrow_2500}
 \end{figure}
+\end{comment}
 
 % ============================================================
 % PriorMDP
@@ -800,6 +768,7 @@ We chose these hyperparameters because they give $Q^*$-values in a reasonable ra
 \caption{PSRL posterior and regret on PriorMDP.}\label{psrl_priormdp_visual}
 \end{figure}
 
+\begin{comment}
 \begin{figure}[h!]
 \centering
 \begin{subfigure}{0.65\textwidth}
@@ -811,6 +780,7 @@ We chose these hyperparameters because they give $Q^*$-values in a reasonable ra
 \captionsetup{width=0.9\linewidth}
 \caption{UBE posterior and regret on PriorMDP.}\label{ube_priormdp_visual1}
 \end{figure}
+\end{comment}
 
 \begin{figure}[h!]
 \centering
@@ -821,7 +791,7 @@ We chose these hyperparameters because they give $Q^*$-values in a reasonable ra
 \includegraphics[width=\linewidth]{img/ube-0_0-4_0-3_0-3_0-0_1-regret-priormdp-4-2.pdf}~\\~\\
 \end{subfigure}
 \captionsetup{width=0.9\linewidth}
-\caption{UBE posterior and regret on PriorMDP.}\label{ube_priormdp_visual1}
+\caption{UBE posterior and regret on PriorMDP.}\label{ube_priormdp_visual01}
 \end{figure}
 
 \begin{figure}[h!]
@@ -836,7 +806,7 @@ We chose these hyperparameters because they give $Q^*$-values in a reasonable ra
 \caption{MM posterior and regret on PriorMDP.}\label{mm_priormdp_visual}
 \end{figure}
 
-
+\begin{comment}
 \clearpage
 
 \begin{figure}[h!]
@@ -862,30 +832,7 @@ We chose these hyperparameters because they give $Q^*$-values in a reasonable ra
 \captionsetup{width=0.9\linewidth}
 \caption{Correlation plots for PriorMDP at time step $t = 1,000$.}\label{correlations_priormdp_500}
 \end{figure}
-
-\begin{figure}[h!]
-\centering
-\begin{subfigure}{1.0\textwidth}
-\includegraphics[width=\linewidth]{img/bql-0_0-4_0-3_0-3_0-scatter-priormdp-4-2-5000.pdf}
-\end{subfigure}\\
-~\\
-~\\
-\begin{subfigure}{1.0\textwidth}
-\includegraphics[width=\linewidth]{img/psrl-0_0-4_0-3_0-3_0-scatter-priormdp-4-2-5000.pdf}
-\end{subfigure}\\
-~\\
-~\\
-\begin{subfigure}{1.0\textwidth}
-\includegraphics[width=\linewidth]{img/ube-0_0-4_0-3_0-3_0-0_1-scatter-priormdp-4-2-5000.pdf}
-\end{subfigure}\\
-~\\
-~\\
-\begin{subfigure}{1.0\textwidth}
-\includegraphics[width=\linewidth]{img/mm-0_0-4_0-3_0-3_0-1_0-scatter-priormdp-4-2-5000.pdf}
-\end{subfigure}\\
-\captionsetup{width=0.9\linewidth}
-\caption{Correlation plots for PriorMDP at time step $t = 5,000$.}\label{correlations_priormdp_2500}
-\end{figure}
+\end{comment}
 
 \end{appendices}
 
