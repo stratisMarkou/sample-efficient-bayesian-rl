@@ -8,3 +8,9 @@ We compare different Bayesian methods for representing an RL agent's uncertainty
 * Posterior Sampling for Reinforcement Learning, Osband et. al., http://papers.nips.cc/paper/5185-more-efficient-reinforcement-learning-via-posterior-sampling
 * Our approach based on moment matching, proposed in
 
+| Method                                        | Authors             | Paper |
+| --------------------------------------------- | ------------------- | ----- |
+| Bayesian Q-Learning                           | Dearden et. al.     | [link](https://www.aaai.org/Papers/AAAI/1998/AAAI98-108.pdf)  |
+| Uncertainty Bellman Equation                  | O'Donoghue et. al.  | link  |
+| Posterior Sampling for Reinforcement Learning | Osband et. al.      | link  |
+| Moment Matching                               | Ours                | link  |
