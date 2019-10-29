@@ -12,6 +12,6 @@ Source for the workshop paper: E. Markou and C. E. Rasmussen, <em>Bayesian metho
 
 # Results
 
-<img src="writeup/img/bql-0_0-1_0-2_0-2_0-posterior-deepsea-4.pdf" style="float: center;" />
+<img src="writeup/img/bql-0_0-1_0-2_0-2_0-posterior-deepsea-4.pdf" width="430" height="270" />
 
 # Conclusions
