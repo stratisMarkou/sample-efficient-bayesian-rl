@@ -28,7 +28,7 @@ We compare different Bayesian methods for representing an RL agent's uncertainty
   <img src="writeup/png/regret_summary_priormdp.png" align="middle" width="600" />
 </p>
 
-## Posterior evolutions
+## Posterior evolutions on PriorMDP
 
 <p align="center">
   <img src="writeup/png/bql-0_0-4_0-3_0-3_0-posterior-priormdp-4-2-seed-0.png" align="middle" width="400" />
