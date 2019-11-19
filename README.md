@@ -32,13 +32,13 @@ We compare different Bayesian methods for representing an RL agent's uncertainty
 
 
 <p align="center">
-  <img src="writeup/png/regret_summary_deepsea.png" align="middle" width="300" />
-  <img src="writeup/png/regret_summary_deepsea.png" align="middle" width="300" />
+  <img src="writeup/png/bql-0_0-4_0-3_0-3_0-posterior-priormdp-4-2-seed-0.png" align="middle" width="350" />
+  <img src="writeup/png/bql-0_0-4_0-3_0-3_0-posterior-priormdp-4-2-seed-0.png" align="middle" width="350" />
 </p>
 
 <p align="center">
-  <img src="writeup/png/regret_summary_deepsea.png" align="middle" width="300" />
-  <img src="writeup/png/regret_summary_deepsea.png" align="middle" width="300" />
+  <img src="writeup/png/bql-0_0-4_0-3_0-3_0-posterior-priormdp-4-2-seed-0.png" align="middle" width="350" />
+  <img src="writeup/png/bql-0_0-4_0-3_0-3_0-posterior-priormdp-4-2-seed-0.png" align="middle" width="350" />
 </p>
 
 # Conclusions
