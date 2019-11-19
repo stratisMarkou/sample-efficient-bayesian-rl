@@ -14,6 +14,6 @@ We compare different Bayesian methods for representing an RL agent's uncertainty
 
 # Results
 
-<img src="writeup/img/bql-0_0-1_0-2_0-2_0-posterior-deepsea-4.png" width="430" height="270" />
+<img src="writeup/png/bql-0_0-1_0-2_0-2_0-posterior-deepsea-4.png" width="430" height="270" />
 
 # Conclusions
