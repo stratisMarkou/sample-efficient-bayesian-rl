@@ -33,12 +33,12 @@ We compare different Bayesian methods for representing an RL agent's uncertainty
 
 <p align="center">
   <img src="writeup/png/bql-0_0-4_0-3_0-3_0-posterior-priormdp-4-2-seed-0.png" align="middle" width="400" />
-  <img src="writeup/png/bql-0_0-4_0-3_0-3_0-posterior-priormdp-4-2-seed-0.png" align="middle" width="400" />
+  <img src="writeup/png/psrl-0_0-4_0-3_0-3_0-posterior-priormdp-4-2-seed-0.png" align="middle" width="400" />
 </p>
 
 <p align="center">
-  <img src="writeup/png/bql-0_0-4_0-3_0-3_0-posterior-priormdp-4-2-seed-0.png" align="middle" width="400" />
-  <img src="writeup/png/bql-0_0-4_0-3_0-3_0-posterior-priormdp-4-2-seed-0.png" align="middle" width="400" />
+  <img src="writeup/png/ube-0_0-4_0-3_0-3_0-0_1-posterior-priormdp-4-2-seed-0.png" align="middle" width="400" />
+  <img src="writeup/png/mm-0_0-4_0-3_0-3_0-1_0-posterior-priormdp-4-2-seed-0.png" align="middle" width="400" />
 </p>
 
 # Conclusions
