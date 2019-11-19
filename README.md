@@ -16,6 +16,9 @@ We compare different Bayesian methods for representing an RL agent's uncertainty
 
 ## Summary
 <img src="writeup/png/regret_summary_deepsea.png" align="center" width="600" />
-<img src="writeup/png/regret_summary_deepsea.png" align="middle" width="600" />
+
+<p align="center">
+  <img src="writeup/png/regret_summary_deepsea.png" align="middle" width="600" />
+</p>
 
 # Conclusions
