@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2019.4.10)  29 OCT 2019 21:32
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2019.4.10)  30 OCT 2019 20:03
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -938,6 +938,12 @@ File: img/ae_demo_100.pdf Graphic file (type pdf)
 Package pdftex.def Info: img/ae_demo_100.pdf  used on input line 102.
 (pdftex.def)             Requested size: 87.44717pt x 104.93768pt.
  [2 <./img/ae_demo_ground.pdf> <./img/ae_demo_10.pdf> <./img/ae_demo_100.pdf>]
+Overfull \hbox (4.08823pt too wide) in paragraph at lines 142--142
+[][][]\T1/ptm/m/n/9 (-20) Our im-ple-men-ta-tions and plot-ting code is at: []\
+T1/cmtt/m/n/7 https://github.com/stratisMarkou/sample-efficient-bayesian-rl[]\T
+1/ptm/m/n/7 .| 
+ []
+
 <img/regret_combined.pdf, id=253, 1156.32pt x 505.89pt>
 File: img/regret_combined.pdf Graphic file (type pdf)
 <use img/regret_combined.pdf>
@@ -975,7 +981,6 @@ File: img/mm-0_0-4_0-3_0-3_0-1_0-posterior-priormdp-4-2-seed-0.pdf Graphic file
 Package pdftex.def Info: img/mm-0_0-4_0-3_0-3_0-1_0-posterior-priormdp-4-2-seed
 -0.pdf  used on input line 167.
 (pdftex.def)             Requested size: 194.76982pt x 116.79466pt.
-
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
@@ -1624,10 +1629,10 @@ Package rerunfilecheck Info: File `bayesian-methods-for-rl.out' has not changed
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 839.
  ) 
 Here is how much of TeX's memory you used:
- 23540 strings out of 492649
- 446496 string characters out of 6129622
- 551656 words of memory out of 5000000
- 26682 multiletter control sequences out of 15000+600000
+ 23538 strings out of 492649
+ 446437 string characters out of 6129622
+ 551533 words of memory out of 5000000
+ 26680 multiletter control sequences out of 15000+600000
  59574 words of font info for 191 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  57i,22n,54p,1665b,877s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1662,7 +1667,7 @@ pe1/public/cm-super/sftt1000.pfb></usr/local/texlive/2018/texmf-dist/fonts/type
 1/urw/times/utmb8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/urw/time
 s/utmr8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/urw/times/utmri8a.
 pfb>
-Output written on bayesian-methods-for-rl.pdf (19 pages, 2954101 bytes).
+Output written on bayesian-methods-for-rl.pdf (19 pages, 2954754 bytes).
 PDF statistics:
  2799 PDF objects out of 2984 (max. 8388607)
  1028 compressed objects within 11 object streams
