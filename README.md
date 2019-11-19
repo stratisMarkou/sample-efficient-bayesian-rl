@@ -14,7 +14,7 @@ We compare different Bayesian methods for representing an RL agent's uncertainty
 
 # Results
 
-## Summary
+## Regret summaries
 
 <p align="center">
   <img src="writeup/png/regret_summary_deepsea.png" align="middle" width="600" />
@@ -26,6 +26,19 @@ We compare different Bayesian methods for representing an RL agent's uncertainty
 
 <p align="center">
   <img src="writeup/png/regret_summary_priormdp.png" align="middle" width="600" />
+</p>
+
+## Posterior evolutions
+
+
+<p align="center">
+  <img src="writeup/png/regret_summary_deepsea.png" align="middle" width="300" />
+  <img src="writeup/png/regret_summary_deepsea.png" align="middle" width="300" />
+</p>
+
+<p align="center">
+  <img src="writeup/png/regret_summary_deepsea.png" align="middle" width="300" />
+  <img src="writeup/png/regret_summary_deepsea.png" align="middle" width="300" />
 </p>
 
 # Conclusions
