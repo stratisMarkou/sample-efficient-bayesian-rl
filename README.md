@@ -12,13 +12,26 @@ We compare different Bayesian methods for representing an RL agent's uncertainty
 
 # Evnironments
 
+## DeepSea
+
+Our DeepSea MDP is a variant of the ones used in \cite{rand_val_func, deepsea}. The agent starts from $\s_1$ and can choose swim-\textit{left} or swim-\textit{right} from each of the $N$ states in the environment.
+
+Swim-\textit{left} always succeeds and moves the agent to the left, giving $r = 0$ (red transitions). Swim-\textit{right} from $\s_1, ..., \s_{N-1}$ succeeds with probability $1 - 1/N$, moving the agent to the right and otherwise fails moving the agent to the left (blue arrows), giving $r \sim \mc{N}(-\delta, \delta^2)$ regardless of whether it succeeds. A successful swim-\textit{right} from $\s_N$ moves the agent back to $\s_1$ and gives $r = 1$. We choose $\delta$ so that \textit{right} is always optimal\footnote{We choose $\delta = 0.1 \times \exp^{-N / 4}$ in our experiments, which guarantees \textit{right} is optimal at least up to $N = 40$.}.
+
 <p align="center">
   <img src="writeup/png/environments-deepsea.png" align="middle" width="800" />
 </p>
 
+This environment is designed to test whether the agent continues exploring despite receiving negative rewards. Sustained exploration becomes increasingly important for large $N$. As argued in \cite{iothesis}, in order to avoid exponentially poor performance, exploration in such chain-like environments must be guided by uncertainty rather than randomness.
+
+
+
+## WideNarrow
 <p align="center">
   <img src="writeup/png/environments-widenarrow.png" align="middle" width="500" />
 </p>
+
+## PriorMDP
 
 # Results
 
