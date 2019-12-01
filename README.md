@@ -27,9 +27,14 @@ This environment is designed to test whether the agent continues exploring despi
 
 
 ## WideNarrow
+
+The WideNarrow MDP (\cref{widenarrowMDP}) has $2N + 1$ states and deterministic transitions. Odd states except $\s_{2N + 1}$ have $W$ actions, out of which one gives $r \sim \mc{N}(\mu_h, \sigma^2)$ whereas all others give $r \sim \mc{N}(\mu_l, \sigma^2)$, with $\mu_l < \mu_h$. Even states have a single action also giving $r \sim \mc{N}(\mu_l, \sigma^2)$. In our experiments we use $\mu_h = 0.5, \mu_l = 0$ and $\sigma_h = \sigma_l = 1$.
+
 <p align="center">
   <img src="writeup/png/environments-widenarrow.png" align="middle" width="500" />
 </p>
+
+where $\btheta$ loosely denotes all modelling parameters, $\s'$ denotes the next-state from $(\s_1, \ac_1)$, $\s{''}$ denotes the next-state from $(\s_1, \ac_2)$ and $\ac{'}, \ac{''}$ denote the corresponding next-actions. Although the remaining three terms are non-zero under the posterior, BQL, UBE and MM ignore them, instead sampling from a factored posterior. The WideNarrow environment enforces strong correlations between these state actions, allowing us to test the impact of a factored approximation.
 
 ## PriorMDP
 
