@@ -14,9 +14,7 @@ We compare different Bayesian methods for representing an RL agent's uncertainty
 
 ## DeepSea
 
-Our DeepSea MDP is a variant of the ones used in \cite{rand_val_func, deepsea}. The agent starts from $\s_1$ and can choose swim-\textit{left} or swim-\textit{right} from each of the $N$ states in the environment.
-
-Swim-\textit{left} always succeeds and moves the agent to the left, giving $r = 0$ (red transitions). Swim-\textit{right} from $\s_1, ..., \s_{N-1}$ succeeds with probability $1 - 1/N$, moving the agent to the right and otherwise fails moving the agent to the left (blue arrows), giving $r \sim \mc{N}(-\delta, \delta^2)$ regardless of whether it succeeds. A successful swim-\textit{right} from $\s_N$ moves the agent back to $\s_1$ and gives $r = 1$. We choose $\delta$ so that \textit{right} is always optimal\footnote{We choose $\delta = 0.1 \times \exp^{-N / 4}$ in our experiments, which guarantees \textit{right} is optimal at least up to $N = 40$.}.
+Our DeepSea MDP is a variant of the ones used in \cite{rand_val_func, deepsea}. The agent starts from $\s_1$ and can choose swim-\textit{left} or swim-\textit{right} from each of the $N$ states in the environment. Swim-\textit{left} always succeeds and moves the agent to the left, giving $r = 0$ (red transitions). Swim-\textit{right} from $\s_1, ..., \s_{N-1}$ succeeds with probability $1 - 1/N$, moving the agent to the right and otherwise fails moving the agent to the left (blue arrows), giving $r \sim \mc{N}(-\delta, \delta^2)$ regardless of whether it succeeds. A successful swim-\textit{right} from $\s_N$ moves the agent back to $\s_1$ and gives $r = 1$. We choose $\delta$ so that \textit{right} is always optimal\footnote{We choose $\delta = 0.1 \times \exp^{-N / 4}$ in our experiments, which guarantees \textit{right} is optimal at least up to $N = 40$.}.
 
 <p align="center">
   <img src="writeup/png/environments-deepsea.png" align="middle" width="800" />
@@ -37,6 +35,16 @@ The WideNarrow MDP (\cref{widenarrowMDP}) has $2N + 1$ states and deterministic 
 where $\btheta$ loosely denotes all modelling parameters, $\s'$ denotes the next-state from $(\s_1, \ac_1)$, $\s{''}$ denotes the next-state from $(\s_1, \ac_2)$ and $\ac{'}, \ac{''}$ denote the corresponding next-actions. Although the remaining three terms are non-zero under the posterior, BQL, UBE and MM ignore them, instead sampling from a factored posterior. The WideNarrow environment enforces strong correlations between these state actions, allowing us to test the impact of a factored approximation.
 
 ## PriorMDP
+
+The aforementioned MDPs have very specific and handcrafted dynamics and rewards, so it is interesting to also compare the algorithms on environments which lack this sort of structure. For this we sample finite MDPs with $N_s$ states and $N_a$ actions from a prior distribution, as in \cite{psrl}. $\mct$ is a Categorical with parameters $\{\bs{\eta_{\s, \ac}}\}$ with:
+\begin{align*}
+\bs{\eta}_{\s, \ac} \sim \text{Dirichlet}(\bs{\kappa}_{\s, \ac}),
+\end{align*}
+with pseudo-count parameters $\bs{\kappa}_{\s, \ac} = \bm{1}$, while $\mcr \sim \mc{N}(\mu_{\s, \ac}, \tau_{\s, \ac}^{-1})$ with:
+\begin{align*}
+\mu_{\s, \ac}, \tau_{\s, \ac} \sim NG(\mu_{\s, \ac}, \tau_{\s, \ac} | \mu, \lambda, \alpha, \beta) \text{ with } (\mu, \lambda, \alpha, \beta) = (0.00, 1.00, 4.00, 4.00).
+\end{align*}
+We chose these hyperparameters because they give $Q^*$-values in a reasonable range.
 
 # Results
 
