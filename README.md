@@ -12,7 +12,16 @@ We compare different Bayesian methods for representing an RL agent's uncertainty
 
 # Evnironments
 
+<p align="center">
+  <img src="writeup/png/environments-deepsea.png" align="middle" width="600" />
+</p>
+
+<p align="center">
+  <img src="writeup/png/environments-widenarrow.png" align="middle" width="600" />
+</p>
+
 # Results
+
 
 ## Regret summaries
 
