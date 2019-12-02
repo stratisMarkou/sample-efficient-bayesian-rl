@@ -20,7 +20,7 @@ Our DeepSea MDP is a variant of the ones used in [Osband et al.](https://arxiv.o
   <img src="writeup/png/environments-deepsea.png" align="middle" width="800" />
 </p>
 
-This environment is designed to test whether the agent continues exploring despite receiving negative rewards. Sustained exploration becomes increasingly important for large N. As argued in (Osband's thesis)[https://searchworks.stanford.edu/view/11891201], in order to avoid exponentially poor performance, exploration in such chain-like environments must be guided by uncertainty rather than randomness.
+This environment is designed to test whether the agent continues exploring despite receiving negative rewards. Sustained exploration becomes increasingly important for large N. As argued in [Ian Osband's thesis](https://searchworks.stanford.edu/view/11891201), in order to avoid exponentially poor performance, exploration in such chain-like environments must be guided by uncertainty rather than randomness.
 
 
 
