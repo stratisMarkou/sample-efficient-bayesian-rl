@@ -20,13 +20,13 @@ Our DeepSea MDP is a variant of the ones used in [Osband et al.](https://arxiv.o
   <img src="writeup/png/environments-deepsea.png" align="middle" width="800" />
 </p>
 
-This environment is designed to test whether the agent continues exploring despite receiving negative rewards. Sustained exploration becomes increasingly important for large $N$. As argued in \cite{iothesis}, in order to avoid exponentially poor performance, exploration in such chain-like environments must be guided by uncertainty rather than randomness.
+This environment is designed to test whether the agent continues exploring despite receiving negative rewards. Sustained exploration becomes increasingly important for large N. As argued in (Osband's thesis)[https://searchworks.stanford.edu/view/11891201], in order to avoid exponentially poor performance, exploration in such chain-like environments must be guided by uncertainty rather than randomness.
 
 
 
 ## WideNarrow
 
-The WideNarrow MDP has 2N + 1 states and deterministic transitions. Odd states except $\s_{2N + 1}$ have $W$ actions, out of which one gives $r \sim \mc{N}(\mu_h, \sigma^2)$ whereas all others give $r \sim \mc{N}(\mu_l, \sigma^2)$, with $\mu_l < \mu_h$. Even states have a single action also giving $r \sim \mc{N}(\mu_l, \sigma^2)$. In our experiments we use $\mu_h = 0.5, \mu_l = 0$ and $\sigma_h = \sigma_l = 1$.
+The WideNarrow MDP has 2N + 1 states and deterministic transitions. Odd states except s = (2N + 1) have W actions, out of which one gives r ~ N(μ1, σ1^2) whereas all others give r ~ N(μ2, σ2^2), with μ2 < μ1. Even states have a single action also giving r ~ N(μ2, σ^2). In our experiments we use μ1 = 0.5, μ2 = 0 and σ1 = σ2 = 1.
 
 <p align="center">
   <img src="writeup/png/environments-widenarrow.png" align="middle" width="500" />
