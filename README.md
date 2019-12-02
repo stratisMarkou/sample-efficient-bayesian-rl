@@ -36,7 +36,7 @@ where $\btheta$ loosely denotes all modelling parameters, $\s'$ denotes the next
 
 ## PriorMDP
 
-The aforementioned MDPs have very specific and handcrafted dynamics and rewards, so it is interesting to also compare the algorithms on environments which lack this sort of structure. For this we sample finite MDPs with $N_s$ states and $N_a$ actions from a prior distribution, as in \cite{psrl}. $\mct$ is a Categorical with parameters $\{\bs{\eta_{\s, \ac}}\}$ with:
+The aforementioned MDPs have very specific and handcrafted dynamics and rewards, so it is interesting to also compare the algorithms on environments which lack this sort of structure. For this we sample finite MDPs with Ns states and Na actions from a prior distribution, as in [Osband](http://papers.nips.cc/paper/5185-more-efficient-reinforcement-learning-via-posterior-sampling). $\mct$ is a Categorical with parameters $\{\bs{\eta_{\s, \ac}}\}$ with:
 \begin{align*}
 \bs{\eta}_{\s, \ac} \sim \text{Dirichlet}(\bs{\kappa}_{\s, \ac}),
 \end{align*}
