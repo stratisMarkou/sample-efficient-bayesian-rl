@@ -44,7 +44,8 @@ with pseudo-count parameters $\bs{\kappa}_{\s, \ac} = \bm{1}$, while $\mcr \sim 
 \begin{align*}
 \mu_{\s, \ac}, \tau_{\s, \ac} \sim NG(\mu_{\s, \ac}, \tau_{\s, \ac} | \mu, \lambda, \alpha, \beta) \text{ with } (\mu, \lambda, \alpha, \beta) = (0.00, 1.00, 4.00, 4.00).
 \end{align*}
-We chose these hyperparameters because they give $Q^*$-values in a reasonable range.
+
+We chose these hyperparameters because they give Q*-values in a reasonable range.
 
 # Results
 
