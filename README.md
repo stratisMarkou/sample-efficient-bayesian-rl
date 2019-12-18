@@ -26,7 +26,7 @@ If you use this code or writeup material in your work please cite: E. Markou and
 Our DeepSea MDP is a variant of the ones used in [Osband et al.](https://arxiv.org/abs/1608.02731). The agent starts from the left-most state and can choose swim-*left* or swim-*right* from each of the N states in the environment. Swim-*left* always succeeds and moves the agent to the left, giving r = 0 (red transitions). Swim-*right* from s = 1, ..., (N - 1) succeeds with probability (1 - 1/N), moving the agent to the right and otherwise fails moving the agent to the left (blue arrows), giving r ~ N(-δ, δ^2) regardless of whether it succeeds. A successful swim-*right* from s = N moves the agent back to s = 1 and gives r = 1. We choose δ so that *right* is optimal for up to N = 40.
 
 <p align="center">
-  <img src="writeup/png/environments-deepsea.png" align="middle" width="800" />
+  <img src="writeup/png/deepsea.png" align="middle" width="800" />
 </p>
 
 This environment is designed to test whether the agent continues exploring despite receiving negative rewards. Sustained exploration becomes increasingly important for large N. As argued in [Ian Osband's thesis](https://searchworks.stanford.edu/view/11891201), in order to avoid exponentially poor performance, exploration in such chain-like environments must be guided by uncertainty rather than randomness.
@@ -38,7 +38,7 @@ This environment is designed to test whether the agent continues exploring despi
 The WideNarrow MDP has 2N + 1 states and deterministic transitions. Odd-numbered states except s = (2N + 1) have W actions, out of which one gives r ~ N(μl, σl^2) whereas all others give r ~ N(μh, σh^2), with μl < μh. Even-numbered states have a single action also giving r ~ N(μh, σh^2). In our experiments we use μh = 0.5, μl = 0 and σl = σh = 1.
 
 <p align="center">
-  <img src="writeup/png/environments-widenarrow.png" align="middle" width="500" />
+  <img src="writeup/png/widenarrow.png" align="middle" width="500" />
 </p>
 
 ## PriorMDP
