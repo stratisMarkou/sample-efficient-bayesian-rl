@@ -1,7 +1,8 @@
 # Introduction
-Source for the workshop paper: E. Markou and C. E. Rasmussen, <em>Bayesian methods for efficient Reinforcement Learning in tabular problems</em>, appearing in the 2019 NIPS Workshop on Biological and Artificial RL.
 
 We compare different Bayesian methods for representing an RL agent's uncertainty about cumulative rewards, including our own approach based on moment matching across the Bellman equations.
+
+Pubilcation: E. Markou and C. E. Rasmussen, <em>Bayesian methods for efficient Reinforcement Learning in tabular problems</em>, 2019 NeurIPS Workshop on Biological and Artificial RL.
 
 | Method                                        | Authors             | Paper |
 | :-------------------------------------------- | :------------------ | :---- |
@@ -9,6 +10,14 @@ We compare different Bayesian methods for representing an RL agent's uncertainty
 | Uncertainty Bellman Equation                  | O'Donoghue et. al.  | [link](https://arxiv.org/abs/1709.05380)  |
 | Posterior Sampling for Reinforcement Learning | Osband et. al.      | [link](http://papers.nips.cc/paper/5185-more-efficient-reinforcement-learning-via-posterior-sampling)  |
 | Moment Matching                               | Ours                | [link](https://github.com/stratisMarkou/sample-efficient-bayesian-rl/blob/master/writeup/bayesian-methods-for-rl.pdf)  |
+
+# Structure
+
+This repository is structured as follows:
+
+* `writeup/bayesian-methods-for-rl.pdf` is the paper
+* `code/` contains implementations for agents and environments
+* `code/experiments` contains Jupyter notebooks for reproducing all experiments and plots in the paper
 
 # Evnironments
 
