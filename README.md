@@ -2,8 +2,6 @@
 
 We compare different Bayesian methods for representing an RL agent's uncertainty about cumulative rewards, including our own approach based on moment matching across the Bellman equations.
 
-Pubilcation: E. Markou and C. E. Rasmussen, <em>Bayesian methods for efficient Reinforcement Learning in tabular problems</em>, 2019 NeurIPS Workshop on Biological and Artificial RL.
-
 | Method                                        | Authors             | Paper |
 | :-------------------------------------------- | :------------------ | :---- |
 | Bayesian Q-Learning                           | Dearden et. al.     | [link](https://www.aaai.org/Papers/AAAI/1998/AAAI98-108.pdf)  |
@@ -15,9 +13,11 @@ Pubilcation: E. Markou and C. E. Rasmussen, <em>Bayesian methods for efficient R
 
 This repository is structured as follows:
 
-* `writeup/bayesian-methods-for-rl.pdf` is the paper
-* `code/` contains implementations for agents and environments
-* `code/experiments` contains Jupyter notebooks for reproducing all experiments and plots in the paper
+* `writeup/bayesian-methods-for-rl.pdf` is the paper.
+* `code/` contains implementations for agents and environments.
+* `code/experiments` contains Jupyter notebooks for reproducing all experiments and plots in the paper.
+
+If you use this code or writeup material in your work please cite: E. Markou and C. E. Rasmussen, <em>Bayesian methods for efficient Reinforcement Learning in tabular problems</em>, 2019 NeurIPS Workshop on Biological and Artificial RL.
 
 # Evnironments
 
@@ -35,29 +35,23 @@ This environment is designed to test whether the agent continues exploring despi
 
 ## WideNarrow
 
-The WideNarrow MDP has 2N + 1 states and deterministic transitions. Odd states except s = (2N + 1) have W actions, out of which one gives r ~ N(μl, σl^2) whereas all others give r ~ N(μh, σh^2), with μl < μh. Even states have a single action also giving r ~ N(μh, σh^2). In our experiments we use μh = 0.5, μl = 0 and σl = σh = 1.
+The WideNarrow MDP has 2N + 1 states and deterministic transitions. Odd-numbered states except s = (2N + 1) have W actions, out of which one gives r ~ N(μl, σl^2) whereas all others give r ~ N(μh, σh^2), with μl < μh. Even-numbered states have a single action also giving r ~ N(μh, σh^2). In our experiments we use μh = 0.5, μl = 0 and σl = σh = 1.
 
 <p align="center">
   <img src="writeup/png/environments-widenarrow.png" align="middle" width="500" />
 </p>
 
-where $\btheta$ loosely denotes all modelling parameters, s' denotes the next-state from (s = 1, a = 1), s'' denotes the next-state from (s = 1, a = 2) and a', a'' denote the corresponding next-actions. Although the remaining three terms are non-zero under the posterior, BQL, UBE and MM ignore them, instead sampling from a factored posterior. The WideNarrow environment enforces strong correlations between these state actions, allowing us to test the impact of a factored approximation.
-
 ## PriorMDP
 
-The aforementioned MDPs have very specific and handcrafted dynamics and rewards, so it is interesting to also compare the algorithms on environments which lack this sort of structure. For this we sample finite MDPs with Ns states and Na actions from a prior distribution, as in [Osband](http://papers.nips.cc/paper/5185-more-efficient-reinforcement-learning-via-posterior-sampling). $\mct$ is a Categorical with parameters $\{\bs{\eta_{\s, \ac}}\}$ with:
-\begin{align*}
-\bs{\eta}_{\s, \ac} \sim \text{Dirichlet}(\bs{\kappa}_{\s, \ac}),
-\end{align*}
-with pseudo-count parameters $\bs{\kappa}_{\s, \ac} = \bm{1}$, while $\mcr \sim \mc{N}(\mu_{\s, \ac}, \tau_{\s, \ac}^{-1})$ with:
-\begin{align*}
-\mu_{\s, \ac}, \tau_{\s, \ac} \sim NG(\mu_{\s, \ac}, \tau_{\s, \ac} | \mu, \lambda, \alpha, \beta) \text{ with } (\mu, \lambda, \alpha, \beta) = (0.00, 1.00, 4.00, 4.00).
-\end{align*}
-
-We chose these hyperparameters because they give Q*-values in a reasonable range.
+The aforementioned MDPs have very specific and handcrafted dynamics and rewards, so it is interesting to also compare the algorithms on environments which lack this sort of structure. For this we sample finite MDPs with Ns states and Na actions from a prior distribution, as in [Osband](http://papers.nips.cc/paper/5185-more-efficient-reinforcement-learning-via-posterior-sampling). The dynamics process s, a -> s' is a separate Categorical for each (s, a), with category probabilities sampled from a Dirichlet prior with concentration κ = 1. The rewards process s, a, s' -> r is a separate Normal for each (s, a, s'), with mean and precision drawn from a Normal-Gamma prior with parameters (μ0, λ, α, β) = (0.00, 1.00, 4.00, 4.00). We chose these hyperparameters because they give Q*-values in a reasonable range.
 
 # Results
 
+PSRL performs best in terms of regret, occasionally tied with another method. All Bayesian methods perform better than Q-Learning with ε-greedy action-selection. We also observe:
+
+* For BQL, the posterior may converge to miscalibrated values. If this occurs and the agent converges to a greedy policy that is not the optimal policy, the regret performance becomes very poor. This depends highly on the prior initialisation of BQL.
+* For UBE, performance depends highly on tuning the Thompson noise ζ well. If ζ is too large, the agent over-explores and the regret plateaus too slowly, whereas if ζ is too small, the agent takes too many suboptimal actions.
+* For MM, although performance is sometimes competitive with PSRL, the factored approximation hurts the regret in other cases, because Thompson sampling for the posterior results in frequent selection of suboptimal actions.
 
 ## Regret summaries
 
@@ -85,4 +79,3 @@ We chose these hyperparameters because they give Q*-values in a reasonable range
   <img src="writeup/png/mm-0_0-4_0-3_0-3_0-1_0-posterior-priormdp-4-2-seed-0.png" align="middle" width="400" />
 </p>
 
-# Conclusions
