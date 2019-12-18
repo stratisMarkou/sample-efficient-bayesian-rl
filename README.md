@@ -17,8 +17,6 @@ This repository is structured as follows:
 * `code/` contains implementations for agents and environments.
 * `code/experiments` contains Jupyter notebooks for reproducing all experiments and plots in the paper.
 
-If you use this code or writeup material in your work please cite: E. Markou and C. E. Rasmussen, <em>Bayesian methods for efficient Reinforcement Learning in tabular problems</em>, 2019 NeurIPS Workshop on Biological and Artificial RL.
-
 # Evnironments
 
 ## DeepSea
@@ -78,4 +76,8 @@ PSRL performs best in terms of regret, occasionally tied with another method. Al
   <img src="writeup/png/ube-0_0-4_0-3_0-3_0-0_1-posterior-priormdp-4-2-seed-0.png" align="middle" width="400" />
   <img src="writeup/png/mm-0_0-4_0-3_0-3_0-1_0-posterior-priormdp-4-2-seed-0.png" align="middle" width="400" />
 </p>
+
+# Reference
+
+If you use this code or writeup material in your work please cite: E. Markou and C. E. Rasmussen, <em>Bayesian methods for efficient Reinforcement Learning in tabular problems</em>, 2019 NeurIPS Workshop on Biological and Artificial RL.
 
